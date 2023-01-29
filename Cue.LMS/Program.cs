@@ -1,6 +1,8 @@
 ﻿using System;
 using Library.LMS;
 
+/* Tatiana Graciela Cue COP4870-0001*/
+
 namespace MyApp // Note: actual namespace depends on the project name.
 {
     internal class Program
