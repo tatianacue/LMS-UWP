@@ -155,7 +155,44 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
                     else if (choiceInt == 10) //update course info
                     {
+                        Console.WriteLine("What is the code of the course you want to update?");
+                        string ccode = Console.ReadLine() ?? string.Empty;
+                        int index = courseList.FindIndex(t => t.Code.Contains(ccode, StringComparison.InvariantCultureIgnoreCase));
 
+                        bool menu = true;
+                        while(menu)
+                        {
+                            Console.WriteLine("Choose an option:");
+                            Console.WriteLine("1. Update Code");
+                            Console.WriteLine("2. Update Name");
+                            Console.WriteLine("3. Update Description");
+                            Console.WriteLine("4. Exit");
+
+                            string pick = Console.ReadLine() ?? string.Empty;
+
+                            if (int.TryParse(pick, out int pickInt))
+                            {
+                                if (pickInt == 1) //update course code
+                                {
+                                    Console.WriteLine("Enter new code:");
+                                    courseList[index].Code = Console.ReadLine() ?? string.Empty;
+                                }
+                                else if (pickInt == 2) //update course name
+                                {
+                                    Console.WriteLine("Enter new name:");
+                                    courseList[index].Name = Console.ReadLine() ?? string.Empty;
+                                }
+                                else if (pickInt == 3) //update course description
+                                {
+                                    Console.WriteLine("Enter new description");
+                                    courseList[index].Description = Console.ReadLine() ?? string.Empty;
+                                }
+                                else if (pickInt == 4)
+                                {
+                                    menu = false;
+                                }
+                            }
+                        }
                     }
                 }
             }
