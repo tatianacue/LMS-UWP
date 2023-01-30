@@ -23,12 +23,15 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 Console.WriteLine("5. Add student to course");
                 Console.WriteLine("6. Remove student from course");
                 Console.WriteLine("7. Search for course");
+                Console.WriteLine("8. Search for student");
+                Console.WriteLine("9. List all courses for a student");
+                Console.WriteLine("10. Update course information");
 
                 string choice = Console.ReadLine() ?? string.Empty;
 
                 if (int.TryParse(choice, out int choiceInt))
                 {
-                    if (choiceInt == 1)
+                    if (choiceInt == 1) //create course and add to list
                     {
                         var newCourse = new Course();
 
@@ -43,7 +46,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                         courseList.Add(newCourse);
                     }
-                    else if (choiceInt == 2)
+                    else if (choiceInt == 2) //create student and add to list
                     {
                         var newStudent = new Person();
 
@@ -57,21 +60,21 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                         studentList.Add(newStudent);
                     }
-                    else if (choiceInt == 3)
+                    else if (choiceInt == 3) //lists all courses
                     {
                         foreach (var course in courseList)
                         {
                             Console.WriteLine(course.Code + "\t\t" + course.Name);
                         }
                     }
-                    else if (choiceInt == 4)
+                    else if (choiceInt == 4) //lists all students
                     {
                         foreach (var student in studentList)
                         {
                             Console.WriteLine(student.Name + "\t\t" + student.Classification);
                         }
                     }
-                    else if (choiceInt == 5)
+                    else if (choiceInt == 5) //add student to course
                     {
                         Console.WriteLine("Enter course code of course you want to add to:");
                         string ccode = Console.ReadLine() ?? string.Empty;
@@ -83,7 +86,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                         var tempStudent = studentList[indx];
                         courseList[index].AddStudent(tempStudent);
-                    }   
+                    }
                     else if (choiceInt == 6) //removes student from course
                     {
                         Console.WriteLine("Enter course code of course you want to remove from:");
@@ -99,16 +102,60 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
                     else if (choiceInt == 7) //search for course
                     {
-                        Console.WriteLine("Enter a course name or description you want to search for:");
+                        Console.WriteLine("Enter a course name or description you want to find:");
                         string search = Console.ReadLine() ?? string.Empty;
                         var searchCourse = courseList.Where(t => t.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase) ||
                         t.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase));
 
-                        foreach(var course in searchCourse)
+                        foreach (var course in searchCourse)
                         {
-                            Console.WriteLine(course.Code + "\t\t" + course.Name + "\t\t" + course.Description);
-                            course.ListStudents();
+                            Console.WriteLine(course.Code + "\t\t" + course.Name);
                         }
+
+                        //select a course and expand details
+                        Console.WriteLine("Which course would you like to select? Enter code:");
+                        string ccode = Console.ReadLine() ?? string.Empty;
+                        int index = courseList.FindIndex(t => t.Code.Contains(ccode, StringComparison.InvariantCultureIgnoreCase));
+
+                        Console.WriteLine(courseList[index].Code + "\n" + courseList[index].Name + "\n"
+                            + courseList[index].Description + "\n Students in course:");
+                        courseList[index].ListStudents();
+                    }
+                    else if (choiceInt == 8) //search for student
+                    {
+                        Console.WriteLine("Enter a student name you want to find:");
+                        string search = Console.ReadLine() ?? string.Empty;
+                        var searchStudent = studentList.Where(t => t.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase));
+
+                        foreach (var student in searchStudent)
+                        {
+                            Console.WriteLine(student.Name + "\t\t" + student.Classification);
+                        }
+                    }
+                    else if (choiceInt == 9) //list all courses student is taking
+                    {
+                        Console.WriteLine("What is the name of the student you want to see all courses for?");
+                        string sstudent = Console.ReadLine() ?? string.Empty;
+
+                        var studentCourses = new List<Course>();
+                        foreach (var tempCourse in courseList)
+                        {
+                            bool real = tempCourse.FindStudent(sstudent); //if student found in course then it will add to temp list
+                            if (real)
+                            {
+                                studentCourses.Add(tempCourse);
+                            }
+                        }
+                        //lists courses in student's lists
+                        Console.WriteLine("Courses that " + sstudent + " is taking:");
+                        foreach (var course in studentCourses)
+                        {
+                            Console.WriteLine(course.Code + "\t\t" + course.Name);
+                        }
+                    }
+                    else if (choiceInt == 10) //update course info
+                    {
+
                     }
                 }
             }

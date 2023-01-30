@@ -57,5 +57,18 @@
             Assignments.Add(newAssignment);
             Console.WriteLine(newAssignment.Name + " added to " + Code);
         }
+
+        public bool FindStudent(string sName) //finds if student is in roster
+        {
+            int check = Roster.FindIndex(t => t.Name.Contains(sName, StringComparison.InvariantCultureIgnoreCase));
+            if (check == -1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
