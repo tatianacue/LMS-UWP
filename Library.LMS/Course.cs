@@ -37,17 +37,36 @@
             Console.WriteLine(newStudent.Name + " added to " + Code);
         }
 
-        public void RemoveStudent(Person newStudent) //removes student from course
+        public void RemoveStudent() //removes student from course
         {
-            Roster.Remove(newStudent); // removes from roster
-            Console.WriteLine(newStudent.Name + " removed from " + Code);
+            Console.WriteLine("Which student do you want to remove from " + Code + "?");
+            int displayNum = 1;
+            foreach (var student in Roster)
+            {
+                Console.WriteLine(displayNum + ". " + student.Name);
+                displayNum++;
+            }
+
+            int studentNum;
+            while (!int.TryParse(Console.ReadLine(), out studentNum))
+            {
+                int dn = 1;
+                foreach (var student in Roster)
+                {
+                    Console.WriteLine(dn + ". " + student.Name);
+                    dn++;
+                }
+                int.TryParse(Console.ReadLine(), out studentNum);
+            }
+            studentNum--;
+
+            Roster.RemoveAt(studentNum);
         }
 
         public void ListStudents()
         {
             foreach (var student in Roster)
             {
-                Console.WriteLine("Students in " + Code + ":");
                 Console.WriteLine(student.Name);
             }
         }
@@ -58,9 +77,16 @@
             Console.WriteLine(newAssignment.Name + " added to " + Code);
         }
 
-        public bool FindStudent(string sName) //finds if student is in roster
+        public bool FindStudent(Person student) //finds if student is in roster
         {
-            int check = Roster.FindIndex(t => t.Name.Contains(sName, StringComparison.InvariantCultureIgnoreCase));
+            int check = -1;
+            foreach (var person in Roster)
+            {
+                if (person.Equals(student)) {
+                    check = 1;
+                    break;
+                }
+            }
             if (check == -1)
             {
                 return false;
