@@ -1,9 +1,11 @@
-﻿namespace Library.LMS
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Library.LMS
 {
     public class Course
     {
         //default constructor
-        public Course() { }
+        public Course() { } //redo lists
 
         //properties
         private string code;
@@ -71,6 +73,7 @@
             }
         }
 
+        //assignment manipulation
         public void AddAssignment(Assignment newAssignment) //add assignment to course
         {
             Assignments.Add(newAssignment);
@@ -96,5 +99,22 @@
                 return true;
             }
         }
-    }
+
+        //output
+        public override string ToString() //override output course
+        {
+            return (this.Code + "\t\t" + this.Name);
+        }
+
+        public void DisplayAll()
+        {
+            Console.WriteLine("\tCourse Details");
+            Console.WriteLine("Code: " + Code);
+            Console.WriteLine("Name: " + Name);
+            Console.WriteLine("Description: " + Description);
+
+            Console.WriteLine("Students in course:");
+            ListStudents();
+        }
+    }   
 }
