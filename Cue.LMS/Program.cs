@@ -63,10 +63,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
                     else if (choiceInt == 3) //lists all courses
                     {
-                        foreach (var course in courseList)
-                        {
-                            Console.WriteLine(course.Code + "\t\t" + course.Name);
-                        }
+                        courseList.ForEach(course => Console.WriteLine(course));
                     }
                     else if (choiceInt == 4) //lists all students
                     {
@@ -81,7 +78,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         int displayNum = 1;
                         foreach (var course in courseList)
                         {
-                            Console.WriteLine(displayNum + ". " + course.Code + "\t\t" + course.Name);
+                            Console.WriteLine(displayNum + ". " + course);
                             displayNum++;
                         }
 
@@ -92,7 +89,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             int dn = 1;
                             foreach (var course in courseList)
                             {
-                                Console.WriteLine(dn + ". " + course.Code + "\t\t" + course.Name);
+                                Console.WriteLine(dn + ". " + course);
                                 dn++;
                             }
                             int.TryParse(Console.ReadLine(), out courseNum);
@@ -129,7 +126,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         int displayNum = 1;
                         foreach (var course in courseList)
                         {
-                            Console.WriteLine(displayNum + ". " + course.Code + "\t\t" + course.Name);
+                            Console.WriteLine(displayNum + ". " + course);
                             displayNum++;
                         }
 
@@ -140,7 +137,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             int dn = 1;
                             foreach (var course in courseList)
                             {
-                                Console.WriteLine(dn + ". " + course.Code + "\t\t" + course.Name);
+                                Console.WriteLine(dn + ". " + course);
                                 dn++;
                             }
                             int.TryParse(Console.ReadLine(), out courseNum);
@@ -161,7 +158,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         int displayNum = 1;
                         foreach (var course in searchCourse) //goes through searched courses list
                         {
-                            Console.WriteLine(displayNum + ". " + course.Code + "\t\t" + course.Name);
+                            Console.WriteLine(displayNum + ". " + course);
                             displayNum++;
                         }
 
@@ -172,17 +169,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             int dn = 1;
                             foreach (var course in searchCourse)
                             {
-                                Console.WriteLine(dn + ". " + course.Code + "\t\t" + course.Name);
+                                Console.WriteLine(dn + ". " + course);
                                 dn++;
                             }
                             int.TryParse(Console.ReadLine(), out courseNum);
                         }
-
                         courseNum--;
 
-                        Console.WriteLine(courseList[courseNum].Code + "\n" + courseList[courseNum].Name + "\n"
-                            + courseList[courseNum].Description + "\n Students in course:");
-                        courseList[courseNum].ListStudents();
+                        courseList[courseNum].DisplayAll();
                     }
                     else if (choiceInt == 8) //search for student
                     {
@@ -241,7 +235,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         int displayNum = 1;
                         foreach (var course in courseList)
                         {
-                            Console.WriteLine(displayNum + ". " + course.Code + "\t\t" + course.Name);
+                            Console.WriteLine(displayNum + ". " + course);
                             displayNum++;
                         }
 
@@ -252,7 +246,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             int dn = 1;
                             foreach (var course in courseList)
                             {
-                                Console.WriteLine(dn + ". " + course.Code + "\t\t" + course.Name);
+                                Console.WriteLine(dn + ". " + course);
                                 dn++;
                             }
                             int.TryParse(Console.ReadLine(), out courseNum);
@@ -261,7 +255,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         courseNum--;
 
                         bool menu = true;
-                        while(menu)
+                        while (menu)
                         {
                             Console.WriteLine("Choose an option:");
                             Console.WriteLine("1. Update Code");
@@ -328,7 +322,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             Console.WriteLine("3. Exit");
 
                             string pick = Console.ReadLine() ?? string.Empty;
-                            
+
                             if (int.TryParse(pick, out int pickInt))
                             {
                                 if (pickInt == 1) //updates student name
@@ -352,6 +346,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         }
                     }
                 }
+
             }
         }
     }
