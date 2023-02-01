@@ -5,7 +5,7 @@ namespace Library.LMS
     public class Course
     {
         //default constructor
-        public Course() { }
+        public Course() { } //redo lists
 
         //properties
         private string code;
