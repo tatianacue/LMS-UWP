@@ -15,6 +15,7 @@ namespace Library.LMS
         private int totalpoints;
         private string duedate;
 
+        public string id { get; set; }
         public string Name
         {
             get { return name; }

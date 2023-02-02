@@ -164,6 +164,32 @@ namespace App.LMS.Helpers
                 Console.WriteLine("\t\t" + course.Code + "\t\t" + course.Name);
             }
         }
+        public void AddAssignment() //add assignment to a course
+        {
+            Console.WriteLine("Which course do you want to add to?"); //pick course
+            int courseNum = CoursePicker();
+
+            var tempAssignment = new Assignment();
+            Console.WriteLine("Enter name for assignment:"); //set name
+            tempAssignment.Name = Console.ReadLine() ?? string.Empty;
+
+            Console.WriteLine("Enter description for assignment:"); //set description
+            tempAssignment.Description = Console.ReadLine() ?? string.Empty;
+
+            Console.WriteLine("Enter total available points for assignment:"); //set total available points
+            int points;
+             while (!int.TryParse(Console.ReadLine(), out points))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out points);
+            }
+            tempAssignment.TotalAvailablePoints = points;
+
+            Console.WriteLine("Enter due date:");
+            tempAssignment.DueDate = Console.ReadLine() ?? string.Empty;
+
+            courseService.courseList[courseNum].AddAssignment(tempAssignment); //adds assignment to that specific course
+        }
 
     }
 }
