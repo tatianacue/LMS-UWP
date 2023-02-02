@@ -8,10 +8,14 @@ namespace Library.LMS
 {
     public class Person
     {
-        public Person() { }
+        public Person() 
+        {
+            Grades = new Dictionary<string, double>();
+        }
 
         private string name;
         private string classification;
+        public Dictionary<string, double> Grades { get; set; }
         public string Name
         {
             get { return name; }
@@ -43,5 +47,17 @@ namespace Library.LMS
                     }
                 }
         }
+        public void AddGrade(string assignment) //adds grade to assignment
+        {
+            Console.WriteLine("What grade would you like to give " + Name + " for this assignment?");
+            double grade;
+            while (!double.TryParse(Console.ReadLine(), out grade))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                double.TryParse(Console.ReadLine(), out grade);
+            }
+            Grades.Add(assignment, grade);
+        }
+
     }
 }

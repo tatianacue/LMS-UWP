@@ -32,6 +32,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 Console.WriteLine("9. List all courses for a student");
                 Console.WriteLine("10. Update course information");
                 Console.WriteLine("11. Update student information");
+                Console.WriteLine("12. Add assignment to course");
+                Console.WriteLine("13. Quit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
 
@@ -80,6 +82,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     else if (choiceInt == 11) //update student information
                     {
                         studentHelper.UpdateStudent();
+                    }
+                    else if (choiceInt == 12) //adds assignment
+                    {
+                        courseHelper.AddAssignment();
+                    }
+                    else if (choiceInt == 13)
+                    {
+                        cont = false;
                     }
                 }
 

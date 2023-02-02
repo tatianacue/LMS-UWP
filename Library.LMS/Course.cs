@@ -4,8 +4,18 @@ namespace Library.LMS
 {
     public class Course
     {
+        //lists
+        public List<Person> Roster { get; set; }
+        public List<Assignment> Assignments { get; set; }
+        public List<Module> Modules { get; set; }
+
         //default constructor
-        public Course() { } //redo lists
+        public Course() 
+        {
+            Roster = new List<Person>();
+            Assignments = new List<Assignment>();
+            Modules = new List<Module>();
+        }
 
         //properties
         private string code;
@@ -26,11 +36,6 @@ namespace Library.LMS
             get { return description; }
             set { description = value; }
         }
-
-        //lists
-        private List<Person> Roster = new List<Person>();
-        private List<Assignment> Assignments = new List<Assignment>();
-        private List<Module> Modules = new List<Module>();
 
         //list manipulation
         public void AddStudent(Person newStudent) //adds student to course
@@ -69,11 +74,10 @@ namespace Library.LMS
         {
             foreach (var student in Roster)
             {
-                Console.WriteLine(student.Name);
+                Console.WriteLine("\t" + student.Name);
             }
         }
 
-        //assignment manipulation
         public void AddAssignment(Assignment newAssignment) //add assignment to course
         {
             Assignments.Add(newAssignment);
@@ -108,12 +112,12 @@ namespace Library.LMS
 
         public void DisplayAll()
         {
-            Console.WriteLine("\tCourse Details");
-            Console.WriteLine("Code: " + Code);
-            Console.WriteLine("Name: " + Name);
-            Console.WriteLine("Description: " + Description);
+            Console.WriteLine("\t\tCourse Details");
+            Console.WriteLine("\tCode: " + Code);
+            Console.WriteLine("\tName: " + Name);
+            Console.WriteLine("\tDescription: " + Description);
 
-            Console.WriteLine("Students in course:");
+            Console.WriteLine("\tStudents in course:");
             ListStudents();
         }
     }   
