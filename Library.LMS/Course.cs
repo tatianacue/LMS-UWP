@@ -18,24 +18,9 @@ namespace Library.LMS
         }
 
         //properties
-        private string code;
-        private string name;
-        private string description;
-        public string Code 
-        {
-            get { return code; }
-            set { code = value; }
-        }
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
         //list manipulation
         public void AddStudent(Person newStudent) //adds student to course

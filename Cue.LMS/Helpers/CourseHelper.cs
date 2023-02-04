@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace App.LMS.Helpers
 {
@@ -99,12 +100,33 @@ namespace App.LMS.Helpers
             string search = Console.ReadLine() ?? string.Empty;
             var searchCourse = courseService.courseList.Where(t => t.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase) ||
             t.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase));
+            List<Course> results = searchCourse.ToList(); //enumerable to list
 
             //select a course and expand details
             Console.WriteLine("Which course would you like to select?");
-            int courseNum = CoursePicker();
+            int displayNum = 1;
+            foreach (var course in results)
+            {
+                Console.WriteLine(displayNum + ". " + course);
+                displayNum++;
+            }
 
-            courseService.courseList[courseNum].DisplayAll();
+            int courseNum;
+            while (!int.TryParse(Console.ReadLine(), out courseNum))
+            {
+                Console.WriteLine("Not a valid selection. Try Again.");
+                int dn = 1;
+                foreach (var course in results)
+                {
+                    Console.WriteLine(dn + ". " + course);
+                    dn++;
+                }
+                int.TryParse(Console.ReadLine(), out courseNum);
+            }
+
+            courseNum--;
+
+            results[courseNum].DisplayAll();
         }
         public void UpdateCourse() //update course menu and features
         {

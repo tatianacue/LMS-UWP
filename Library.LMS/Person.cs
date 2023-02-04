@@ -12,15 +12,11 @@ namespace Library.LMS
         {
             Grades = new Dictionary<string, double>();
         }
-
-        private string name;
+        public string Name { get; set; }
         private string classification;
         public Dictionary<string, double> Grades { get; set; }
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+      
+      
         public string Classification
         {
             get { return classification; }

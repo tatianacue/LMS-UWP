@@ -10,24 +10,9 @@ namespace Library.LMS
     {
         public ContentItem() { }
 
-        private string name;
-        private string description;
-        private string path;
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Path { get; set; }
 
-        public string Name 
-        { 
-            get { return name; } 
-            set { name = value; } 
-        }
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-        public string Path 
-        {
-            get { return path; }
-            set { path = value; }
-        }
     }
 }

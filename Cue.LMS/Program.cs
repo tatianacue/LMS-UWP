@@ -11,7 +11,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-           // var service1.courseList = new List<Course>();
             var service = new PersonService(); //remove if helper works
             var studentHelper = new PersonHelper();
             var courseHelper = new CourseHelper();
