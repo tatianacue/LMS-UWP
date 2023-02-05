@@ -55,10 +55,12 @@ namespace App.LMS.Helpers
             newCourse.Description = Console.ReadLine() ?? string.Empty;
 
             courseService.Add(newCourse);
+            courseService.courseList.ForEach(Console.WriteLine); //lists all courses after adding a course
         }
         public void ListAllCourses() //lists all courses in course list
         {
-            courseService.courseList.ForEach(course => Console.WriteLine(course));
+            Console.WriteLine("All COURSES:");
+            courseService.courseList.ForEach(Console.WriteLine);
         }
 
         public void AddStudentToCourse(Person student) //takes in student and adds to course
@@ -67,6 +69,7 @@ namespace App.LMS.Helpers
             int courseNum = CoursePicker();
 
             courseService.courseList[courseNum].AddStudent(student);
+            Console.WriteLine(student.Name + " added to " + courseService.courseList[courseNum].Code.ToUpper()); //says added to list
         }
         public void RemoveStudent() //removes student from course
         {
@@ -180,10 +183,10 @@ namespace App.LMS.Helpers
                 }
             }
             //lists courses in student's lists
-            Console.WriteLine("\t\tCourses that " + student.Name + " is taking:");
+            Console.WriteLine("\tCourses that " + student.Name + " is taking:");
             foreach (var course in studentCourses)
             {
-                Console.WriteLine("\t\t" + course.Code + "\t\t" + course.Name);
+                Console.WriteLine("\t" + course);
             }
         }
         public void AddAssignment() //add assignment to a course

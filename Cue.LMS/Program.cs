@@ -68,7 +68,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
                     else if (choiceInt == 8) //search for student
                     {
-                        studentHelper.SearchForStudent();
+                        studentHelper.SearchForStudent(courseHelper);
                     }
                     else if (choiceInt == 9) //list all courses student is taking
                     {

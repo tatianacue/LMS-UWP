@@ -43,6 +43,11 @@ namespace Library.LMS
                     }
                 }
         }
+        public override string ToString() //override output course
+        {
+            return $"{Name} -- {Classification}";
+        }
+
         public void AddGrade(string assignment) //adds grade to assignment
         {
             Console.WriteLine("What grade would you like to give " + Name + " for this assignment?");

@@ -26,7 +26,6 @@ namespace Library.LMS
         public void AddStudent(Person newStudent) //adds student to course
         {
             Roster.Add(newStudent); //adds to roster
-            Console.WriteLine(newStudent.Name + " added to " + Code);
         }
 
         public void RemoveStudent() //removes student from course
@@ -53,6 +52,7 @@ namespace Library.LMS
             studentNum--;
 
             Roster.RemoveAt(studentNum);
+            Console.WriteLine(Roster[studentNum].Name + " removed from " + Code.ToUpper()); //displays successful removing student
         }
 
         public void ListStudents()
@@ -92,13 +92,13 @@ namespace Library.LMS
         //output
         public override string ToString() //override output course
         {
-            return (this.Code + "\t\t" + this.Name);
+            return $"{Code.ToUpper()} -- {Name}";
         }
 
         public void DisplayAll()
         {
             Console.WriteLine("\t\tCourse Details");
-            Console.WriteLine("\tCode: " + Code);
+            Console.WriteLine("\tCode: " + Code.ToUpper());
             Console.WriteLine("\tName: " + Name);
             Console.WriteLine("\tDescription: " + Description);
 
