@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace App.LMS.Helpers
 {
     public class PersonHelper
@@ -36,7 +36,7 @@ namespace App.LMS.Helpers
             Console.WriteLine("ALL STUDENTS:");
             studentService.studentList.ForEach(Console.WriteLine);
         }
-        public Person StudentPicker() { //picks student you want to add to course
+        public Person StudentPicker() { //lets user pick student and returns a student
             Console.WriteLine("Which student do you want to pick?"); //pick student
             int num = 1;
             foreach (var student in studentService.studentList)
@@ -61,7 +61,7 @@ namespace App.LMS.Helpers
 
             return studentService.studentList[studentNum];
         }
-        public void SearchForStudent(CourseHelper helper) //searches for student and lists ones found
+        public void SearchForStudent(CourseHelper helper) //searches for student and allows selection
         {
             Console.WriteLine("Enter a student name you want to find:");
             string search = Console.ReadLine() ?? string.Empty;
@@ -134,6 +134,7 @@ namespace App.LMS.Helpers
                     {
                         Console.WriteLine("Enter a new name:");
                         studentService.studentList[studentNum].Name = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + studentService.studentList[studentNum]); //displays updated info
 
                     }
                     else if (pickInt == 2) //updates student classification
@@ -142,6 +143,7 @@ namespace App.LMS.Helpers
                         "s = Sophomore, " + "j = Junior, " + " e = Senior\n" +
                         "Enter a new classification:");
                         studentService.studentList[studentNum].Classification = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + studentService.studentList[studentNum]);
                     }
                     else if (pickInt == 3) //exits back to main menu
                     {
