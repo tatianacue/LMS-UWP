@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace App.LMS.Helpers
 {
     public class CourseHelper
@@ -18,7 +19,7 @@ namespace App.LMS.Helpers
         }
         private int CoursePicker() //course selection menu
         {
-            int displayNum = 1;
+            int displayNum = 1; //displays courses starting from 1...
             foreach (var course in courseService.courseList)
             {
                 Console.WriteLine(displayNum + ". " + course);
@@ -38,7 +39,7 @@ namespace App.LMS.Helpers
                 int.TryParse(Console.ReadLine(), out courseNum);
             }
 
-            courseNum--;
+            courseNum--; //to get array index
             return courseNum;
         }
         public void AddCourse() //adds course to courseList
@@ -106,7 +107,7 @@ namespace App.LMS.Helpers
             List<Course> results = searchCourse.ToList(); //enumerable to list
 
             //select a course and expand details
-            Console.WriteLine("Which course would you like to select?");
+            Console.WriteLine("Which course would you like to see detailed view?");
             int displayNum = 1;
             foreach (var course in results)
             {
@@ -153,16 +154,19 @@ namespace App.LMS.Helpers
                     {
                         Console.WriteLine("Enter new code:");
                         courseService.courseList[courseNum].Code = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + courseService.courseList[courseNum]);
                     }
                     else if (pickInt == 2) //update course name
                     {
                         Console.WriteLine("Enter new name:");
                         courseService.courseList[courseNum].Name = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + courseService.courseList[courseNum]);
                     }
                     else if (pickInt == 3) //update course description
                     {
                         Console.WriteLine("Enter new description");
                         courseService.courseList[courseNum].Description = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + courseService.courseList[courseNum] + " - " + courseService.courseList[courseNum].Description);
                     }
                     else if (pickInt == 4) //exits back to main menu
                     {

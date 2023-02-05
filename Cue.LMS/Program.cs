@@ -5,19 +5,17 @@ using Library.LMS.Services;
 
 /* Tatiana Graciela Cue COP4870-0001*/
 
-namespace MyApp // Note: actual namespace depends on the project name.
+namespace MyApp
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var service = new PersonService(); //remove if helper works
             var studentHelper = new PersonHelper();
             var courseHelper = new CourseHelper();
-            var service1 = new CourseService(); //remove if helper works
             bool cont = true;
 
-            while (cont)
+            while (cont) //menu
             {
                 Console.WriteLine("Choose an option:");
                 Console.WriteLine("1. Add a course");
@@ -86,7 +84,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     {
                         courseHelper.AddAssignment();
                     }
-                    else if (choiceInt == 13)
+                    else if (choiceInt == 13) //quit
                     {
                         cont = false;
                     }

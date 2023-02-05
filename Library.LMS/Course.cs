@@ -1,14 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS
 {
     public class Course
     {
-        //lists
-        public List<Person> Roster { get; set; }
-        public List<Assignment> Assignments { get; set; }
-        public List<Module> Modules { get; set; }
-
         //default constructor
         public Course() 
         {
@@ -21,6 +16,9 @@ namespace Library.LMS
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public List<Person> Roster { get; set; }
+        public List<Assignment> Assignments { get; set; }
+        public List<Module> Modules { get; set; }
 
         //list manipulation
         public void AddStudent(Person newStudent) //adds student to course
@@ -51,11 +49,12 @@ namespace Library.LMS
             }
             studentNum--;
 
+            Console.WriteLine("Removing " + Roster[studentNum].Name + " from " + Code.ToUpper());
             Roster.RemoveAt(studentNum);
-            Console.WriteLine(Roster[studentNum].Name + " removed from " + Code.ToUpper()); //displays successful removing student
+           
         }
 
-        public void ListStudents()
+        public void ListStudents() //lists student names in roster
         {
             foreach (var student in Roster)
             {
@@ -66,7 +65,7 @@ namespace Library.LMS
         public void AddAssignment(Assignment newAssignment) //add assignment to course
         {
             Assignments.Add(newAssignment);
-            Console.WriteLine(newAssignment.Name + " added to " + Code);
+            Console.WriteLine(newAssignment.Name + " added to " + Code.ToUpper());
         }
 
         public bool FindStudent(Person student) //finds if student is in roster
@@ -95,13 +94,12 @@ namespace Library.LMS
             return $"{Code.ToUpper()} -- {Name}";
         }
 
-        public void DisplayAll()
+        public void DisplayAll() //displays detailed view
         {
-            Console.WriteLine("\t\tCourse Details");
+            Console.WriteLine("\t\tCOURSE DETAILS");
             Console.WriteLine("\tCode: " + Code.ToUpper());
             Console.WriteLine("\tName: " + Name);
             Console.WriteLine("\tDescription: " + Description);
-
             Console.WriteLine("\tStudents in course:");
             ListStudents();
         }
