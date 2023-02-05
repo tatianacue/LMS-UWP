@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace App.LMS.Helpers
 {
@@ -28,20 +29,19 @@ namespace App.LMS.Helpers
             newStudent.Classification = Console.ReadLine() ?? string.Empty;
 
             studentService.Add(newStudent);
+            studentService.studentList.ForEach(Console.WriteLine); //displays all to show student is added to list
         }
         public void ListAllStudents()
         {
-            foreach (var student in studentService.studentList)
-            {
-                Console.WriteLine(student.Name + "\t\t" + student.Classification);
-            }
+            Console.WriteLine("ALL STUDENTS:");
+            studentService.studentList.ForEach(Console.WriteLine);
         }
         public Person StudentPicker() { //picks student you want to add to course
             Console.WriteLine("Which student do you want to pick?"); //pick student
             int num = 1;
             foreach (var student in studentService.studentList)
             {
-                Console.WriteLine(num + ". " + student.Name);
+                Console.WriteLine(num + ". " + student);
                 num++;
             }
 
@@ -52,7 +52,7 @@ namespace App.LMS.Helpers
                 int dn = 1;
                 foreach (var student in studentService.studentList)
                 {
-                    Console.WriteLine(num + ". " + student.Name);
+                    Console.WriteLine(num + ". " + student);
                     dn++;
                 }
                 int.TryParse(Console.ReadLine(), out studentNum);
@@ -61,16 +61,38 @@ namespace App.LMS.Helpers
 
             return studentService.studentList[studentNum];
         }
-        public void SearchForStudent() //searches for student and lists ones found
+        public void SearchForStudent(CourseHelper helper) //searches for student and lists ones found
         {
             Console.WriteLine("Enter a student name you want to find:");
             string search = Console.ReadLine() ?? string.Empty;
             var searchStudent = studentService.studentList.Where(t => t.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase));
+            var results = searchStudent.ToList();
 
-            foreach (var student in searchStudent)
+            Console.WriteLine("Which student do you want to see more details for?"); //pick student
+            int num = 1;
+            foreach (var student in results)
             {
-                Console.WriteLine(student.Name + "\t\t" + student.Classification);
+                Console.WriteLine(num + ". " + student);
+                num++;
             }
+
+            int studentNum;
+            while (!int.TryParse(Console.ReadLine(), out studentNum))
+            {
+                Console.WriteLine("Not a valid selection. Try Again.");
+                int dn = 1;
+                foreach (var student in results)
+                {
+                    Console.WriteLine(num + ". " + student);
+                    dn++;
+                }
+                int.TryParse(Console.ReadLine(), out studentNum);
+            }
+            studentNum--;
+
+            DisplayAll(results[studentNum]); //outputs all student details
+            helper.ListStudentCourses(results[studentNum]); //uses course helper to list student schedule
+
         }
         public void UpdateStudent() //student update menu
         {
@@ -127,6 +149,13 @@ namespace App.LMS.Helpers
                     }
                 }
             }
+        }
+        public void DisplayAll(Person student)
+        {
+            Console.WriteLine("\t\tSTUDENT DETAILS");
+            Console.WriteLine("\tName: " + student.Name);
+            Console.WriteLine("\tClassification: " + student.Classification);
+
         }
     }
 }
