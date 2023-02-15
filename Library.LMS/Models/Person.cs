@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 /* Tatiana Graciela Cue COP4870-0001*/
-namespace Library.LMS
+namespace Library.LMS.Models
 {
     public class Person
     {
-        public Person() 
+        public Person()
         {
             Grades = new Dictionary<string, double>();
         }
@@ -17,32 +17,33 @@ namespace Library.LMS
         public string Name { get; set; }
         private string classification;
         public Dictionary<string, double> Grades { get; set; } //dictionary for grades
-      
+
         public string Classification //gets and sets classification
         {
             get { return classification; }
-            set { 
-                    if (value == "f")
-                    {
+            set
+            {
+                if (value == "f")
+                {
                     classification = "Freshman";
-                    }
-                    else if (value == "s")
-                    {
-                        classification = "Sophomore";
-                    }
-                    else if (value == "j")
-                    {
-                        classification = "Junior";
-                    }
-                    else if (value == "e")
-                    {
-                        classification = "Senior";
-                    }
-                    else
-                    {
-                        classification = "N/A";
-                    }
                 }
+                else if (value == "s")
+                {
+                    classification = "Sophomore";
+                }
+                else if (value == "j")
+                {
+                    classification = "Junior";
+                }
+                else if (value == "e")
+                {
+                    classification = "Senior";
+                }
+                else
+                {
+                    classification = "N/A";
+                }
+            }
         }
 
         //other
