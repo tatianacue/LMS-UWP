@@ -46,11 +46,11 @@ namespace MyApp
                     }
                     else if (choiceInt == 3) //lists all courses
                     {
-                        courseHelper.ListAllCourses();
+                        courseHelper.SearchForCourse(); //lists if null
                     }
                     else if (choiceInt == 4) //lists all students
                     {
-                        studentHelper.ListAllStudents();
+                        studentHelper.SearchForStudent(courseHelper);
                     }
                     else if (choiceInt == 5) //add student to course
                     {
@@ -62,11 +62,15 @@ namespace MyApp
                     }
                     else if (choiceInt == 7) //search for course
                     {
-                        courseHelper.SearchForCourse();
+                        Console.WriteLine("Enter course name or description: ");
+                        var srch = Console.ReadLine() ?? string.Empty;
+                        courseHelper.SearchForCourse(srch);
                     }
                     else if (choiceInt == 8) //search for student
                     {
-                        studentHelper.SearchForStudent(courseHelper);
+                        Console.WriteLine("Enter student name:");
+                        var srch = Console.ReadLine() ?? string.Empty;
+                        studentHelper.SearchForStudent(courseHelper, srch);
                     }
                     else if (choiceInt == 9) //list all courses student is taking
                     {

@@ -18,5 +18,13 @@ namespace Library.LMS.Services
         {
             courseList.Add(course);
         }
+        public List<Course> Search(string srch) //searches for course based on string
+        {
+            var searchCourse = courseList.Where(t => t.Name.Contains(srch, StringComparison.InvariantCultureIgnoreCase) ||
+             t.Description.Contains(srch, StringComparison.InvariantCultureIgnoreCase));
+            List<Course> results = searchCourse.ToList(); //enumerable to list
+
+            return results;
+        }
     }
 }
