@@ -54,14 +54,6 @@ namespace Library.LMS.Models
 
         }
 
-        public void ListStudents() //lists student names in roster
-        {
-            foreach (var student in Roster)
-            {
-                Console.WriteLine("\t" + student.Name);
-            }
-        }
-
         public void AddAssignment(Assignment newAssignment) //add assignment to course
         {
             Assignments.Add(newAssignment);
@@ -97,17 +89,17 @@ namespace Library.LMS.Models
         //output
         public override string ToString() //override output course
         {
-            return $"{Code.ToUpper()} -- {Name}";
+            return $"{Code.ToUpper()} - {Name}";
         }
 
-        public void DisplayAll() //displays detailed view
+        public string DisplayAll() //displays detailed view
         {
-            Console.WriteLine("\t\tCOURSE DETAILS");
-            Console.WriteLine("\tCode: " + Code.ToUpper());
-            Console.WriteLine("\tName: " + Name);
-            Console.WriteLine("\tDescription: " + Description);
-            Console.WriteLine("\tStudents in course:");
-            ListStudents();
+            return $"\t\tCOURSE DETAILS\n" +
+                $"\tCode: {Code.ToUpper()}\n" +
+                $"\tName: {Name}\n" +
+                $"\tDescription: {Description}\n" +
+                $"\tRoster:\n\t{string.Join("\n\t", Roster.Select(s => s.ToString()).ToArray())}\n" +
+                $"\tAssignments:\n\t{string.Join("\n\t", Assignments.Select(s => s.ToString()).ToArray())}";
         }
     }
 }

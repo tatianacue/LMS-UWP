@@ -19,5 +19,12 @@ namespace Library.LMS.Services
         {
             studentList.Add(student);
         }
+        public List<Person> Search(string srch) //searches for student based on string
+        {
+            var searchStudent = studentList.Where(t => t.Name.Contains(srch, StringComparison.InvariantCultureIgnoreCase));
+            List<Person> results = searchStudent.ToList(); //enumerable to list
+
+            return results;
+        }
     }
 }

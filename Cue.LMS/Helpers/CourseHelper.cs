@@ -17,30 +17,12 @@ namespace App.LMS.Helpers
         {
             courseService = new CourseService();
         }
-        private int CoursePicker() //course selection menu
+        private Course CoursePicker() //course selection menu
         {
-            int displayNum = 1; //displays courses starting from 1...
-            foreach (var course in courseService.courseList)
-            {
-                Console.WriteLine(displayNum + ". " + course);
-                displayNum++;
-            }
-
-            int courseNum;
-            while (!int.TryParse(Console.ReadLine(), out courseNum))
-            {
-                Console.WriteLine("Not a valid selection. Try Again.");
-                int dn = 1;
-                foreach (var course in courseService.courseList)
-                {
-                    Console.WriteLine(dn + ". " + course);
-                    dn++;
-                }
-                int.TryParse(Console.ReadLine(), out courseNum);
-            }
-
-            courseNum--; //to get array index
-            return courseNum;
+            courseService.courseList.ForEach(Console.WriteLine);
+            var code = Console.ReadLine() ?? string.Empty;
+            var selected = courseService.courseList.FirstOrDefault(c => c.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase));
+            return selected;
         }
         public void AddCourse() //adds course to courseList
         {
@@ -58,84 +40,42 @@ namespace App.LMS.Helpers
             courseService.Add(newCourse);
             courseService.courseList.ForEach(Console.WriteLine); //lists all courses after adding a course
         }
-        public void ListAllCourses() //lists all courses in course list
-        {
-            Console.WriteLine("All COURSES:");
-            courseService.courseList.ForEach(Console.WriteLine);
-        }
-
         public void AddStudentToCourse(Person student) //takes in student and adds to course
         {
             Console.WriteLine("Which course do you want to add to?"); //pick course
-            int courseNum = CoursePicker();
+            var selected = CoursePicker();
 
-            courseService.courseList[courseNum].AddStudent(student);
-            Console.WriteLine(student.Name + " added to " + courseService.courseList[courseNum].Code.ToUpper()); //says added to list
+            selected.AddStudent(student);
+            Console.WriteLine(student.Name + " added to " + selected.Code.ToUpper()); //says added to list
         }
         public void RemoveStudent() //removes student from course
         {
             Console.WriteLine("Which course do you want to remove student from?");
-            int displayNum = 1;
-            foreach (var course in courseService.courseList)
-            {
-                Console.WriteLine(displayNum + ". " + course);
-                displayNum++;
-            }
-
-            int courseNum;
-            while (!int.TryParse(Console.ReadLine(), out courseNum))
-            {
-                Console.WriteLine("Not a valid selection. Try Again.");
-                int dn = 1;
-                foreach (var course in courseService.courseList)
-                {
-                    Console.WriteLine(dn + ". " + course);
-                    dn++;
-                }
-                int.TryParse(Console.ReadLine(), out courseNum);
-            }
-
-            courseNum--;
-            courseService.courseList[courseNum].RemoveStudent();
+            var selected = CoursePicker();
+            selected.RemoveStudent();
         }
-        public void SearchForCourse() //searches for course and allows you to select it
+        public void SearchForCourse(string ? srch = null) //searches for course and allows you to select it
         {
-            Console.WriteLine("Enter a course name or description you want to find:");
-            string search = Console.ReadLine() ?? string.Empty;
-            var searchCourse = courseService.courseList.Where(t => t.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase) ||
-            t.Description.Contains(search, StringComparison.InvariantCultureIgnoreCase));
-            List<Course> results = searchCourse.ToList(); //enumerable to list
-
-            //select a course and expand details
-            Console.WriteLine("Which course would you like to see detailed view?");
-            int displayNum = 1;
-            foreach (var course in results)
+            if (string.IsNullOrEmpty(srch))
             {
-                Console.WriteLine(displayNum + ". " + course);
-                displayNum++;
+                courseService.courseList.ForEach(Console.WriteLine);
             }
-
-            int courseNum;
-            while (!int.TryParse(Console.ReadLine(), out courseNum))
+            else
             {
-                Console.WriteLine("Not a valid selection. Try Again.");
-                int dn = 1;
-                foreach (var course in results)
-                {
-                    Console.WriteLine(dn + ". " + course);
-                    dn++;
-                }
-                int.TryParse(Console.ReadLine(), out courseNum);
+                courseService.Search(srch).ForEach(Console.WriteLine);
             }
-
-            courseNum--;
-
-            results[courseNum].DisplayAll();
+            Console.WriteLine("Which course would you like to select? (Enter Code)");
+            var code = Console.ReadLine() ?? string.Empty;
+            var selected = courseService.courseList.FirstOrDefault(c => c.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase));
+            if (selected != null)
+            {
+                Console.WriteLine(selected.DisplayAll());
+            }
         }
         public void UpdateCourse() //update course menu and features
         {
             Console.WriteLine("Which course do you want to update?");
-            int courseNum = CoursePicker();
+            var selected = CoursePicker();
 
             bool menu = true;
             while (menu)
@@ -154,20 +94,20 @@ namespace App.LMS.Helpers
                     if (pickInt == 1) //update course code
                     {
                         Console.WriteLine("Enter new code:");
-                        courseService.courseList[courseNum].Code = Console.ReadLine() ?? string.Empty;
-                        Console.WriteLine("Updated info: " + courseService.courseList[courseNum]);
+                        selected.Code = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + selected);
                     }
                     else if (pickInt == 2) //update course name
                     {
                         Console.WriteLine("Enter new name:");
-                        courseService.courseList[courseNum].Name = Console.ReadLine() ?? string.Empty;
-                        Console.WriteLine("Updated info: " + courseService.courseList[courseNum]);
+                        selected.Name = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + selected);
                     }
                     else if (pickInt == 3) //update course description
                     {
                         Console.WriteLine("Enter new description");
-                        courseService.courseList[courseNum].Description = Console.ReadLine() ?? string.Empty;
-                        Console.WriteLine("Updated info: " + courseService.courseList[courseNum] + " - " + courseService.courseList[courseNum].Description);
+                        selected.Description = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Updated info: " + selected + " - " + selected.Description);
                     }
                     else if (pickInt == 4) //creates new module
                     {
@@ -177,7 +117,7 @@ namespace App.LMS.Helpers
                         Console.WriteLine("Enter module description:");
                         tempMod.Description = Console.ReadLine() ?? string.Empty;
 
-                        courseService.courseList[courseNum].CreateModule(tempMod);
+                        selected.CreateModule(tempMod);
                     }
                     else if (pickInt == 5) //exits back to main menu
                     {
@@ -207,7 +147,7 @@ namespace App.LMS.Helpers
         public void AddAssignment() //add assignment to a course
         {
             Console.WriteLine("Which course do you want to add to?"); //pick course
-            int courseNum = CoursePicker();
+            var selected = CoursePicker();
 
             var tempAssignment = new Assignment();
             Console.WriteLine("Enter name for assignment:"); //set name
@@ -228,7 +168,7 @@ namespace App.LMS.Helpers
             Console.WriteLine("Enter due date:");
             tempAssignment.DueDate = Console.ReadLine() ?? string.Empty;
 
-            courseService.courseList[courseNum].AddAssignment(tempAssignment); //adds assignment to that specific course
+            selected.AddAssignment(tempAssignment); //adds assignment to that specific course
         }
 
     }

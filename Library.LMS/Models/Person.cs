@@ -17,6 +17,7 @@ namespace Library.LMS.Models
         public string Name { get; set; }
         private string classification;
         public Dictionary<string, double> Grades { get; set; } //dictionary for grades
+        public string ID { get; set; }
 
         public string Classification //gets and sets classification
         {
@@ -49,7 +50,7 @@ namespace Library.LMS.Models
         //other
         public override string ToString() //override output person
         {
-            return $"{Name} -- {Classification}";
+            return $"[{ID}] - {Name}";
         }
 
         public void AddGrade(string assignment) //adds grade to assignment

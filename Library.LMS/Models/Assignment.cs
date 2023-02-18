@@ -15,5 +15,9 @@ namespace Library.LMS.Models
         public string Description { get; set; }
         public int TotalAvailablePoints { get; set; }
         public string DueDate { get; set; }
+        public override string ToString()
+        {
+            return $"({DueDate}) - {Name}";
+        }
     }
 }
