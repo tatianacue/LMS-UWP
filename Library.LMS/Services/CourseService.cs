@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.LMS.Models;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Services
 {

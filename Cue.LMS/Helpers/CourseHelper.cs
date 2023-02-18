@@ -1,4 +1,4 @@
-﻿using Library.LMS;
+﻿using Library.LMS.Models;
 using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
@@ -144,7 +144,8 @@ namespace App.LMS.Helpers
                 Console.WriteLine("1. Update Code");
                 Console.WriteLine("2. Update Name");
                 Console.WriteLine("3. Update Description");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Add Module");
+                Console.WriteLine("5. Exit");
 
                 string pick = Console.ReadLine() ?? string.Empty;
 
@@ -168,7 +169,17 @@ namespace App.LMS.Helpers
                         courseService.courseList[courseNum].Description = Console.ReadLine() ?? string.Empty;
                         Console.WriteLine("Updated info: " + courseService.courseList[courseNum] + " - " + courseService.courseList[courseNum].Description);
                     }
-                    else if (pickInt == 4) //exits back to main menu
+                    else if (pickInt == 4) //creates new module
+                    {
+                        Module tempMod = new Module(); //temporary new module to enter name and desc
+                        Console.WriteLine("Enter module name:");
+                        tempMod.Name = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Enter module description:");
+                        tempMod.Description = Console.ReadLine() ?? string.Empty;
+
+                        courseService.courseList[courseNum].CreateModule(tempMod);
+                    }
+                    else if (pickInt == 5) //exits back to main menu
                     {
                         menu = false;
                     }

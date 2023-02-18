@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 /* Tatiana Graciela Cue COP4870-0001*/
-namespace Library.LMS
+namespace Library.LMS.Models
 {
     public class Course
     {
         //default constructor
-        public Course() 
+        public Course()
         {
             Roster = new List<Person>();
             Assignments = new List<Assignment>();
@@ -51,7 +51,7 @@ namespace Library.LMS
 
             Console.WriteLine("Removing " + Roster[studentNum].Name + " from " + Code.ToUpper());
             Roster.RemoveAt(studentNum);
-           
+
         }
 
         public void ListStudents() //lists student names in roster
@@ -73,7 +73,8 @@ namespace Library.LMS
             int check = -1;
             foreach (var person in Roster)
             {
-                if (person.Equals(student)) {
+                if (person.Equals(student))
+                {
                     check = 1;
                     break;
                 }
@@ -86,6 +87,11 @@ namespace Library.LMS
             {
                 return true;
             }
+        }
+        public void CreateModule(Module newModule) //creates module
+        {
+            Modules.Add(newModule);
+            Console.WriteLine(newModule.Name + " added to " + Code.ToUpper());
         }
 
         //output
@@ -103,5 +109,5 @@ namespace Library.LMS
             Console.WriteLine("\tStudents in course:");
             ListStudents();
         }
-    }   
+    }
 }
