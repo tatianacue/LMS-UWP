@@ -9,20 +9,20 @@ namespace Library.LMS.Services
 {
     public class PersonService
     {
-        public List<Person> studentList { get; set; }
+        public List<Student> studentList { get; set; }
         public PersonService()
         {
-            studentList = new List<Person>();
+            studentList = new List<Student>();
         }
         
-        public void Add(Person student) //adds student to student list
+        public void Add(Student student) //adds student to student list
         {
             studentList.Add(student);
         }
-        public List<Person> Search(string srch) //searches for student based on string
+        public List<Student> Search(string srch) //searches for student based on string
         {
             var searchStudent = studentList.Where(t => t.Name.Contains(srch, StringComparison.InvariantCultureIgnoreCase));
-            List<Person> results = searchStudent.ToList(); //enumerable to list
+            List<Student> results = searchStudent.ToList(); //enumerable to list
 
             return results;
         }

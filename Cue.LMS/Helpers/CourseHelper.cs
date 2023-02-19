@@ -40,7 +40,7 @@ namespace App.LMS.Helpers
             courseService.Add(newCourse);
             courseService.courseList.ForEach(Console.WriteLine); //lists all courses after adding a course
         }
-        public void AddStudentToCourse(Person student) //takes in student and adds to course
+        public void AddStudentToCourse(Student student) //takes in student and adds to course
         {
             Console.WriteLine("Which course do you want to add to?"); //pick course
             var selected = CoursePicker();
@@ -126,7 +126,7 @@ namespace App.LMS.Helpers
                 }
             }
         }
-        public void ListStudentCourses(Person student) //find student in course
+        public void ListStudentCourses(Student student) //find student in course
         {
             var studentCourses = new List<Course>();
             foreach (var tempCourse in courseService.courseList)
