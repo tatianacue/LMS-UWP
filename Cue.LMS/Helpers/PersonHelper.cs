@@ -17,7 +17,7 @@ namespace App.LMS.Helpers
         }
         public void AddStudent() //adds student to studentList
         {
-            var newStudent = new Person();
+            var newStudent = new Student();
             Console.WriteLine("Enter an ID:");
             newStudent.ID = Console.ReadLine() ?? string.Empty;
 
@@ -32,7 +32,7 @@ namespace App.LMS.Helpers
             studentService.Add(newStudent);
             studentService.studentList.ForEach(Console.WriteLine); //displays all to show student is added to list
         }
-        public Person StudentPicker() { //lets user pick student and returns a student
+        public Student StudentPicker() { //lets user pick student and returns a student
             Console.WriteLine("Which student do you want to pick? (Enter ID)"); //pick student
             studentService.studentList.ForEach(Console.WriteLine);
             var id = Console.ReadLine() ?? string.Empty;
@@ -49,7 +49,7 @@ namespace App.LMS.Helpers
             {
                 studentService.Search(srch).ForEach(Console.WriteLine);
             }
-            Console.WriteLine("Which course would you like to select? (Enter Code)");
+            Console.WriteLine("Which student would you like to select? (Enter ID)");
             var code = Console.ReadLine() ?? string.Empty;
             var selected = studentService.studentList.FirstOrDefault(s => s.ID.Equals(code, StringComparison.InvariantCultureIgnoreCase));
             if (selected != null)
@@ -102,7 +102,7 @@ namespace App.LMS.Helpers
                 }
             }
         }
-        public void DisplayAll(Person student)
+        public void DisplayAll(Student student)
         {
             Console.WriteLine("\t\tSTUDENT DETAILS");
             Console.WriteLine("\tName: " + student.Name);

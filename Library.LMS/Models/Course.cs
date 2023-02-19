@@ -21,37 +21,20 @@ namespace Library.LMS.Models
         public List<Module> Modules { get; set; }
 
         //list manipulation
-        public void AddStudent(Person newStudent) //adds student to course
+        public void AddStudent(Student newStudent) //adds student to course
         {
             Roster.Add(newStudent); //adds to roster
         }
 
         public void RemoveStudent() //removes student from course
         {
-            Console.WriteLine("Which student do you want to remove from " + Code + "?");
-            int displayNum = 1;
-            foreach (var student in Roster)
-            {
-                Console.WriteLine(displayNum + ". " + student.Name);
-                displayNum++;
-            }
+            Console.WriteLine("Which student do you want to remove from " + Code.ToUpper() + "? (Enter ID)");
+            Roster.ForEach(Console.WriteLine);
+            var id = Console.ReadLine() ?? string.Empty;
+            var selected = Roster.FirstOrDefault(s => s.ID.Equals(id, StringComparison.InvariantCultureIgnoreCase));
 
-            int studentNum;
-            while (!int.TryParse(Console.ReadLine(), out studentNum))
-            {
-                int dn = 1;
-                foreach (var student in Roster)
-                {
-                    Console.WriteLine(dn + ". " + student.Name);
-                    dn++;
-                }
-                int.TryParse(Console.ReadLine(), out studentNum);
-            }
-            studentNum--;
-
-            Console.WriteLine("Removing " + Roster[studentNum].Name + " from " + Code.ToUpper());
-            Roster.RemoveAt(studentNum);
-
+            Console.WriteLine("Removing " + selected.Name + " from " + Code.ToUpper());
+            Roster.Remove(selected);
         }
 
         public void AddAssignment(Assignment newAssignment) //add assignment to course
@@ -60,7 +43,7 @@ namespace Library.LMS.Models
             Console.WriteLine(newAssignment.Name + " added to " + Code.ToUpper());
         }
 
-        public bool FindStudent(Person student) //finds if student is in roster
+        public bool FindStudent(Student student) //finds if student is in roster
         {
             int check = -1;
             foreach (var person in Roster)
