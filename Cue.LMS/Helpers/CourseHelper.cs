@@ -103,8 +103,22 @@ namespace App.LMS.Helpers
                 {
                     if (pickInt == 1) //update course code
                     {
+                        string oldCode = selected.Code; //saves old code to remove from key list
+
                         Console.WriteLine("Enter new code:");
-                        selected.Code = Console.ReadLine() ?? string.Empty;
+                        string tempCode = Console.ReadLine() ?? string.Empty;
+                        tempCode = tempCode.ToUpper();
+                        selected.Code = tempCode;
+                        bool check = courseService.CheckCode(selected.Code);
+                        while (!check) // checks if code already exists
+                        {
+                            Console.WriteLine("Course Code Already Exists. Enter another one:");
+                            tempCode = Console.ReadLine() ?? string.Empty;
+                            tempCode = tempCode.ToUpper();
+                            selected.Code = tempCode;
+                            check = courseService.CheckCode(selected.Code);
+                        }
+                        courseService.Codes.Remove(oldCode); //removes old code and frees it up for possible use later
                         Console.WriteLine("Updated info: " + selected);
                     }
                     else if (pickInt == 2) //update course name

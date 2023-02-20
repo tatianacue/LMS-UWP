@@ -101,8 +101,22 @@ namespace App.LMS.Helpers
                     }
                     else if (pickInt == 3)
                     {
-                        Console.WriteLine("Enter new ID:"); //update ID
-                        selected.ID = Console.ReadLine() ?? string.Empty;
+                        string oldID = selected.ID; //saves old code to remove from key list
+
+                        Console.WriteLine("Enter new code:");
+                        string tempCode = Console.ReadLine() ?? string.Empty;
+                        tempCode = tempCode.ToUpper();
+                        selected.ID = tempCode;
+                        bool check = studentService.CheckID(selected.ID);
+                        while (!check) // checks if code already exists
+                        {
+                            Console.WriteLine("Course Code Already Exists. Enter another one:");
+                            tempCode = Console.ReadLine() ?? string.Empty;
+                            tempCode = tempCode.ToUpper();
+                            selected.ID = tempCode;
+                            check = studentService.CheckID(selected.ID);
+                        }
+                        studentService.IDDictionary.Remove(oldID); //removes old code and frees it up for possible use later
                         Console.WriteLine("Updated info: " + selected);
                     }
                     else if (pickInt == 4) //exits back to main menu
