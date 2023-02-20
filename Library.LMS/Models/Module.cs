@@ -12,14 +12,22 @@ namespace Library.LMS.Models
         {
             Content = new List<ContentItem>();
         }
+        public override string ToString() //override output course
+        {
+            return $"{Name}";
+        }
 
         //properties
         public string Name { get; set; }
         public string Description { get; set; }
         public List<ContentItem> Content { get; set; }
-        public void Add(ContentItem item) //adds content item to list
+        public void AddContent(ContentItem item) //adds content item to list
         {
             Content.Add(item);
+        }
+        public void RemoveContent(ContentItem item)
+        {
+            Content.Remove(item);
         }
     }
 }

@@ -10,5 +10,11 @@ namespace Library.LMS.Models
     {
         public FileItem() { }
         public string FilePath { get; set; }
+
+        public override string DisplayAll()
+        {
+            return $"{Name} - {Description}\n" +
+                $"{FilePath}";
+        }
     }
 }

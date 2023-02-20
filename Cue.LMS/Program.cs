@@ -50,11 +50,12 @@ namespace MyApp
                 Console.WriteLine("1. Add a course"); //course
                 Console.WriteLine("2. Update course information"); //course
                 Console.WriteLine("3. Add student to course"); //course
-                Console.WriteLine("4. Remove student from course");
-                Console.WriteLine("5. Add assignment to course"); //course
-                Console.WriteLine("6. List all courses"); //course
-                Console.WriteLine("7. Search for course"); //course
-                Console.WriteLine("8. Exit");
+                Console.WriteLine("4. Manage Modules");
+                Console.WriteLine("5. Remove student from course");
+                Console.WriteLine("6. Add assignment to course"); //course
+                Console.WriteLine("7. List all courses"); //course
+                Console.WriteLine("8. Search for course"); //course
+                Console.WriteLine("9. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
                 if (int.TryParse(choice, out int choiceInt))
@@ -73,23 +74,27 @@ namespace MyApp
                     }
                     else if (choiceInt == 4)
                     {
-                        courseHelper.RemoveStudent();
+                        courseHelper.UpdateModule();
                     }
                     else if (choiceInt == 5)
                     {
+                        courseHelper.RemoveStudent();
+                    }
+                    else if (choiceInt == 6)
+                    {
                         courseHelper.AddAssignment();
                     }
-                    else if (choiceInt == 6) //list all courses
+                    else if (choiceInt == 7) //list all courses
                     {
                         courseHelper.SearchForCourse();
                     }
-                    else if (choiceInt == 7) //search for course
+                    else if (choiceInt == 8) //search for course
                     {
                         Console.WriteLine("Enter course name or description: ");
                         var srch = Console.ReadLine() ?? string.Empty;
                         courseHelper.SearchForCourse(srch);
                     }
-                    else if (choiceInt == 8) //quit
+                    else if (choiceInt == 9) //quit
                     {
                         cont = false;
                     }

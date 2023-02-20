@@ -10,5 +10,10 @@ namespace Library.LMS.Models
     {
         public AssignmentItem() { }
         public Assignment Assignment { get; set; }
+        public override string DisplayAll()
+        {
+            return $"{Name} - {Description}\n" +
+                $"{Assignment.Display()}";
+        }
     }
 }

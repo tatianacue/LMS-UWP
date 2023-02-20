@@ -19,5 +19,11 @@ namespace Library.LMS.Models
         {
             return $"({DueDate}) - {Name}";
         }
+        public string Display()
+        {
+            return $"[{DueDate}] {Name}\n" +
+                    $"Description: {Description}\n" +
+                    $"Total Available Points: {TotalAvailablePoints}";
+        }
     }
 }

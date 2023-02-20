@@ -11,5 +11,10 @@ namespace Library.LMS.Models
         public PageItem() { }
 
         public string HTMLBody { get; set; }
+        public override string DisplayAll()
+        {
+            return $"{Name} - {Description}\n" +
+                $"{HTMLBody}";
+        }
     }
 }
