@@ -104,16 +104,16 @@ namespace App.LMS.Helpers
                         string oldID = selected.ID; //saves old code to remove from key list
 
                         Console.WriteLine("Enter new code:");
-                        string tempCode = Console.ReadLine() ?? string.Empty;
-                        tempCode = tempCode.ToUpper();
-                        selected.ID = tempCode;
+                        string tempID = Console.ReadLine() ?? string.Empty;
+                        tempID = tempID.ToUpper();
+                        selected.ID = tempID;
                         bool check = studentService.CheckID(selected.ID);
                         while (!check) // checks if code already exists
                         {
                             Console.WriteLine("Course Code Already Exists. Enter another one:");
-                            tempCode = Console.ReadLine() ?? string.Empty;
-                            tempCode = tempCode.ToUpper();
-                            selected.ID = tempCode;
+                            tempID = Console.ReadLine() ?? string.Empty;
+                            tempID = tempID.ToUpper();
+                            selected.ID = tempID;
                             check = studentService.CheckID(selected.ID);
                         }
                         studentService.IDDictionary.Remove(oldID); //removes old code and frees it up for possible use later
