@@ -17,7 +17,7 @@ namespace Library.LMS.Models
         //other
         public override string ToString() //override output person
         {
-            return $"[{ID.ToUpper()}] - {Name}";
+            return $"[{ID}] - {Name}";
         }
     }
 }

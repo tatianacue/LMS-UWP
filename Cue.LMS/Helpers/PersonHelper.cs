@@ -19,8 +19,18 @@ namespace App.LMS.Helpers
         {
             var newStudent = new Student();
             Console.WriteLine("Enter an ID:");
-            newStudent.ID = Console.ReadLine() ?? string.Empty;
-
+            string tempID = Console.ReadLine() ?? string.Empty;
+            tempID = tempID.ToUpper();
+            newStudent.ID = tempID;
+            bool check = studentService.CheckID(newStudent.ID);
+            while (!check) // checks if ID already exists
+            {
+                Console.WriteLine("ID Already Exists. Enter another ID:");
+                tempID = Console.ReadLine() ?? string.Empty;
+                tempID = tempID.ToUpper();
+                newStudent.ID = tempID;
+                check = studentService.CheckID(newStudent.ID);
+            }
             Console.WriteLine("Enter a name:");
             newStudent.Name = Console.ReadLine() ?? string.Empty;
 
@@ -105,6 +115,7 @@ namespace App.LMS.Helpers
         public void DisplayAll(Student student)
         {
             Console.WriteLine("\t\tSTUDENT DETAILS");
+            Console.WriteLine("\tID: " + student.ID);
             Console.WriteLine("\tName: " + student.Name);
             Console.WriteLine("\tClassification: " + student.Classification);
 
