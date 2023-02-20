@@ -15,5 +15,14 @@ namespace Library.LMS.Models
         public string Description { get; set; }
         public string Path { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
+        public virtual string DisplayAll()
+        {
+            return $"{Name} - {Description}";
+        }
+
     }
 }

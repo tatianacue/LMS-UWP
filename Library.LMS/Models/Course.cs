@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Library.LMS.Services;
+using System.ComponentModel.DataAnnotations;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Models
 {
@@ -63,7 +64,7 @@ namespace Library.LMS.Models
                 return true;
             }
         }
-        public void CreateModule(Module newModule) //creates module
+        public void AddModule(Module newModule) //creates module
         {
             Modules.Add(newModule);
             Console.WriteLine(newModule.Name + " added to " + Code.ToUpper());
