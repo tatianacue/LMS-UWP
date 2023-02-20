@@ -11,7 +11,7 @@ namespace Library.LMS.Services
     public class CourseService
     {
         public List<Course> courseList { get; set; }
-        private Dictionary<string, int> Codes;
+        public Dictionary<string, int> Codes { get; set; }
         public CourseService() 
         { 
             courseList = new List<Course>();
