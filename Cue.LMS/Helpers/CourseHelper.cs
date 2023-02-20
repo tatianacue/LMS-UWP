@@ -29,7 +29,18 @@ namespace App.LMS.Helpers
             var newCourse = new Course();
 
             Console.WriteLine("Enter a Course Code:");
-            newCourse.Code = Console.ReadLine() ?? string.Empty;
+            string tempCode = Console.ReadLine() ?? string.Empty;
+            tempCode = tempCode.ToUpper();
+            newCourse.Code = tempCode;
+            bool check = courseService.CheckCode(newCourse.Code);
+            while (!check) // checks if code already exists
+            {
+                Console.WriteLine("Course Code Already Exists. Enter another one:");
+                tempCode = Console.ReadLine() ?? string.Empty;
+                tempCode = tempCode.ToUpper();
+                newCourse.Code = tempCode;
+                check = courseService.CheckCode(newCourse.Code);
+            }
 
             Console.WriteLine("Enter a Name:");
             newCourse.Name = Console.ReadLine() ?? string.Empty;

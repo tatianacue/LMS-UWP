@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +11,29 @@ namespace Library.LMS.Services
     public class CourseService
     {
         public List<Course> courseList { get; set; }
+        private Dictionary<string, int> Codes;
         public CourseService() 
         { 
             courseList = new List<Course>();
+            Codes = new Dictionary<string, int>();
         }
         public void Add(Course course) //adds course to course list
         {
             courseList.Add(course);
+        }
+        public bool CheckCode(string c)
+        {
+            var result = new ArgumentException();
+            try { Codes.Add(c, 0); }
+            catch (ArgumentException r)
+            {
+                result = r;
+            }
+            if (result.Source == null) //if key already exists
+            {
+                return true;
+            }
+            else { return false; }
         }
         public List<Course> Search(string srch) //searches for course based on string
         {
