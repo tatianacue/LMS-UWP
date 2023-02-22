@@ -11,7 +11,7 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            var studentHelper = new PersonHelper();
+            var personHelper = new PersonHelper();
             var courseHelper = new CourseHelper();
             bool cont = true;
 
@@ -19,7 +19,7 @@ namespace MyApp
             {
                 Console.WriteLine("Choose an option:");
                 Console.WriteLine("1. Show course menu"); //course
-                Console.WriteLine("2. Show student menu"); //student
+                Console.WriteLine("2. Show person menu"); //student
                 Console.WriteLine("3. Quit"); //course
 
                 string choice = Console.ReadLine() ?? string.Empty;
@@ -27,11 +27,11 @@ namespace MyApp
                 {
                     if (choiceInt == 1) //show course menu
                     {
-                        ShowCourseMenu(courseHelper, studentHelper);
+                        ShowCourseMenu(courseHelper, personHelper);
                     }
                     else if (choiceInt == 2) //show student menu
                     {
-                        ShowStudentMenu(studentHelper, courseHelper);
+                        ShowPersonMenu(personHelper, courseHelper);
                     }
                     else if (choiceInt == 3) //quit
                     {
@@ -101,45 +101,50 @@ namespace MyApp
                 }
             }
         }
-        static void ShowStudentMenu(PersonHelper studentHelper, CourseHelper courseHelper)
+        static void ShowPersonMenu(PersonHelper personHelper, CourseHelper courseHelper)
         {
             bool cont = true;
             while (cont) //menu
             {
-                Console.WriteLine("STUDENT MENU");
-                Console.WriteLine("1. Add a student"); //student
-                Console.WriteLine("2. List all students");//student
-                Console.WriteLine("3. Search for student"); //student
-                Console.WriteLine("4. List all courses for a student"); //student
-                Console.WriteLine("5. Update student information"); //student
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("PERSON MENU");
+                Console.WriteLine("1. Add a person");
+                Console.WriteLine("2. List all people");
+                Console.WriteLine("3. List all students");
+                Console.WriteLine("4. Search for student"); //student
+                Console.WriteLine("5. List all courses for a student"); //student
+                Console.WriteLine("6. Update student information"); //student
+                Console.WriteLine("7. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
                 if (int.TryParse(choice, out int choiceInt))
                 {
                     if (choiceInt == 1)
                     {
-                        studentHelper.AddStudent();
+                        personHelper.AddPerson();
                     }
                     else if (choiceInt == 2)
                     {
-                        studentHelper.SearchForStudent(courseHelper);
+                        personHelper.ListAllPeople();
                     }
-                    else if (choiceInt == 3)
+                    else if (choiceInt == 3) //list students
                     {
-                        Console.WriteLine("Enter student name:");
-                        var srch = Console.ReadLine() ?? string.Empty;
-                        studentHelper.SearchForStudent(courseHelper, srch);
+                        personHelper.SearchForStudent(courseHelper);
                     }
                     else if (choiceInt == 4)
                     {
-                        courseHelper.ListStudentCourses(studentHelper.StudentPicker());
+                        Console.WriteLine("Enter student name:");
+                        var srch = Console.ReadLine() ?? string.Empty;
+                        personHelper.SearchForStudent(courseHelper, srch);
                     }
                     else if (choiceInt == 5)
                     {
-                        studentHelper.UpdateStudent();
+                        courseHelper.ListStudentCourses(personHelper.StudentPicker());
                     }
-                    else if (choiceInt == 6) //quit
+                    else if (choiceInt == 6)
+                    {
+                        personHelper.UpdateStudent();
+                    }
+                    else if (choiceInt == 7) //quit
                     {
                         cont = false;
                     }

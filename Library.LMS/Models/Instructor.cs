@@ -9,5 +9,9 @@ namespace Library.LMS.Models
     public class Instructor : Person
     {
         public Instructor() { }
+        public override string ToString() //override output person
+        {
+            return $"[{ID}][INSTRUCTOR] - {Name}";
+        }
     }
 }
