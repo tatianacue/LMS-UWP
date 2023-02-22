@@ -9,17 +9,17 @@ namespace Library.LMS.Services
 {
     public class PersonService
     {
-        public List<Student> studentList { get; set; }
+        public List<Person> personList { get; set; }
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
         public PersonService()
         {
-            studentList = new List<Student>();
+            personList = new List<Person>();
             IDDictionary = new Dictionary<string, int>();
         }
         
-        public void Add(Student student) //adds student to student list
+        public void Add(Person person) //adds student, TA, or instructor to list
         {
-            studentList.Add(student);
+            personList.Add(person);
         }
 
         public bool CheckID(string ID)
@@ -36,10 +36,10 @@ namespace Library.LMS.Services
             }
             else { return false; }
         }
-        public List<Student> Search(string srch) //searches for student based on string
+        public List<Person> Search(string srch) //searches for student based on string
         {
-            var searchStudent = studentList.Where(t => t.Name.Contains(srch, StringComparison.InvariantCultureIgnoreCase));
-            List<Student> results = searchStudent.ToList(); //enumerable to list
+            var searchStudent = personList.Where(t => t.Name.Contains(srch, StringComparison.InvariantCultureIgnoreCase) && t is Student);
+            List<Person> results = searchStudent.ToList(); //enumerable to list
 
             return results;
         }

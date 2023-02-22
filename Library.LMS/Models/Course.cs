@@ -44,7 +44,7 @@ namespace Library.LMS.Models
             Console.WriteLine(newAssignment.Name + " added to " + Code.ToUpper());
         }
 
-        public bool FindStudent(Student student) //finds if student is in roster
+        public bool FindStudent(Person student) //finds if student is in roster
         {
             int check = -1;
             foreach (var person in Roster)

@@ -6,66 +6,114 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace App.LMS.Helpers
 {
     public class PersonHelper
     {
-        private PersonService studentService;
+        private PersonService personService;
         public PersonHelper() { 
-            studentService = new PersonService();
+            personService = new PersonService();
         }
-        public void AddStudent() //adds student to studentList
+        public void AddPerson() //adds student to studentList
         {
-            var newStudent = new Student();
-            Console.WriteLine("Enter an ID:");
-            string tempID = Console.ReadLine() ?? string.Empty;
-            tempID = tempID.ToUpper();
-            newStudent.ID = tempID;
-            bool check = studentService.CheckID(newStudent.ID);
-            while (!check) // checks if ID already exists
+            Console.WriteLine("Is this person a (S)tudent, (T)eaching Assistant, or (I)nstructor?");
+            string choiceChar = Console.ReadLine() ?? string.Empty;
+            if (choiceChar.Equals("s", StringComparison.InvariantCultureIgnoreCase))
             {
-                Console.WriteLine("ID Already Exists. Enter another ID:");
-                tempID = Console.ReadLine() ?? string.Empty;
+                var newStudent = new Student();
+                Console.WriteLine("Enter an ID:");
+                string tempID = Console.ReadLine() ?? string.Empty;
                 tempID = tempID.ToUpper();
                 newStudent.ID = tempID;
-                check = studentService.CheckID(newStudent.ID);
+                bool check = personService.CheckID(newStudent.ID);
+                while (!check) // checks if ID already exists
+                {
+                    Console.WriteLine("ID Already Exists. Enter another ID:");
+                    tempID = Console.ReadLine() ?? string.Empty;
+                    tempID = tempID.ToUpper();
+                    newStudent.ID = tempID;
+                    check = personService.CheckID(newStudent.ID);
+                }
+                Console.WriteLine("Enter a name:");
+                newStudent.Name = Console.ReadLine() ?? string.Empty;
+
+                Console.WriteLine("f = Freshman, " +
+                    "s = Sophomore, " + "j = Junior, " + " e = Senior\n" +
+                    "Enter a classification:");
+                newStudent.Classification = Console.ReadLine() ?? string.Empty;
+                personService.Add(newStudent);
+                personService.personList.ForEach(Console.WriteLine); //displays all to show student is added to list
             }
-            Console.WriteLine("Enter a name:");
-            newStudent.Name = Console.ReadLine() ?? string.Empty;
-
-            Console.WriteLine("f = Freshman, " +
-                "s = Sophomore, " + "j = Junior, " + " e = Senior\n" +
-                "Enter a classification:");
-            newStudent.Classification = Console.ReadLine() ?? string.Empty;
-
-            studentService.Add(newStudent);
-            studentService.studentList.ForEach(Console.WriteLine); //displays all to show student is added to list
+            else if (choiceChar.Equals("t", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var newTA = new TeachingAssistant();
+                Console.WriteLine("Enter an ID:");
+                string tempID = Console.ReadLine() ?? string.Empty;
+                tempID = tempID.ToUpper();
+                newTA.ID = tempID;
+                bool check = personService.CheckID(newTA.ID);
+                while (!check) // checks if ID already exists
+                {
+                    Console.WriteLine("ID Already Exists. Enter another ID:");
+                    tempID = Console.ReadLine() ?? string.Empty;
+                    tempID = tempID.ToUpper();
+                    newTA.ID = tempID;
+                    check = personService.CheckID(newTA.ID);
+                }
+                Console.WriteLine("Enter a name:");
+                newTA.Name = Console.ReadLine() ?? string.Empty;
+                personService.Add(newTA);
+                personService.personList.ForEach(Console.WriteLine);
+            }
+            else if (choiceChar.Equals("i", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var newI = new Instructor();
+                Console.WriteLine("Enter an ID:");
+                string tempID = Console.ReadLine() ?? string.Empty;
+                tempID = tempID.ToUpper();
+                newI.ID = tempID;
+                bool check = personService.CheckID(newI.ID);
+                while (!check) // checks if ID already exists
+                {
+                    Console.WriteLine("ID Already Exists. Enter another ID:");
+                    tempID = Console.ReadLine() ?? string.Empty;
+                    tempID = tempID.ToUpper();
+                    newI.ID = tempID;
+                    check = personService.CheckID(newI.ID);
+                }
+                Console.WriteLine("Enter a name:");
+                newI.Name = Console.ReadLine() ?? string.Empty;
+                personService.Add(newI);
+                personService.personList.ForEach(Console.WriteLine);
+            }
         }
         public Student StudentPicker() { //lets user pick student and returns a student
             Console.WriteLine("Which student do you want to pick? (Enter ID)"); //pick student
-            studentService.studentList.ForEach(Console.WriteLine);
+            var students = personService.personList.Where(s => s is Student).ToList();
+            students.ForEach(Console.WriteLine);
             var id = Console.ReadLine() ?? string.Empty;
-            var selected = studentService.studentList.FirstOrDefault(s => s.ID.Equals(id, StringComparison.InvariantCultureIgnoreCase));
-            return selected;
+            var selected = personService.personList.FirstOrDefault(s => s.ID.Equals(id, StringComparison.InvariantCultureIgnoreCase));
+            return (Student)selected;
         }
         public void SearchForStudent(CourseHelper helper, string? srch = null) //searches for student and allows selection
         {
             if (string.IsNullOrEmpty(srch))
             {
-                studentService.studentList.ForEach(Console.WriteLine);
+                personService.personList.Where(s => s is Student).ToList().ForEach(Console.WriteLine); //lists all students
             }
             else
             {
-                studentService.Search(srch).ForEach(Console.WriteLine);
+                personService.Search(srch).ForEach(Console.WriteLine);
             }
             Console.WriteLine("Which student would you like to select? (Enter ID)");
             var code = Console.ReadLine() ?? string.Empty;
-            var selected = studentService.studentList.FirstOrDefault(s => s.ID.Equals(code, StringComparison.InvariantCultureIgnoreCase));
+            var selected = personService.personList.FirstOrDefault(s => s.ID.Equals(code, StringComparison.InvariantCultureIgnoreCase) && s is Student);
             if (selected != null)
             {
-                DisplayAll(selected);
-                helper.ListStudentCourses(selected);
+                DisplayAll((Student)selected);
+                helper.ListStudentCourses((Student)selected);
             }
         }
         public void UpdateStudent() //student update menu
@@ -107,16 +155,16 @@ namespace App.LMS.Helpers
                         string tempID = Console.ReadLine() ?? string.Empty;
                         tempID = tempID.ToUpper();
                         selected.ID = tempID;
-                        bool check = studentService.CheckID(selected.ID);
+                        bool check = personService.CheckID(selected.ID);
                         while (!check) // checks if code already exists
                         {
                             Console.WriteLine("Course Code Already Exists. Enter another one:");
                             tempID = Console.ReadLine() ?? string.Empty;
                             tempID = tempID.ToUpper();
                             selected.ID = tempID;
-                            check = studentService.CheckID(selected.ID);
+                            check = personService.CheckID(selected.ID);
                         }
-                        studentService.IDDictionary.Remove(oldID); //removes old code and frees it up for possible use later
+                        personService.IDDictionary.Remove(oldID); //removes old code and frees it up for possible use later
                         Console.WriteLine("Updated info: " + selected);
                     }
                     else if (pickInt == 4) //exits back to main menu
@@ -133,6 +181,10 @@ namespace App.LMS.Helpers
             Console.WriteLine("\tName: " + student.Name);
             Console.WriteLine("\tClassification: " + student.Classification);
 
+        }
+        public void ListAllPeople() //lists people
+        {
+            personService.personList.ForEach(Console.WriteLine);
         }
     }
 }
