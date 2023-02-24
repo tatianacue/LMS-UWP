@@ -52,10 +52,11 @@ namespace MyApp
                 Console.WriteLine("3. Add student to course"); //course
                 Console.WriteLine("4. Manage Modules");
                 Console.WriteLine("5. Remove student from course");
-                Console.WriteLine("6. Add assignment to course"); //course
-                Console.WriteLine("7. List all courses"); //course
-                Console.WriteLine("8. Search for course"); //course
-                Console.WriteLine("9. Exit");
+                Console.WriteLine("6. Add assignment group");
+                Console.WriteLine("7. Add assignment to course"); //course
+                Console.WriteLine("8. List all courses"); //course
+                Console.WriteLine("9. Search for course"); //course
+                Console.WriteLine("10. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
                 if (int.TryParse(choice, out int choiceInt))
@@ -82,19 +83,23 @@ namespace MyApp
                     }
                     else if (choiceInt == 6)
                     {
+                        courseHelper.AddAssignmentGroup();
+                    }
+                    else if (choiceInt == 7)
+                    {
                         courseHelper.AddAssignment();
                     }
-                    else if (choiceInt == 7) //list all courses
+                    else if (choiceInt == 8) //list all courses
                     {
                         courseHelper.SearchForCourse();
                     }
-                    else if (choiceInt == 8) //search for course
+                    else if (choiceInt == 9) //search for course
                     {
                         Console.WriteLine("Enter course name or description: ");
                         var srch = Console.ReadLine() ?? string.Empty;
                         courseHelper.SearchForCourse(srch);
                     }
-                    else if (choiceInt == 9) //quit
+                    else if (choiceInt == 10) //quit
                     {
                         cont = false;
                     }

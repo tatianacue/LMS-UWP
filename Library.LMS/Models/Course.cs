@@ -1,4 +1,5 @@
-﻿using Library.LMS.Services;
+﻿using Library.LMS.Models.Grading;
+using Library.LMS.Services;
 using System.ComponentModel.DataAnnotations;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Models
@@ -11,6 +12,7 @@ namespace Library.LMS.Models
             Roster = new List<Person>();
             Assignments = new List<Assignment>();
             Modules = new List<Module>();
+            AssignmentGroups = new List<AssignmentGroup>();
         }
 
         //properties
@@ -19,6 +21,7 @@ namespace Library.LMS.Models
         public string Description { get; set; }
         public List<Person> Roster { get; set; }
         public List<Assignment> Assignments { get; set; }
+        public List<AssignmentGroup> AssignmentGroups { get; set; }
         public List<Module> Modules { get; set; }
 
         //list manipulation
@@ -42,6 +45,10 @@ namespace Library.LMS.Models
         {
             Assignments.Add(newAssignment);
             Console.WriteLine(newAssignment.Name + " added to " + Code.ToUpper());
+        }
+        public void AddAssignmentGroup(AssignmentGroup group)
+        {
+            AssignmentGroups.Add(group);
         }
 
         public bool FindStudent(Person student) //finds if student is in roster
