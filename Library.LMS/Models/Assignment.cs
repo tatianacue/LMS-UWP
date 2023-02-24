@@ -8,16 +8,21 @@ namespace Library.LMS.Models
 {
     public class Assignment
     {
-        public Assignment() { }
+        public Assignment()
+        {
+            Id = LastId++;
+        }
 
         //properties
         public string Name { get; set; }
         public string Description { get; set; }
         public int TotalAvailablePoints { get; set; }
         public string DueDate { get; set; }
+        public static int LastId = 1;
+        public int Id { get; private set; }
         public override string ToString()
         {
-            return $"({DueDate}) - {Name}";
+            return $"[{Id}]({DueDate}) - {Name}";
         }
         public string Display()
         {

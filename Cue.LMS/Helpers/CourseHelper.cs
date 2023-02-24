@@ -1,10 +1,13 @@
 ﻿using Library.LMS.Models;
+using Library.LMS.Models.Grading;
 using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Xml.Serialization;
 
 /* Tatiana Graciela Cue COP4870-0001*/
@@ -182,7 +185,35 @@ namespace App.LMS.Helpers
             Console.WriteLine("Enter due date:");
             tempAssignment.DueDate = Console.ReadLine() ?? string.Empty;
 
+            Console.WriteLine("Which group do you want to add assignment to?");
+            selected.AssignmentGroups.ForEach(Console.WriteLine);
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out id);
+            }
+            var group = selected.AssignmentGroups.FirstOrDefault(g => g.Id == id);
+            group.AddAssignment(tempAssignment); //assigns assignment to group
             selected.AddAssignment(tempAssignment); //adds assignment to that specific course
+        }
+        public void AddAssignmentGroup()
+        {
+            Console.WriteLine("Which course do you want to add to? (Enter code)"); //pick course
+            var selected = CoursePicker();
+            var tempGroup = new AssignmentGroup();
+            Console.WriteLine("Enter name for group:");
+            tempGroup.Name = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter weight for group:");
+            int weight;
+            while (!int.TryParse(Console.ReadLine(), out weight))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out weight);
+            }
+            tempGroup.Weight = weight;
+
+            selected.AddAssignmentGroup(tempGroup);
         }
         //module stuff
         public void UpdateModule()
@@ -280,8 +311,13 @@ namespace App.LMS.Helpers
 
             Console.WriteLine("Which assignment do you want to add?");
             course.Assignments.ForEach(Console.WriteLine);
-            var name = Console.ReadLine() ?? string.Empty;
-            var selection = course.Assignments.FirstOrDefault(m => m.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            int Id;
+            while (!int.TryParse(Console.ReadLine(), out Id))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out Id);
+            }
+            var selection = course.Assignments.FirstOrDefault(m => m.Id == Id);
             assignmentItem.Assignment = selection;
 
             module.AddContent(assignmentItem); //adds assignment content item
