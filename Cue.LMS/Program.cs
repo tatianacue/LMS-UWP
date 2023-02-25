@@ -20,7 +20,8 @@ namespace MyApp
                 Console.WriteLine("Choose an option:");
                 Console.WriteLine("1. Show course menu"); //course
                 Console.WriteLine("2. Show person menu"); //student
-                Console.WriteLine("3. Quit"); //course
+                Console.WriteLine("3. Show submission menu");
+                Console.WriteLine("4. Quit"); //course
 
                 string choice = Console.ReadLine() ?? string.Empty;
                 if (int.TryParse(choice, out int choiceInt))
@@ -33,7 +34,11 @@ namespace MyApp
                     {
                         ShowPersonMenu(personHelper, courseHelper);
                     }
-                    else if (choiceInt == 3) //quit
+                    else if (choiceInt == 3)
+                    {
+                        ShowSubmissionMenu(courseHelper, personHelper);
+                    }
+                    else if (choiceInt == 4) //quit
                     {
                         cont = false;
                     }
@@ -150,6 +155,34 @@ namespace MyApp
                         personHelper.UpdateStudent();
                     }
                     else if (choiceInt == 7) //quit
+                    {
+                        cont = false;
+                    }
+                }
+            }
+        }
+        static void ShowSubmissionMenu(CourseHelper courseHelper, PersonHelper personHelper)
+        {
+            bool cont = true;
+            while (cont) //menu
+            {
+                Console.WriteLine("SUBMISSION MENU");
+                Console.WriteLine("1. Add a submission");
+                Console.WriteLine("2. Grade a submission");
+                Console.WriteLine("3. Exit");
+
+                string choice = Console.ReadLine() ?? string.Empty;
+                if (int.TryParse(choice, out int choiceInt))
+                {
+                    if (choiceInt == 1)
+                    {
+                        courseHelper.AddSubmissionToCourse(personHelper.StudentPicker());
+                    }
+                    else if (choiceInt == 2)
+                    {
+                        courseHelper.AddGradeSubmission();
+                    }
+                    else if (choiceInt == 3)
                     {
                         cont = false;
                     }

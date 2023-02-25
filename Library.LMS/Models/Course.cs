@@ -13,6 +13,7 @@ namespace Library.LMS.Models
             Assignments = new List<Assignment>();
             Modules = new List<Module>();
             AssignmentGroups = new List<AssignmentGroup>();
+            Submissions= new List<Submission>();
         }
 
         //properties
@@ -23,6 +24,7 @@ namespace Library.LMS.Models
         public List<Assignment> Assignments { get; set; }
         public List<AssignmentGroup> AssignmentGroups { get; set; }
         public List<Module> Modules { get; set; }
+        public List<Submission> Submissions { get; set; }
 
         //list manipulation
         public void AddStudent(Student newStudent) //adds student to course

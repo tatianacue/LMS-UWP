@@ -16,13 +16,31 @@ namespace App.LMS.Helpers
     public class CourseHelper
     {
         private CourseService courseService;
+        private SubmissionHelper submissionHelper;
         public CourseHelper()
         {
             courseService = new CourseService();
+            submissionHelper = new SubmissionHelper();
         }
         private Course CoursePicker() //course selection menu
         {
             courseService.courseList.ForEach(Console.WriteLine);
+            var code = Console.ReadLine() ?? string.Empty;
+            var selected = courseService.courseList.FirstOrDefault(c => c.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase));
+            return selected;
+        }
+        public Course StudentCoursePicker(Student student)
+        {
+            var studentCourses = new List<Course>();
+            foreach (var tempCourse in courseService.courseList)
+            {
+                bool real = tempCourse.FindStudent(student); //if student found in course then it will add to temp list
+                if (real)
+                {
+                    studentCourses.Add(tempCourse);
+                }
+            }
+            studentCourses.ForEach(Console.WriteLine);
             var code = Console.ReadLine() ?? string.Empty;
             var selected = courseService.courseList.FirstOrDefault(c => c.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase));
             return selected;
@@ -214,6 +232,19 @@ namespace App.LMS.Helpers
             tempGroup.Weight = weight;
 
             selected.AddAssignmentGroup(tempGroup);
+        }
+        //grading stuff
+        public void AddSubmissionToCourse(Student student)
+        {
+            Console.WriteLine("Pick a course:");
+            var course = StudentCoursePicker(student);
+            submissionHelper.AddSubmission(course, student);
+        }
+        public void AddGradeSubmission()
+        {
+            Console.WriteLine("Pick a course:");
+            var course = CoursePicker();
+            submissionHelper.AddGrade(course);
         }
         //module stuff
         public void UpdateModule()
