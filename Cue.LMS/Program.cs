@@ -123,7 +123,8 @@ namespace MyApp
                 Console.WriteLine("4. Search for student"); //student
                 Console.WriteLine("5. List all courses for a student"); //student
                 Console.WriteLine("6. Update student information"); //student
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("7. Calculate course grade (Student)");
+                Console.WriteLine("8. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
                 if (int.TryParse(choice, out int choiceInt))
@@ -154,7 +155,11 @@ namespace MyApp
                     {
                         personHelper.UpdateStudent();
                     }
-                    else if (choiceInt == 7) //quit
+                    else if (choiceInt == 7)
+                    {
+                        courseHelper.CalculateGrade(personHelper.StudentPicker());
+                    }
+                    else if (choiceInt == 8) //quit
                     {
                         cont = false;
                     }
@@ -167,7 +172,7 @@ namespace MyApp
             while (cont) //menu
             {
                 Console.WriteLine("SUBMISSION MENU");
-                Console.WriteLine("1. Add a submission");
+                Console.WriteLine("1. Submit an assignment");
                 Console.WriteLine("2. Grade a submission");
                 Console.WriteLine("3. Exit");
 

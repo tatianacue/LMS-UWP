@@ -212,6 +212,7 @@ namespace App.LMS.Helpers
                 int.TryParse(Console.ReadLine(), out id);
             }
             var group = selected.AssignmentGroups.FirstOrDefault(g => g.Id == id);
+            tempAssignment.Group = group; //assigns group to assignment
             group.AddAssignment(tempAssignment); //assigns assignment to group
             selected.AddAssignment(tempAssignment); //adds assignment to that specific course
         }
@@ -245,6 +246,13 @@ namespace App.LMS.Helpers
             Console.WriteLine("Pick a course:");
             var course = CoursePicker();
             submissionHelper.AddGrade(course);
+        }
+        public void CalculateGrade(Student student)
+        {
+            Console.WriteLine("Pick a course:");
+            var course = CoursePicker();
+            double courseGrade = submissionHelper.CalculateCourseGrade(student, course);
+            Console.WriteLine(student.Name + " total grade for " + course + ": " + courseGrade + "%");
         }
         //module stuff
         public void UpdateModule()

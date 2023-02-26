@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.LMS.Models.Grading;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Library.LMS.Models
         public string Description { get; set; }
         public int TotalAvailablePoints { get; set; }
         public string DueDate { get; set; }
+        public AssignmentGroup Group { get; set; }
         public static int LastId = 1;
         public int Id { get; private set; }
         public override string ToString()
