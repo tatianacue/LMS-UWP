@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace App.LMS.Helpers
@@ -25,6 +26,7 @@ namespace App.LMS.Helpers
             var submission = new Submission();
             submission.Student = student;
             submission.Assignment = assignment;
+            submission.Course = course;
             course.Submissions.Add(submission);
         }
         public void AddGrade(Course course)
@@ -45,7 +47,43 @@ namespace App.LMS.Helpers
                 Console.WriteLine("Invalid. Try Again.");
                 int.TryParse(Console.ReadLine(), out points);
             }
-            submission.Grade = points;
+            double decimalGrade = points/(submission.Assignment.TotalAvailablePoints); //calculates grade
+
+            submission.Grade = points; //points
+            submission.Student.AddAssignmentGrade(submission.Assignment.Id, decimalGrade); //adds to student individual assignment grades
         }
+        public double CalculateCourseGrade(Student student, Course course)
+        {
+            var tempList = course.Submissions.Where(s => s.Student == student).ToList(); //list of submissions by specific student
+            Dictionary<AssignmentGroup, double> GroupGrades = new Dictionary<AssignmentGroup, double>();
+            double courseGrade = 0;
+            foreach (var group in course.AssignmentGroups) //each group in course
+            {
+                double totalGrades = 0;
+                double totalPoints = 0;
+                foreach (var submission in tempList) //for each submission
+                {
+                    foreach (var assignment in group.Group) //each assignment in group
+                    {
+                        if (submission.Assignment == assignment)
+                        {
+                            Console.WriteLine("Test");
+                            totalGrades += submission.Grade;
+                            totalPoints += assignment.TotalAvailablePoints;
+                        }
+                    }
+                } 
+               var totalGroupGrade = totalGrades / totalPoints; //total grade for entire group
+               GroupGrades.Add(group, totalGroupGrade); //adds group and grade to dictionary
+            }
+            foreach (var pair in GroupGrades) //for each total grade in group, multiply by the weight
+            {
+                double weightedTotal = (pair.Key.Weight) * (pair.Value);
+                courseGrade += weightedTotal;
+            }
+            student.AddCourseGrade(course, courseGrade); //adds to student course grade
+            return courseGrade;
+        }
+
     }
 }

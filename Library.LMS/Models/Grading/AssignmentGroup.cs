@@ -10,17 +10,17 @@ namespace Library.LMS.Models.Grading
     {
         public AssignmentGroup()
         {
-            group = new List<Assignment>();
+            Group = new List<Assignment>();
             Id = LastId++;
         }
         public static int LastId = 1;
         public int Id { get; private set; }
         public string Name { get; set; }
         public int Weight { get; set; }
-        public List<Assignment> group { get; set;}
+        public List<Assignment> Group { get; set;}
         public void AddAssignment(Assignment assignment)
         {
-            group.Add(assignment);
+            Group.Add(assignment);
         }
         public override string ToString()
         {
