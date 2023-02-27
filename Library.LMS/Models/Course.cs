@@ -13,7 +13,8 @@ namespace Library.LMS.Models
             Assignments = new List<Assignment>();
             Modules = new List<Module>();
             AssignmentGroups = new List<AssignmentGroup>();
-            Submissions= new List<Submission>();
+            Submissions = new List<Submission>();
+            Announcements = new List<Announcement>();
         }
 
         //properties
@@ -23,9 +24,10 @@ namespace Library.LMS.Models
         public int CreditHours { get; set; }
         public List<Person> Roster { get; set; }
         public List<Assignment> Assignments { get; set; }
-        public List<AssignmentGroup> AssignmentGroups { get; set; }
+        public List<AssignmentGroup> AssignmentGroups { get; set; } //groups of assignments
         public List<Module> Modules { get; set; }
         public List<Submission> Submissions { get; set; }
+        public List<Announcement> Announcements { get; set; }
 
         //list manipulation
         public void AddStudent(Student newStudent) //adds student to course
@@ -78,6 +80,14 @@ namespace Library.LMS.Models
         {
             Modules.Add(newModule);
             Console.WriteLine(newModule.Name + " added to " + Code.ToUpper());
+        }
+        public void AddAnnouncement(Announcement announcement) //add announcement
+        {
+            Announcements.Add(announcement);
+        }
+        public void RemoveAnnouncement(Announcement announcement) //remove announcement
+        {
+            Announcements.Remove(announcement);
         }
 
         //output

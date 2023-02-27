@@ -61,7 +61,8 @@ namespace MyApp
                 Console.WriteLine("7. Add assignment to course"); //course
                 Console.WriteLine("8. List all courses"); //course
                 Console.WriteLine("9. Search for course"); //course
-                Console.WriteLine("10. Exit");
+                Console.WriteLine("10. Show announcement menu");
+                Console.WriteLine("11. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
                 if (int.TryParse(choice, out int choiceInt))
@@ -104,7 +105,11 @@ namespace MyApp
                         var srch = Console.ReadLine() ?? string.Empty;
                         courseHelper.SearchForCourse(srch);
                     }
-                    else if (choiceInt == 10) //quit
+                    else if (choiceInt == 10) //announcement menu
+                    {
+                        courseHelper.ShowAnnouncmentsMenu();
+                    }
+                    else if (choiceInt == 11) //quit
                     {
                         cont = false;
                     }
