@@ -1,4 +1,5 @@
-﻿using Library.LMS.Models;
+﻿using Library.LMS;
+using Library.LMS.Models;
 using Library.LMS.Models.Grading;
 using Library.LMS.Services;
 using System;
@@ -13,11 +14,13 @@ namespace App.LMS.Helpers
 {
     public class PersonHelper
     {
+        private ListNavigator<Person> listNavigator;
         private PersonService personService;
         private SubmissionHelper sHelper;
         public PersonHelper() {
             personService = new PersonService();
             sHelper = new SubmissionHelper();
+            listNavigator = new ListNavigator<Person>(personService.personList);
         }
         public void AddPerson() //adds student to studentList
         {
@@ -47,7 +50,6 @@ namespace App.LMS.Helpers
                     "Enter a classification:");
                 newStudent.Classification = Console.ReadLine() ?? string.Empty;
                 personService.Add(newStudent);
-                personService.personList.ForEach(Console.WriteLine); //displays all to show student is added to list
             }
             else if (choiceChar.Equals("t", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -68,7 +70,6 @@ namespace App.LMS.Helpers
                 Console.WriteLine("Enter a name:");
                 newTA.Name = Console.ReadLine() ?? string.Empty;
                 personService.Add(newTA);
-                personService.personList.ForEach(Console.WriteLine);
             }
             else if (choiceChar.Equals("i", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -89,13 +90,13 @@ namespace App.LMS.Helpers
                 Console.WriteLine("Enter a name:");
                 newI.Name = Console.ReadLine() ?? string.Empty;
                 personService.Add(newI);
-                personService.personList.ForEach(Console.WriteLine);
             }
         }
         public Student StudentPicker() { //lets user pick student and returns a student
+            var list = personService.personList.Where(s => s is Student).ToList();
+            var tempList = new ListNavigator<Person>(list);
+            ListOptions(tempList);
             Console.WriteLine("Which student do you want to pick? (Enter ID)"); //pick student
-            var students = personService.personList.Where(s => s is Student).ToList();
-            students.ForEach(Console.WriteLine);
             var id = Console.ReadLine() ?? string.Empty;
             var selected = personService.personList.FirstOrDefault(s => s.ID.Equals(id, StringComparison.InvariantCultureIgnoreCase));
             return (Student)selected;
@@ -104,11 +105,15 @@ namespace App.LMS.Helpers
         {
             if (string.IsNullOrEmpty(srch))
             {
-                personService.personList.Where(s => s is Student).ToList().ForEach(Console.WriteLine); //lists all students
+                var list = personService.personList.Where(s => s is Student).ToList(); //lists all students
+                var tempList = new ListNavigator<Person>(list);
+                ListOptions(tempList);
             }
             else
             {
-                personService.Search(srch).ForEach(Console.WriteLine);
+                var list = personService.Search(srch);
+                var tempList = new ListNavigator<Person>(list);
+                ListOptions(tempList);
             }
             Console.WriteLine("Which student would you like to select? (Enter ID)");
             var code = Console.ReadLine() ?? string.Empty;
@@ -270,9 +275,52 @@ namespace App.LMS.Helpers
             Console.WriteLine("\tClassification: " + student.Classification);
 
         }
-        public void ListAllPeople() //lists people
+        public void ListOptions(ListNavigator<Person>? list = null)
         {
-            personService.personList.ForEach(Console.WriteLine);
+            ListNavigator<Person> navigator;
+            if (list != null)
+            {
+                navigator = list; //if its another list
+            }
+            else
+            {
+                navigator = listNavigator; //make it normal list
+            }
+            var display = navigator.GetCurrentPage();
+            foreach (var person in display)
+            {
+                Console.WriteLine(person.Value);
+            }
+            bool menu = true;
+            while (menu)
+            {
+                Console.WriteLine("(1)BACK    (2)NEXT     (3)SELECT/EXIT");
+                string pick = Console.ReadLine() ?? string.Empty;
+
+                if (int.TryParse(pick, out int pickInt))
+                {
+                    if (pickInt == 1) //goes back
+                    {
+                        display = navigator.GoBackward();
+                        foreach (var person in display)
+                        {
+                            Console.WriteLine(person.Value);
+                        }
+                    }
+                    else if (pickInt == 2) //go next
+                    {
+                        display = navigator.GoForward();
+                        foreach (var person in display)
+                        {
+                            Console.WriteLine(person.Value);
+                        }
+                    }
+                    else if (pickInt == 3) //exits back to main menu
+                    {
+                        menu = false;
+                    }
+                }
+            }
         }
     }
 }
