@@ -141,7 +141,7 @@ namespace MyApp
                     }
                     else if (choiceInt == 2)
                     {
-                        personHelper.ListAllPeople();
+                        personHelper.ListOptions();
                     }
                     else if (choiceInt == 3) //list students
                     {
