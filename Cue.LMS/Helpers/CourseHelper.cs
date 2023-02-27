@@ -466,5 +466,116 @@ namespace App.LMS.Helpers
                 Console.WriteLine(selected.DisplayAll());
             }
         }
+        //announcements stuff
+        public void ShowAnnouncmentsMenu()
+        {
+            Console.WriteLine("Pick a course (Course Code):");
+            var selected = CoursePicker();
+            bool menu = true;
+            while (menu)
+            {
+                Console.WriteLine("ANNOUNCEMENTS MENU");
+                Console.WriteLine("1. Create Announcement");
+                Console.WriteLine("2. Delete Announcement");
+                Console.WriteLine("3. List All Announcements");
+                Console.WriteLine("4. Update Announcement");
+                Console.WriteLine("5. Exit");
+
+                string pick = Console.ReadLine() ?? string.Empty;
+
+                if (int.TryParse(pick, out int pickInt))
+                {
+                    if (pickInt == 1) //create and add announcement
+                    {
+                        CreateAnnouncement(selected);
+                    }
+                    else if (pickInt == 2) //delete
+                    {
+                        DeleteAnnouncement(selected);
+                    }
+                    else if (pickInt == 3) //list and read announcement
+                    {
+                        ListAnnouncements(selected);
+                    }
+                    else if (pickInt == 4) //update announcement
+                    {
+                        UpdateAnnouncement(selected);
+                    }
+                    else if (pickInt == 5) //exits back to main menu
+                    {
+                        menu = false;
+                    }
+                }
+            }
+        }
+        public void CreateAnnouncement(Course course) //creates announcement and adds to announcement list in course
+        {
+            Announcement tempAnnounce = new Announcement();
+            Console.WriteLine("Enter announcement title:");
+            tempAnnounce.Title = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter announcment:");
+            tempAnnounce.Text = Console.ReadLine() ?? string.Empty;
+            course.AddAnnouncement(tempAnnounce);
+        }
+        public void ListAnnouncements(Course course)
+        {
+            course.Announcements.ForEach(Console.WriteLine);
+            Console.WriteLine("Which announcment would you like to read? (Enter Id)");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out id);
+            }
+            var selected = course.Announcements.FirstOrDefault(c => c.Id == id);
+            if (selected != null)
+            {
+                Console.WriteLine(selected.DisplayAll()); //displays full announcement
+            }
+        }
+        public void DeleteAnnouncement(Course course) //deletes announcement
+        {
+            course.Announcements.ForEach(Console.WriteLine);
+            Console.WriteLine("Which announcment would you like to delete? (Enter Id)");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out id);
+            }
+            var selected = course.Announcements.FirstOrDefault(c => c.Id == id);
+            if (selected != null)
+            {
+                course.RemoveAnnouncement(selected);
+            }
+        }
+        public void UpdateAnnouncement(Course course)
+        {
+            course.Announcements.ForEach(Console.WriteLine);
+            Console.WriteLine("Which announcment would you like to update? (Enter Id)");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out id);
+            }
+            var selected = course.Announcements.FirstOrDefault(c => c.Id == id);
+            if (selected != null)
+            {
+                Console.WriteLine("Which would you like to update? (T)itle or (B)ody?");
+                string choice = Console.ReadLine() ?? string.Empty;
+                if (choice.Equals("t", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("Enter new title:");
+                    selected.Title = Console.ReadLine() ?? string.Empty;
+                }
+                else if (choice.Equals("b", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("Enter new text body:");
+                    selected.Text = Console.ReadLine() ?? string.Empty;
+                }
+                Console.WriteLine("Updated - " + selected.DisplayAll());
+            }
+        }
     }
 }

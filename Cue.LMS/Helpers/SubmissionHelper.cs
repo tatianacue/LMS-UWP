@@ -67,7 +67,6 @@ namespace App.LMS.Helpers
                     {
                         if (submission.Assignment == assignment)
                         {
-                            Console.WriteLine("Test");
                             totalGrades += submission.Grade;
                             totalPoints += assignment.TotalAvailablePoints;
                         }
