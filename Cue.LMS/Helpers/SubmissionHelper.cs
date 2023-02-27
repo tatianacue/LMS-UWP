@@ -81,7 +81,6 @@ namespace App.LMS.Helpers
                 double weightedTotal = (pair.Key.Weight) * (pair.Value);
                 courseGrade += weightedTotal;
             }
-            student.AddCourseGrade(course, courseGrade); //adds to student course grade
             return courseGrade;
         }
 

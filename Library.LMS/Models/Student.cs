@@ -10,7 +10,7 @@ namespace Library.LMS.Models
     {
         public Student() 
         {
-            Grades = new Dictionary<Course, double>();
+            Grades = new Dictionary<Course, double>(); //all course grades in a list
             AssignmentGrades = new Dictionary<int, double>();
         }
         public override string ToString()
