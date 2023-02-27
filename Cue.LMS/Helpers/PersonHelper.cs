@@ -14,8 +14,10 @@ namespace App.LMS.Helpers
     public class PersonHelper
     {
         private PersonService personService;
-        public PersonHelper() { 
+        private SubmissionHelper sHelper;
+        public PersonHelper() {
             personService = new PersonService();
+            sHelper = new SubmissionHelper();
         }
         public void AddPerson() //adds student to studentList
         {
@@ -116,6 +118,91 @@ namespace App.LMS.Helpers
                 DisplayAll((Student)selected);
                 helper.ListStudentCourses((Student)selected);
             }
+        }
+        public void CalculateGPA(CourseHelper helper)
+        {
+            Dictionary<Course, double> CourseGrades = new Dictionary<Course, double>(); //holds all course grades
+            var student = StudentPicker();
+            var courses = helper.ListStudentCourses(student); //gets courses student is taking
+            foreach (var course in courses)
+            {
+                double grade = sHelper.CalculateCourseGrade(student, course);
+                CourseGrades.Add(course, grade);
+            }
+
+            double numbers = 0;
+            int totalCredits = 0;
+            foreach (var pair in CourseGrades)
+            {
+                double gradeValue = ConvertGpaScale(pair.Value);
+                int credit = pair.Key.CreditHours;
+                totalCredits += credit;
+                numbers += (gradeValue * credit); //multiplies by credit hours and adds to total
+            }
+            double Gpa = numbers / totalCredits;
+            
+            Console.WriteLine(student.Name + " GPA: " + Gpa.ToString("F2")); //added precision sort of, check again if works 
+        }
+        public double ConvertGpaScale(double courseGrade)
+        {
+            if (courseGrade >= 96)
+            {
+                return 4.0;
+            }
+            else if (courseGrade <= 95 && courseGrade >= 91)
+            {
+                return 4.0;
+            }
+            else if (courseGrade <= 91 && courseGrade >= 90)
+            {
+                return 3.7;
+            }
+            else if (courseGrade <= 89 && courseGrade >= 86)
+            {
+                return 3.3;
+            }
+            else if (courseGrade <= 85 && courseGrade >= 81)
+            {
+                return 3.0;
+            }
+            else if (courseGrade <= 81 && courseGrade >= 80)
+            {
+                return 2.7;
+            }
+            else if (courseGrade <= 79 && courseGrade >= 76)
+            {
+                return 2.3;
+            }
+            else if (courseGrade <= 75 && courseGrade >= 71)
+            {
+                return 2.0;
+            }
+            else if (courseGrade <= 71 && courseGrade >= 70)
+            {
+                return 1.7;
+            }
+            else if (courseGrade <= 69 && courseGrade >= 66)
+            {
+                return 1.3;
+            }
+            else if (courseGrade <= 65 && courseGrade >= 61)
+            {
+                return 1.0;
+            }
+            else if (courseGrade <= 61 && courseGrade >= 60)
+            {
+                return 0.7;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public void ListAllCourses(CourseHelper helper)
+        {
+            var studentCourses = helper.ListStudentCourses(StudentPicker());
+            Console.WriteLine("Courses that student is taking:");
+            studentCourses.ForEach(Console.WriteLine);
         }
         public void UpdateStudent() //student update menu
         {

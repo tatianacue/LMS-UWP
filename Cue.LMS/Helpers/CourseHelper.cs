@@ -66,6 +66,15 @@ namespace App.LMS.Helpers
             Console.WriteLine("Enter a Name:");
             newCourse.Name = Console.ReadLine() ?? string.Empty;
 
+            Console.WriteLine("Enter number of credit hours:");
+            int creditHours;
+            while (!int.TryParse(Console.ReadLine(), out creditHours))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out creditHours);
+            }
+            newCourse.CreditHours = creditHours;
+
             Console.WriteLine("Enter a Description:");
             newCourse.Description = Console.ReadLine() ?? string.Empty;
 
@@ -161,7 +170,7 @@ namespace App.LMS.Helpers
                 }
             }
         }
-        public void ListStudentCourses(Student student) //find student in course
+        public List<Course> ListStudentCourses(Student student) //find student in course
         {
             var studentCourses = new List<Course>();
             foreach (var tempCourse in courseService.courseList)
@@ -172,12 +181,7 @@ namespace App.LMS.Helpers
                     studentCourses.Add(tempCourse);
                 }
             }
-            //lists courses in student's lists
-            Console.WriteLine("\tCourses that " + student.Name + " is taking:");
-            foreach (var course in studentCourses)
-            {
-                Console.WriteLine("\t" + course);
-            }
+            return studentCourses;
         }
         public void AddAssignment() //add assignment to a course
         {
@@ -252,7 +256,60 @@ namespace App.LMS.Helpers
             Console.WriteLine("Pick a course:");
             var course = CoursePicker();
             double courseGrade = submissionHelper.CalculateCourseGrade(student, course);
-            Console.WriteLine(student.Name + " total grade for " + course + ": " + courseGrade + "%");
+            string letterGrade;
+            if(courseGrade >= 96) 
+            {
+                letterGrade = "A+";
+            }
+            else if(courseGrade <= 95 && courseGrade >= 91)
+            {
+                letterGrade = "A";
+            }
+            else if(courseGrade <= 91 && courseGrade >= 90)
+            {
+                letterGrade = "A-";
+            }
+            else if(courseGrade <= 89 && courseGrade >= 86)
+            {
+                letterGrade = "B+";
+            }
+            else if (courseGrade <= 85 && courseGrade >= 81)
+            {
+                letterGrade = "B";
+            }
+            else if (courseGrade <= 81 && courseGrade >= 80)
+            {
+                letterGrade = "B-";
+            }
+            else if (courseGrade <= 79 && courseGrade >= 76)
+            {
+                letterGrade = "C+";
+            }
+            else if (courseGrade <= 75 && courseGrade >= 71)
+            {
+                letterGrade = "C";
+            }
+            else if (courseGrade <= 71 && courseGrade >= 70)
+            {
+                letterGrade = "C-";
+            }
+            else if (courseGrade <= 69 && courseGrade >= 66)
+            {
+                letterGrade = "D+";
+            }
+            else if (courseGrade <= 65 && courseGrade >= 61)
+            {
+                letterGrade = "D";
+            }
+            else if (courseGrade <= 61 && courseGrade >= 60)
+            {
+                letterGrade = "D-";
+            }
+            else
+            {
+                letterGrade = "F";
+            }
+            Console.WriteLine(student.Name + " total grade for " + course + ": " + courseGrade + "% " + letterGrade);
         }
         //module stuff
         public void UpdateModule()
