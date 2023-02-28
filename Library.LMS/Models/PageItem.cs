@@ -8,8 +8,13 @@ namespace Library.LMS.Models
 {
     public class PageItem : ContentItem //derived
     {
-        public PageItem() { }
-
+        public PageItem() 
+        {
+            Name= string.Empty;
+            Description= string.Empty;
+            Id = $"P{LastId++}";
+        }
+        private static int LastId = 1;
         public string HTMLBody { get; set; }
         public override string DisplayAll()
         {

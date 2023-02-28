@@ -28,6 +28,7 @@ namespace App.LMS.Helpers
             submission.Assignment = assignment;
             submission.Course = course;
             course.Submissions.Add(submission);
+            Console.WriteLine("Assignment Submitted!");
         }
         public void AddGrade(Course course)
         {
@@ -47,10 +48,14 @@ namespace App.LMS.Helpers
                 Console.WriteLine("Invalid. Try Again.");
                 int.TryParse(Console.ReadLine(), out points);
             }
-            double decimalGrade = points/(submission.Assignment.TotalAvailablePoints); //calculates grade
+            double totalPts = submission.Assignment.TotalAvailablePoints;
+            double decimalGrade = points/totalPts; //calculates grade
+            Console.WriteLine(decimalGrade); //remove
+            double percentGrade = decimalGrade * 100;
+            Console.WriteLine(percentGrade); //remove
 
             submission.Grade = points; //points
-            submission.Student.AddAssignmentGrade(submission.Assignment.Id, decimalGrade); //adds to student individual assignment grades
+            submission.Student.AddAssignmentGrade(submission.Assignment, percentGrade); //adds to student individual assignment grades
         }
         public double CalculateCourseGrade(Student student, Course course)
         {

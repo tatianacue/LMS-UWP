@@ -13,11 +13,10 @@ namespace Library.LMS.Models
         //properties
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Path { get; set; }
-
+        public string Id { get; set; }
         public override string ToString()
         {
-            return $"{Name}";
+            return $"[{Id}] {Name}";
         }
         public virtual string DisplayAll()
         {
