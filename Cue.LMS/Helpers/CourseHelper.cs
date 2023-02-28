@@ -1,4 +1,5 @@
-﻿using Library.LMS.Models;
+﻿using Library.LMS;
+using Library.LMS.Models;
 using Library.LMS.Models.Grading;
 using Library.LMS.Services;
 using System;
@@ -15,16 +16,19 @@ namespace App.LMS.Helpers
 {
     public class CourseHelper
     {
+        private ListNavigator<Course> listNavigator;
         private CourseService courseService;
         private SubmissionHelper submissionHelper;
         public CourseHelper()
         {
             courseService = new CourseService();
             submissionHelper = new SubmissionHelper();
+            listNavigator = new ListNavigator<Course>(courseService.courseList);
         }
         private Course CoursePicker() //course selection menu
         {
-            courseService.courseList.ForEach(Console.WriteLine);
+            ListOptions();
+            Console.WriteLine("Which course would you like to select?");
             var code = Console.ReadLine() ?? string.Empty;
             var selected = courseService.courseList.FirstOrDefault(c => c.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase));
             return selected;
@@ -79,11 +83,9 @@ namespace App.LMS.Helpers
             newCourse.Description = Console.ReadLine() ?? string.Empty;
 
             courseService.Add(newCourse);
-            courseService.courseList.ForEach(Console.WriteLine); //lists all courses after adding a course
         }
         public void AddStudentToCourse(Student student) //takes in student and adds to course
         {
-            Console.WriteLine("Which course do you want to add to?"); //pick course
             var selected = CoursePicker();
 
             selected.AddStudent(student);
@@ -91,7 +93,6 @@ namespace App.LMS.Helpers
         }
         public void RemoveStudent() //removes student from course
         {
-            Console.WriteLine("Which course do you want to remove student from?");
             var selected = CoursePicker();
             selected.RemoveStudent();
         }
@@ -99,11 +100,13 @@ namespace App.LMS.Helpers
         {
             if (string.IsNullOrEmpty(srch))
             {
-                courseService.courseList.ForEach(Console.WriteLine);
+                ListOptions();
             }
             else
             {
-                courseService.Search(srch).ForEach(Console.WriteLine);
+                var list = courseService.Search(srch);
+                var navigator = new ListNavigator<Course>(list);
+                ListOptions(navigator);
             }
             Console.WriteLine("Which course would you like to select? (Enter Code)");
             var code = Console.ReadLine() ?? string.Empty;
@@ -115,7 +118,6 @@ namespace App.LMS.Helpers
         }
         public void UpdateCourse() //update course menu and features
         {
-            Console.WriteLine("Which course do you want to update?");
             var selected = CoursePicker();
 
             bool menu = true;
@@ -185,7 +187,6 @@ namespace App.LMS.Helpers
         }
         public void AddAssignment() //add assignment to a course
         {
-            Console.WriteLine("Which course do you want to add to?"); //pick course
             var selected = CoursePicker();
 
             var tempAssignment = new Assignment();
@@ -222,7 +223,6 @@ namespace App.LMS.Helpers
         }
         public void AddAssignmentGroup()
         {
-            Console.WriteLine("Which course do you want to add to? (Enter code)"); //pick course
             var selected = CoursePicker();
             var tempGroup = new AssignmentGroup();
             Console.WriteLine("Enter name for group:");
@@ -238,22 +238,66 @@ namespace App.LMS.Helpers
 
             selected.AddAssignmentGroup(tempGroup);
         }
+        public void ListOptions(ListNavigator<Course>? list = null)
+        {
+            ListNavigator<Course> navigator;
+            if (list != null)
+            {
+                navigator = list; //if its another list
+            }
+            else
+            {
+                navigator = listNavigator; //make it normal list
+            }
+            var display = navigator.GoToFirstPage();
+            foreach (var course in display)
+            {
+                Console.WriteLine(course.Value);
+            }
+            bool menu = true;
+            while (menu)
+            {
+                Console.WriteLine("(1)BACK    (2)NEXT     (3)SELECT/EXIT");
+                string pick = Console.ReadLine() ?? string.Empty;
+
+                if (int.TryParse(pick, out int pickInt))
+                {
+                    if (pickInt == 1) //goes back
+                    {
+                        display = navigator.GoBackward();
+                        foreach (var course in display)
+                        {
+                            Console.WriteLine(course.Value);
+                        }
+                    }
+                    else if (pickInt == 2) //go next
+                    {
+                        display = navigator.GoForward();
+                        foreach (var course in display)
+                        {
+                            Console.WriteLine(course.Value);
+                        }
+                    }
+                    else if (pickInt == 3)
+                    {
+                        menu = false;
+                    }
+                }
+            }
+        }
         //grading stuff
         public void AddSubmissionToCourse(Student student)
         {
-            Console.WriteLine("Pick a course:");
             var course = StudentCoursePicker(student);
             submissionHelper.AddSubmission(course, student);
         }
         public void AddGradeSubmission()
         {
-            Console.WriteLine("Pick a course:");
             var course = CoursePicker();
             submissionHelper.AddGrade(course);
         }
         public void CalculateGrade(Student student)
         {
-            Console.WriteLine("Pick a course:");
             var course = CoursePicker();
             double courseGrade = submissionHelper.CalculateCourseGrade(student, course);
             string letterGrade;
@@ -314,7 +358,6 @@ namespace App.LMS.Helpers
         //module stuff
         public void UpdateModule()
         {
-            Console.WriteLine("Which course do you want to edit modules for?");
             var selected = CoursePicker();
 
             bool menu = true;
@@ -469,7 +512,6 @@ namespace App.LMS.Helpers
         //announcements stuff
         public void ShowAnnouncmentsMenu()
         {
-            Console.WriteLine("Pick a course (Course Code):");
             var selected = CoursePicker();
             bool menu = true;
             while (menu)
