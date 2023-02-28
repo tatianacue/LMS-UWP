@@ -128,9 +128,10 @@ namespace MyApp
                 Console.WriteLine("4. Search for student"); //student
                 Console.WriteLine("5. List all courses for a student"); //student
                 Console.WriteLine("6. Update student information"); //student
-                Console.WriteLine("7. Calculate course grade (Student)");
-                Console.WriteLine("8. Calculate GPA");
-                Console.WriteLine("9. Exit");
+                Console.WriteLine("7. Show Assignment Grades");
+                Console.WriteLine("8. Calculate course grade (Student)");
+                Console.WriteLine("9. Calculate GPA");
+                Console.WriteLine("10. Exit");
 
                 string choice = Console.ReadLine() ?? string.Empty;
                 if (int.TryParse(choice, out int choiceInt))
@@ -163,13 +164,17 @@ namespace MyApp
                     }
                     else if (choiceInt == 7)
                     {
-                        courseHelper.CalculateGrade(personHelper.StudentPicker());
+                        personHelper.ListAssignmentGrades();
                     }
                     else if (choiceInt == 8)
                     {
+                        courseHelper.CalculateGrade(personHelper.StudentPicker());
+                    }
+                    else if (choiceInt == 9)
+                    {
                         personHelper.CalculateGPA(courseHelper);
                     }
-                    else if (choiceInt == 9) //quit
+                    else if (choiceInt == 10) //quit
                     {
                         cont = false;
                     }

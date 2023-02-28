@@ -15,6 +15,8 @@ namespace Library.LMS.Models
             AssignmentGroups = new List<AssignmentGroup>();
             Submissions = new List<Submission>();
             Announcements = new List<Announcement>();
+            Name = string.Empty;
+            Description= string.Empty;
         }
 
         //properties

@@ -93,10 +93,11 @@ namespace App.LMS.Helpers
             }
         }
         public Student StudentPicker() { //lets user pick student and returns a student
+            Console.WriteLine("SELECT A STUDENT:");
             var list = personService.personList.Where(s => s is Student).ToList();
             var tempList = new ListNavigator<Person>(list);
             ListOptions(tempList);
-            Console.WriteLine("Which student do you want to pick? (Enter ID)"); //pick student
+            Console.WriteLine("Which student do you select? (Enter ID)"); //pick student
             var id = Console.ReadLine() ?? string.Empty;
             var selected = personService.personList.FirstOrDefault(s => s.ID.Equals(id, StringComparison.InvariantCultureIgnoreCase));
             return (Student)selected;
@@ -201,6 +202,15 @@ namespace App.LMS.Helpers
             else
             {
                 return 0;
+            }
+        }
+        public void ListAssignmentGrades()
+        {
+            var student = StudentPicker();
+            Console.WriteLine("All Assignment Grades:");
+            foreach (var pair in student.AssignmentGrades)
+            {
+                Console.WriteLine(pair.Key.Name + " " + pair.Value + "%"); //assignment name and then percent grade
             }
         }
         public void ListAllCourses(CourseHelper helper)

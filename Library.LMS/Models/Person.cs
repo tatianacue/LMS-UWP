@@ -8,9 +8,7 @@ namespace Library.LMS.Models
 {
     public class Person
     {
-        public Person()
-        {
-        }
+        public Person(){ }
         //properties
         public string Name { get; set; }
         public string ID { get; set; }

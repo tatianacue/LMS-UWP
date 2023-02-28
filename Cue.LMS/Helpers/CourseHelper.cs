@@ -27,6 +27,7 @@ namespace App.LMS.Helpers
         }
         private Course CoursePicker() //course selection menu
         {
+            Console.WriteLine("SELECT A COURSE:");
             ListOptions();
             Console.WriteLine("Which course would you like to select?");
             var code = Console.ReadLine() ?? string.Empty;
@@ -44,7 +45,10 @@ namespace App.LMS.Helpers
                     studentCourses.Add(tempCourse);
                 }
             }
-            studentCourses.ForEach(Console.WriteLine);
+            var navigator = new ListNavigator<Course>(studentCourses);
+            Console.WriteLine("SELECT A COURSE:");
+            ListOptions(navigator); //puts through list navigator
+            Console.WriteLine("Which course would you like to select?");
             var code = Console.ReadLine() ?? string.Empty;
             var selected = courseService.courseList.FirstOrDefault(c => c.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase));
             return selected;
@@ -414,14 +418,18 @@ namespace App.LMS.Helpers
             tempModule.Name = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Enter module description:");
             tempModule.Description = Console.ReadLine() ?? string.Empty;
-            
             course.AddModule(tempModule);
         }
         public Module ModulePicker(Course course) //picks module from course
         {
             course.Modules.ForEach(Console.WriteLine);
-            var name = Console.ReadLine() ?? string.Empty;
-            var selected = course.Modules.FirstOrDefault(m => m.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Invalid. Try Again.");
+                int.TryParse(Console.ReadLine(), out id);
+            }
+            var selected = course.Modules.FirstOrDefault(m => m.Id == id);
             return selected;
         }
         public void DeleteItem(Course course) //deletes item
@@ -429,7 +437,7 @@ namespace App.LMS.Helpers
             Console.WriteLine("Which module do you want to delete from? (Enter Name)");
             var module = ModulePicker(course);
 
-            Console.WriteLine("\nMODULE CONTENT");
+            Console.WriteLine("MODULE CONTENT");
             module.Content.ForEach(Console.WriteLine);
             Console.WriteLine("Select item to delete:");
             var name = Console.ReadLine() ?? string.Empty;
@@ -439,11 +447,11 @@ namespace App.LMS.Helpers
         }
         public void AddAssignmentItem(Course course)
         {
-            Console.WriteLine("Which module do you want to add to? (Enter Name)");
+            Console.WriteLine("Which module do you want to add to?");
             var module = ModulePicker(course);
             var assignmentItem = new AssignmentItem();
 
-            Console.WriteLine("Enter item name:");
+            Console.WriteLine("Enter assignment item name:");
             assignmentItem.Name = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Enter item description:");
             assignmentItem.Description = Console.ReadLine() ?? string.Empty;
@@ -463,11 +471,11 @@ namespace App.LMS.Helpers
         }
         public void AddPageItem(Course course)
         {
-            Console.WriteLine("Which module do you want to add to? (Enter Name)");
+            Console.WriteLine("Which module do you want to add to?");
             var module = ModulePicker(course);
             var pageItem = new PageItem();
 
-            Console.WriteLine("Enter item name:");
+            Console.WriteLine("Enter page item name:");
             pageItem.Name = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Enter item description:");
             pageItem.Description = Console.ReadLine() ?? string.Empty;
@@ -479,33 +487,32 @@ namespace App.LMS.Helpers
         }
         public void AddFileItem(Course course)
         {
-            Console.WriteLine("Which module do you want to add to? (Enter Name)");
+            Console.WriteLine("Which module do you want to add to?");
             var module = ModulePicker(course);
             var fileItem = new FileItem();
 
-            Console.WriteLine("Enter item name:");
+            Console.WriteLine("Enter file item name:");
             fileItem.Name = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("Enter item description:");
             fileItem.Description = Console.ReadLine() ?? string.Empty;
 
-            Console.WriteLine("Enter File Path:");
+            Console.WriteLine("Enter file path:");
             fileItem.FilePath = Console.ReadLine() ?? string.Empty;
 
             module.AddContent(fileItem); //adds content item
         }
         public void SelectContent(Course course)
         {
-            Console.WriteLine("Select module (Enter Name)");
+            Console.WriteLine("Select module:");
             var module = ModulePicker(course);
 
-            Console.WriteLine("\nMODULE CONTENT");
             module.Content.ForEach(Console.WriteLine);
-            Console.WriteLine("Select item:"); //maybe create IDs for item?
+            Console.WriteLine("Select item (Enter Id):");
             var name = Console.ReadLine() ?? string.Empty;
-            var selected = module.Content.FirstOrDefault(c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            var selected = module.Content.FirstOrDefault(c => c.Id.Equals(name, StringComparison.InvariantCultureIgnoreCase));
             if (selected != null)
             {
-                Console.WriteLine("\nITEM:");
+                Console.WriteLine("ITEM:");
                 Console.WriteLine(selected.DisplayAll());
             }
         }

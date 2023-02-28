@@ -11,10 +11,13 @@ namespace Library.LMS.Models
         public Module()
         {
             Content = new List<ContentItem>();
+            Id = LastId++;
         }
+        private static int LastId = 1;
+        public int Id { get; private set; }
         public override string ToString() //override output course
         {
-            return $"{Name}";
+            return $"[{Id}] {Name}";
         }
 
         //properties
