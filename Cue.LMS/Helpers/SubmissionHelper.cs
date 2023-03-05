@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace App.LMS.Helpers
 {
     public class SubmissionHelper
@@ -50,9 +50,7 @@ namespace App.LMS.Helpers
             }
             double totalPts = submission.Assignment.TotalAvailablePoints;
             double decimalGrade = points/totalPts; //calculates grade
-            Console.WriteLine(decimalGrade); //remove
             double percentGrade = decimalGrade * 100;
-            Console.WriteLine(percentGrade); //remove
 
             submission.Grade = points; //points
             submission.Student.AddAssignmentGrade(submission.Assignment, percentGrade); //adds to student individual assignment grades
@@ -85,6 +83,7 @@ namespace App.LMS.Helpers
                 double weightedTotal = (pair.Key.Weight) * (pair.Value);
                 courseGrade += weightedTotal;
             }
+            student.Grades[course] = courseGrade; //update course grade dictionary in student
             return courseGrade;
         }
 

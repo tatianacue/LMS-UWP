@@ -374,7 +374,8 @@ namespace App.LMS.Helpers
                 Console.WriteLine("4. Add Page Item");
                 Console.WriteLine("5. Add File Item");
                 Console.WriteLine("6. Delete Item");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine("7. Update Item");
+                Console.WriteLine("8. Exit");
 
                 string pick = Console.ReadLine() ?? string.Empty;
 
@@ -404,7 +405,11 @@ namespace App.LMS.Helpers
                     {
                         DeleteItem(selected);
                     }
-                    else if (pickInt == 7) //exits back to main menu
+                    else if (pickInt == 7) //update item
+                    {
+                        UpdateItem(selected);
+                    }
+                    else if (pickInt == 8) //exits back to main menu
                     {
                         menu = false;
                     }
@@ -516,6 +521,89 @@ namespace App.LMS.Helpers
                 Console.WriteLine(selected.DisplayAll());
             }
         }
+        public void UpdateItem(Course course)
+        {
+            Console.WriteLine("Select module:");
+            var module = ModulePicker(course);
+            module.Content.ForEach(Console.WriteLine);
+            Console.WriteLine("Select item to update (Enter Id):");
+            var name = Console.ReadLine() ?? string.Empty;
+            var selected = module.Content.FirstOrDefault(c => c.Id.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            if (selected != null)
+            {
+                if(selected is AssignmentItem) //update assignment item
+                {
+                    Console.WriteLine("Would you like to update the (N)ame, (D)escription, or (A)ssignment?");
+                    string choiceChar = Console.ReadLine() ?? string.Empty;
+                    if (choiceChar.Equals("n", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new name:");
+                        selected.Name = Console.ReadLine() ?? string.Empty;
+                    }
+                    else if (choiceChar.Equals("d", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new description:");
+                        selected.Description = Console.ReadLine() ?? string.Empty;
+                    }
+                    else if (choiceChar.Equals("a", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Pick new assignment:");
+                        course.Assignments.ForEach(Console.WriteLine);
+                        int Id;
+                        while (!int.TryParse(Console.ReadLine(), out Id))
+                        {
+                            Console.WriteLine("Invalid. Try Again.");
+                            int.TryParse(Console.ReadLine(), out Id);
+                        }
+                        var selection = course.Assignments.FirstOrDefault(m => m.Id == Id);
+                        AssignmentItem item = (AssignmentItem)selected;
+                        item.Assignment = selection;
+                    }
+                }
+                else if(selected is PageItem) //update page item
+                {
+                    Console.WriteLine("Would you like to update the (N)ame, (D)escription, or (H)TML body?");
+                    string choiceChar = Console.ReadLine() ?? string.Empty;
+                    if (choiceChar.Equals("n", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new name:");
+                        selected.Name = Console.ReadLine() ?? string.Empty;
+                    }
+                    else if (choiceChar.Equals("d", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new description:");
+                        selected.Description = Console.ReadLine() ?? string.Empty;
+                    }
+                    else if (choiceChar.Equals("h", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new HTML body:");
+                        PageItem item = (PageItem)selected;
+                        item.HTMLBody = Console.ReadLine() ?? string.Empty;
+                    }
+                }
+                else if (selected is FileItem) //update file item
+                {
+                    Console.WriteLine("Would you like to update the (N)ame, (D)escription, or (F)ile Path?");
+                    string choiceChar = Console.ReadLine() ?? string.Empty;
+                    if (choiceChar.Equals("n", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new name:");
+                        selected.Name = Console.ReadLine() ?? string.Empty;
+                    }
+                    else if (choiceChar.Equals("d", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new description:");
+                        selected.Description = Console.ReadLine() ?? string.Empty;
+                    }
+                    else if (choiceChar.Equals("f", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Enter new File Path:");
+                        FileItem item = (FileItem)selected;
+                        item.FilePath = Console.ReadLine() ?? string.Empty;
+                    }
+                }
+            }
+        }
         //announcements stuff
         public void ShowAnnouncmentsMenu()
         {
@@ -562,14 +650,14 @@ namespace App.LMS.Helpers
             Announcement tempAnnounce = new Announcement();
             Console.WriteLine("Enter announcement title:");
             tempAnnounce.Title = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine("Enter announcment:");
+            Console.WriteLine("Enter announcement:");
             tempAnnounce.Text = Console.ReadLine() ?? string.Empty;
             course.AddAnnouncement(tempAnnounce);
         }
         public void ListAnnouncements(Course course)
         {
             course.Announcements.ForEach(Console.WriteLine);
-            Console.WriteLine("Which announcment would you like to read? (Enter Id)");
+            Console.WriteLine("Which announcement would you like to read? (Enter Id)");
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
             {
@@ -585,7 +673,7 @@ namespace App.LMS.Helpers
         public void DeleteAnnouncement(Course course) //deletes announcement
         {
             course.Announcements.ForEach(Console.WriteLine);
-            Console.WriteLine("Which announcment would you like to delete? (Enter Id)");
+            Console.WriteLine("Which announcement would you like to delete? (Enter Id)");
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
             {
@@ -601,7 +689,7 @@ namespace App.LMS.Helpers
         public void UpdateAnnouncement(Course course)
         {
             course.Announcements.ForEach(Console.WriteLine);
-            Console.WriteLine("Which announcment would you like to update? (Enter Id)");
+            Console.WriteLine("Which announcement would you like to update? (Enter Id)");
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
             {
