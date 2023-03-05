@@ -50,9 +50,7 @@ namespace App.LMS.Helpers
             }
             double totalPts = submission.Assignment.TotalAvailablePoints;
             double decimalGrade = points/totalPts; //calculates grade
-            Console.WriteLine(decimalGrade); //remove
             double percentGrade = decimalGrade * 100;
-            Console.WriteLine(percentGrade); //remove
 
             submission.Grade = points; //points
             submission.Student.AddAssignmentGrade(submission.Assignment, percentGrade); //adds to student individual assignment grades
