@@ -151,55 +151,55 @@ namespace App.LMS.Helpers
         }
         public double ConvertGpaScale(double courseGrade)
         {
-            if (courseGrade >= 96)
+            if (courseGrade >= 96) //A+
             {
                 return 4.0;
             }
-            else if (courseGrade <= 95 && courseGrade >= 91)
+            else if (courseGrade <= 95 && courseGrade >= 91) //A
             {
                 return 4.0;
             }
-            else if (courseGrade <= 91 && courseGrade >= 90)
+            else if (courseGrade <= 91 && courseGrade >= 90) //A-
             {
                 return 3.7;
             }
-            else if (courseGrade <= 89 && courseGrade >= 86)
+            else if (courseGrade <= 89 && courseGrade >= 86) //B+
             {
                 return 3.3;
             }
-            else if (courseGrade <= 85 && courseGrade >= 81)
+            else if (courseGrade <= 85 && courseGrade >= 81) //B
             {
                 return 3.0;
             }
-            else if (courseGrade <= 81 && courseGrade >= 80)
+            else if (courseGrade <= 81 && courseGrade >= 80) //B-
             {
                 return 2.7;
             }
-            else if (courseGrade <= 79 && courseGrade >= 76)
+            else if (courseGrade <= 79 && courseGrade >= 76) //C+
             {
                 return 2.3;
             }
-            else if (courseGrade <= 75 && courseGrade >= 71)
+            else if (courseGrade <= 75 && courseGrade >= 71) //C
             {
                 return 2.0;
             }
-            else if (courseGrade <= 71 && courseGrade >= 70)
+            else if (courseGrade <= 71 && courseGrade >= 70) //C-
             {
                 return 1.7;
             }
-            else if (courseGrade <= 69 && courseGrade >= 66)
+            else if (courseGrade <= 69 && courseGrade >= 66) //D+
             {
                 return 1.3;
             }
-            else if (courseGrade <= 65 && courseGrade >= 61)
+            else if (courseGrade <= 65 && courseGrade >= 61) //D
             {
                 return 1.0;
             }
-            else if (courseGrade <= 61 && courseGrade >= 60)
+            else if (courseGrade <= 61 && courseGrade >= 60) //D-
             {
                 return 0.7;
             }
-            else
+            else //F
             {
                 return 0;
             }

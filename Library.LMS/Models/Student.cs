@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Models
 {
     public class Student : Person
@@ -53,10 +53,5 @@ namespace Library.LMS.Models
         {
             AssignmentGrades.Add(assignment, grade);
         }
-        public void AddCourseGrade(Course course, double grade) //adds overall course grade
-        {
-            Grades.Add(course, grade);
-        }
-
     }
 }
