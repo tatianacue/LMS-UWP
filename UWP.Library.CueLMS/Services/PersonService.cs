@@ -9,11 +9,15 @@ namespace Library.LMS.Services
 {
     public class PersonService
     {
-        public List<Person> personList { get; set; }
+        public List<Person> personList { get;}
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
         public PersonService()
         {
-            personList = new List<Person>();
+            personList = new List<Person>()
+            {
+                new TeachingAssistant{ID = "tbc20n", Name = "Tatiana" }, //temp
+                new Instructor { ID = "cbc50n", Name = "Carl" } //temp
+            };
             IDDictionary = new Dictionary<string, int>();
         }
         
