@@ -55,7 +55,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddStudent()
         {
-            var dialog = new StudentDialog(allPeople); //adds to list of all people
+            var dialog = new StudentDialog(allPeople);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
