@@ -20,9 +20,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWP.CueLMS.Dialogs
 {
-    public sealed partial class StudentDialog : ContentDialog
+    public sealed partial class InstructorDialog : ContentDialog
     {
-        public StudentDialog(ObservableCollection<Person> persons)
+        public InstructorDialog(ObservableCollection<Person> persons)
         {
             this.InitializeComponent();
             this.DataContext = new PersonViewModel(persons);
@@ -30,7 +30,7 @@ namespace UWP.CueLMS.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            (DataContext as PersonViewModel).AddStudent();
+            (DataContext as PersonViewModel).AddInstructor();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

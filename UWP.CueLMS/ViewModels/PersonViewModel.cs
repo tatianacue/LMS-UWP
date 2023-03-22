@@ -9,17 +9,22 @@ using System.Threading.Tasks;
 
 namespace UWP.CueLMS.ViewModels
 {
-    public class StudentViewModel
+    public class PersonViewModel
     {
         private ObservableCollection<Person> people;
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
-        public StudentViewModel(ObservableCollection<Person> persons) 
+        public PersonViewModel(ObservableCollection<Person> persons)
         {
             Student = new Student();
+            TeachingAssistant = new TeachingAssistant();
+            Instructor = new Instructor();
+
             this.people = persons;
             IDDictionary = new Dictionary<string, int>();
         }
         private Student Student { get; set; }
+        private TeachingAssistant TeachingAssistant { get; set; }
+        private Instructor Instructor { get; set; }
         public string Name { 
             get { return Student.Name; } 
             set { Student.Name = value; } 
@@ -73,6 +78,34 @@ namespace UWP.CueLMS.ViewModels
                 return true;
             }
             else { return false; }
+        }
+        public string TAName
+        {
+            get { return TeachingAssistant.Name; }
+            set { TeachingAssistant.Name = value; }
+        }
+        public string TAId
+        {
+            get { return TeachingAssistant.ID; }
+            set { TeachingAssistant.ID = value.ToUpper(); }
+        }
+        public void AddTA()
+        {
+            people.Add(TeachingAssistant);
+        }
+        public string InstructorName
+        {
+            get { return Instructor.Name; }
+            set { Instructor.Name = value; }
+        }
+        public string InstructorId
+        {
+            get { return Instructor.ID; }
+            set { Instructor.ID = value.ToUpper(); }
+        }
+        public void AddInstructor()
+        {
+            people.Add(Instructor);
         }
     }
 }

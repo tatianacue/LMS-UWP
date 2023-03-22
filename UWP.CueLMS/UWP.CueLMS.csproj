@@ -119,15 +119,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AddPerson.xaml.cs">
+      <DependentUpon>AddPerson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\InstructorDialog.xaml.cs">
+      <DependentUpon>InstructorDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\StudentDialog.xaml.cs">
       <DependentUpon>StudentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TeachingAssistantDialog.xaml.cs">
+      <DependentUpon>TeachingAssistantDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\StudentViewModel.cs" />
+    <Compile Include="ViewModels\PersonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -149,7 +158,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AddPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\InstructorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\StudentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\TeachingAssistantDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
