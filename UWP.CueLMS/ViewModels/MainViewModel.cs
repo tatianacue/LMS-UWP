@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP.CueLMS.Dialogs;
 using Windows.Graphics.Printing.PrintSupport;
 using Windows.UI.Xaml.Controls.Primitives;
 
@@ -28,7 +29,6 @@ namespace UWP.CueLMS.ViewModels
             get { return people; }
             private set { People = value; }
         }
-
         public void SearchPeople() 
         {
             var searchResults = allPeople.Where(p => p.Name.Contains(Query)).ToList();
@@ -36,6 +36,14 @@ namespace UWP.CueLMS.ViewModels
             foreach (var person in searchResults)
             {
                 People.Add(person);
+            }
+        }
+        public async void AddStudent()
+        {
+            var dialogue = new StudentDialog();
+            if (dialogue != null)
+            {
+                await dialogue.ShowAsync();
             }
         }
     }

@@ -20,5 +20,10 @@ namespace UWP.CueLMS
         {
             (DataContext as MainViewModel).SearchPeople();
         }
+
+        private void AddStudent_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            (DataContext as MainViewModel).AddStudent();
+        }
     }
 }

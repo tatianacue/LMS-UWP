@@ -45,7 +45,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Content="Add"/>
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Content="Add" Click="AddStudent_Click"/>
             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Content="Update"/>
         </Grid>
     </Grid>
