@@ -15,5 +15,10 @@ namespace UWP.CueLMS
             this.InitializeComponent();
             DataContext = new MainViewModel();
         }
+
+        private void Search_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            (DataContext as MainViewModel).SearchPeople();
+        }
     }
 }
