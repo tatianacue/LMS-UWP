@@ -20,21 +20,29 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWP.CueLMS.Dialogs
 {
-    public sealed partial class StudentDialog : ContentDialog
+    public sealed partial class AddPerson : ContentDialog
     {
-        public StudentDialog(ObservableCollection<Person> persons)
+        public AddPerson(MainViewModel main)
         {
             this.InitializeComponent();
-            this.DataContext = new PersonViewModel(persons);
+            this.DataContext = main;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            (DataContext as PersonViewModel).AddStudent();
+            this.Hide(); //hides first dialog box
+            (DataContext as MainViewModel).AddTeachingAssistant();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            this.Hide();
+            (DataContext as MainViewModel).AddInstructor();
+        }
+        private void Student_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            (DataContext as MainViewModel).AddStudent();
         }
     }
 }

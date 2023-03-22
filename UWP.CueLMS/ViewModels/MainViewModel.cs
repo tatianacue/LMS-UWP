@@ -63,5 +63,33 @@ namespace UWP.CueLMS.ViewModels
             Query = "";
             SearchPeople(); //autorefresh
         }
+        public async void AddTeachingAssistant()
+        {
+            var dialog = new TeachingAssistantDialog(allPeople);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            Query = "";
+            SearchPeople(); //autorefresh
+        }
+        public async void AddInstructor()
+        {
+            var dialog = new InstructorDialog(allPeople);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            Query = "";
+            SearchPeople(); //autorefresh
+        }
+        public async void Adder(MainViewModel main)
+        {
+            var dialog = new AddPerson(main);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();    
+            }
+        }
     }
 }

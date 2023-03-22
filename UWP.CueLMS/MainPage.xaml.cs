@@ -21,10 +21,11 @@ namespace UWP.CueLMS
             (DataContext as MainViewModel).SearchPeople();
         }
 
-        private void AddStudent_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void AddPerson_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             querybox.Text=""; //clears query box
-            (DataContext as MainViewModel).AddStudent();
+            var main = DataContext as MainViewModel;
+            (DataContext as MainViewModel).Adder(main);
         }
     }
 }
