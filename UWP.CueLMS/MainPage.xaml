@@ -19,11 +19,11 @@
                 <ColumnDefinition Width="15*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding Query, Mode=TwoWay}"></TextBox>
+            <TextBox Name="querybox" Grid.Column="0" Text="{Binding Query, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Button Click="Search_Click" Grid.Column="1" Content="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
         </Grid>
         
-        <ListBox Grid.Row="1" ItemsSource="{Binding People, Mode=TwoWay}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding People, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

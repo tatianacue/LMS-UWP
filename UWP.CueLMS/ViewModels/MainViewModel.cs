@@ -3,7 +3,10 @@ using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UWP.CueLMS.Dialogs;
@@ -16,18 +19,30 @@ namespace UWP.CueLMS.ViewModels
     {
         private PersonService personService { get; set; }
         public string Query { get; set; }
-        private List<Person> allPeople { get; set; }
+        public ObservableCollection<Person> allPeople { get; set; }
         private ObservableCollection<Person> people { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName]  string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public MainViewModel() 
         { 
             personService = new PersonService();
-            allPeople = personService.personList;
+            allPeople = new ObservableCollection<Person>(personService.personList);
             people = new ObservableCollection<Person>(personService.personList);
         }
         public ObservableCollection<Person> People
         {
-            get { return people; }
-            private set { People = value; }
+            get 
+            {
+                return people; 
+            }
+            set 
+            {
+                people = value;
+            }
         }
         public void SearchPeople() 
         {
@@ -40,11 +55,13 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddStudent()
         {
-            var dialogue = new StudentDialog();
-            if (dialogue != null)
+            var dialog = new StudentDialog(allPeople); //adds to list of all people
+            if (dialog != null)
             {
-                await dialogue.ShowAsync();
+                await dialog.ShowAsync();
             }
+            Query = "";
+            SearchPeople(); //autorefresh
         }
     }
 }

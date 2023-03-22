@@ -23,6 +23,7 @@ namespace UWP.CueLMS
 
         private void AddStudent_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            querybox.Text=""; //clears query box
             (DataContext as MainViewModel).AddStudent();
         }
     }

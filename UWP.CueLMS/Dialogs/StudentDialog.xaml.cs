@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Library.LMS.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP.CueLMS.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -19,13 +22,15 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class StudentDialog : ContentDialog
     {
-        public StudentDialog()
+        public StudentDialog(ObservableCollection<Person> persons)
         {
             this.InitializeComponent();
+            this.DataContext = new StudentViewModel(persons);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            (DataContext as StudentViewModel).AddStudent();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
