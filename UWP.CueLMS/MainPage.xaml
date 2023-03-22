@@ -9,9 +9,44 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListBox
-            ItemsSource="{Binding People, Mode=TwoWay}"
-            SelectedItem=""
-        ></ListBox>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="16*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Query, Mode=TwoWay}"></TextBox>
+            <Button Click="Search_Click" Grid.Column="1" Content="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
+        </Grid>
+        
+        <ListBox Grid.Row="1" ItemsSource="{Binding People, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <!--<TextBlock Visibility="{Binding}"-->
+                        <!--<Grid.ColumnDefinitions> 
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Content="Update" Grid.Column="1"/>-->
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Content="Add"/>
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Content="Update"/>
+        </Grid>
     </Grid>
 </Page>

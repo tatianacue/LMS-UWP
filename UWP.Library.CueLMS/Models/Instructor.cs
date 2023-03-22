@@ -16,5 +16,6 @@ namespace Library.LMS.Models
         {
             return $"[{ID}][INSTRUCTOR] - {Name}";
         }
+        public override string Display => $"[{ID}] [Instructor] - {Name}";
     }
 }
