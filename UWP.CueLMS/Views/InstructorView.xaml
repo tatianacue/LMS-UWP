@@ -75,7 +75,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Spacing="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
                     <Button Content="Add Person" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="AddPerson_Click"/>
-                    <Button Content="Delete Person" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
+                    <Button Content="Delete Person" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="DeletePerson_Click"/>
                     <Button Content="Update Person" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
                     <Button Content="Manage Person" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
                 </StackPanel>
@@ -86,7 +86,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="12*"/>
                 </Grid.RowDefinitions>
-                <ListBox ItemsSource="{Binding Collection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1">
+                <ListBox ItemsSource="{Binding Collection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" SelectedItem="{Binding Path=SelectedPerson, Mode=TwoWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
