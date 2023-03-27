@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,15 +13,15 @@ namespace UWP.CueLMS.ViewModels
 {
     public class PersonViewModel
     {
-        private ObservableCollection<Person> people;
+        private List<Person> people;
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
-        public PersonViewModel(ObservableCollection<Person> persons)
+        public PersonViewModel(List<Person> persons)
         {
             Student = new Student();
             TeachingAssistant = new TeachingAssistant();
             Instructor = new Instructor();
 
-            this.people = persons;
+            people = persons;
             IDDictionary = new Dictionary<string, int>();
         }
         private Student Student { get; set; }
@@ -106,6 +108,11 @@ namespace UWP.CueLMS.ViewModels
         public void AddInstructor()
         {
             people.Add(Instructor);
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

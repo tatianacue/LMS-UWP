@@ -1,4 +1,5 @@
 ﻿using Library.LMS.Models;
+using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,10 +23,10 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class StudentDialog : ContentDialog
     {
-        public StudentDialog(ObservableCollection<Person> persons)
+        public StudentDialog(List<Person> people)
         {
             this.InitializeComponent();
-            this.DataContext = new PersonViewModel(persons);
+            DataContext = new PersonViewModel(people);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

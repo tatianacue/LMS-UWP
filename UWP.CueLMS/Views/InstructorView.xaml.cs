@@ -34,5 +34,17 @@ namespace UWP.CueLMS.Views
         {
             this.Frame.Navigate(typeof(MainPage));
         }
+
+        private void AddPerson_Click(object sender, RoutedEventArgs e)
+        {
+            querybox.Text = ""; //clears query box
+            var viewmodel = DataContext as InstructorViewModel;
+            (DataContext as InstructorViewModel).PersonDialog(viewmodel);
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).SearchPeople();
+        }
     }
 }

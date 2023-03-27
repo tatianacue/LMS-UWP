@@ -22,10 +22,10 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class InstructorDialog : ContentDialog
     {
-        public InstructorDialog(ObservableCollection<Person> persons)
+        public InstructorDialog(List<Person> persons)
         {
             this.InitializeComponent();
-            this.DataContext = new PersonViewModel(persons);
+            DataContext = new PersonViewModel(persons);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

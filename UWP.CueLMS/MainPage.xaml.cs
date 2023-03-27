@@ -26,7 +26,7 @@ namespace UWP.CueLMS
         {
             querybox.Text=""; //clears query box
             var main = DataContext as MainViewModel;
-            (DataContext as MainViewModel).Adder(main);
+            //(DataContext as MainViewModel).Adder(main);
         }
 
         private void InstructorView_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
