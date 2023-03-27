@@ -22,7 +22,7 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class TeachingAssistantDialog : ContentDialog
     {
-        public TeachingAssistantDialog(ObservableCollection<Person> persons)
+        public TeachingAssistantDialog(List<Person> persons)
         {
             this.InitializeComponent();
             this.DataContext = new PersonViewModel(persons);

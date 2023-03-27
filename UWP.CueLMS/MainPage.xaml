@@ -28,13 +28,6 @@
                 <DataTemplate>
                     <Grid>
                         <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <!--<TextBlock Visibility="{Binding}"-->
-                        <!--<Grid.ColumnDefinitions> 
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button Content="Update" Grid.Column="1"/>-->
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

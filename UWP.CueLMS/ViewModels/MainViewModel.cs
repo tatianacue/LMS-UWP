@@ -19,8 +19,8 @@ namespace UWP.CueLMS.ViewModels
     {
         private PersonService personService { get; set; }
         public string Query { get; set; }
-        public ObservableCollection<Person> allPeople { get; set; }
-        private ObservableCollection<Person> people { get; set; }
+        public List<Person> allPeople { get; set; }
+        private List<Person> people { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName]  string propertyName = "")
@@ -30,10 +30,10 @@ namespace UWP.CueLMS.ViewModels
         public MainViewModel() 
         { 
             personService = new PersonService();
-            allPeople = new ObservableCollection<Person>(personService.personList);
-            people = new ObservableCollection<Person>(personService.personList);
+            allPeople = new List<Person>(personService.personList);
+            people = new List<Person>(personService.personList);
         }
-        public ObservableCollection<Person> People
+        public List<Person> People
         {
             get 
             {
@@ -82,14 +82,6 @@ namespace UWP.CueLMS.ViewModels
             }
             Query = "";
             SearchPeople(); //autorefresh
-        }
-        public async void Adder(MainViewModel main)
-        {
-            var dialog = new AddPerson(main);
-            if (dialog != null)
-            {
-                await dialog.ShowAsync();    
-            }
         }
     }
 }

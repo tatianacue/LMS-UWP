@@ -22,27 +22,27 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class AddPerson : ContentDialog
     {
-        public AddPerson(MainViewModel main)
+        public AddPerson(InstructorViewModel viewmodel)
         {
             this.InitializeComponent();
-            this.DataContext = main;
+            DataContext = viewmodel;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             this.Hide(); //hides first dialog box
-            (DataContext as MainViewModel).AddTeachingAssistant();
+            (DataContext as InstructorViewModel).AddTeachingAssistant();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             this.Hide();
-            (DataContext as MainViewModel).AddInstructor();
+            (DataContext as InstructorViewModel).AddInstructor();
         }
         private void Student_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            (DataContext as MainViewModel).AddStudent();
+            (DataContext as InstructorViewModel).AddStudent();
         }
     }
 }
