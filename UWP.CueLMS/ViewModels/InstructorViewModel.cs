@@ -22,6 +22,7 @@ namespace UWP.CueLMS.ViewModels
             People = personService.personList;
             Collection = new ObservableCollection<Person>(People);
         }
+        public Person SelectedPerson { get; set; }
         private CourseService courseService { get; set; }
         private PersonService personService { get; set; }
         public List<Course> Courses { get; set; }
@@ -81,5 +82,11 @@ namespace UWP.CueLMS.ViewModels
             }
         }
         public string Query { get; set; }
+        public void DeletePerson()
+        {
+            People.Remove(SelectedPerson);
+            Query = "";
+            SearchPeople();
+        }
     }
 }
