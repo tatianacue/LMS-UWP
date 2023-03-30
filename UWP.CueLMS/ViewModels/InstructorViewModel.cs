@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UWP.CueLMS.Dialogs;
+using UWP.CueLMS.Views;
 
 namespace UWP.CueLMS.ViewModels
 {
@@ -30,7 +31,7 @@ namespace UWP.CueLMS.ViewModels
         private ObservableCollection<Person> collection { get; set; }
         public ObservableCollection<Person> Collection { get { return collection; } set { collection = value; } } 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -82,11 +83,85 @@ namespace UWP.CueLMS.ViewModels
             }
         }
         public string Query { get; set; }
+        public string NewName { get; set; }
+        public string NewId { get; set; }
+        private string classification;
+        public string NewClassification { get { return classification; }  
+            set 
+            { 
+                if (value.Equals("f"))
+                {
+                    classification = "Freshman";     
+                }
+                else if (value.Equals("s"))
+                {
+                    classification = "Sophomore";
+                }
+                else if (value.Equals("j"))
+                {
+                    classification = "Junior";
+                }
+                else if (value.Equals("e"))
+                {
+                    classification = "Senior";
+                }
+            } 
+        }   
+        public string NewDescription { get; set; }
         public void DeletePerson()
         {
             People.Remove(SelectedPerson);
             Query = "";
             SearchPeople();
         }
+        public void UpdateId()
+        {
+            if (NewId != null)
+            {
+                SelectedPerson.ID = NewId;
+            }
+            DisplayPerson = SelectedPerson.Display;
+        }
+        public void UpdateName()
+        {
+            if (NewName != null)
+            {
+                SelectedPerson.Name = NewName;
+            }
+        }
+        public void UpdateClassification()
+        {
+            if (NewClassification != null)
+            {
+                Student selected = (Student)SelectedPerson;
+                selected.Classification = NewClassification;
+            }
+        }
+        private string displaystuff
+        {
+            get
+            {
+                return SelectedPerson.Display;
+            }
+            set { }
+        }
+        public string DisplayPerson 
+        {
+            get
+            {
+                if (SelectedPerson != null) {
+                    return SelectedPerson.Display;
+                }
+                else
+                {
+                    return $"No Person Selected";
+                }
+            }
+            set
+            { 
+                displaystuff = value;
+            }
+        }
+
     }
 }
