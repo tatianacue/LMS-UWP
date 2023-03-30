@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Library.LMS.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.ServiceModel.Channels;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using UWP.CueLMS.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -22,50 +24,41 @@ namespace UWP.CueLMS.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class InstructorView : Page
+    public sealed partial class UpdateStudentView : Page
     {
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             var viewModel = (InstructorViewModel)e.Parameter;
-            if (e.Parameter != null)
-            {
-                DataContext = viewModel;
-            }
+            DataContext = viewModel;
         }
-        public InstructorView()
+        public UpdateStudentView()
         {
             this.InitializeComponent();
             DataContext = new InstructorViewModel();
         }
+        private void UpdateStudentId_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).UpdateId();
+            idbox.Text = string.Empty;
+        }
+
+        private void UpdateStudentName_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).UpdateName();
+            namebox.Text = string.Empty;
+        }
+
+        private void UpdateClassification_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).UpdateClassification();
+            classbox.Text = string.Empty;
+        }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
-        }
-
-        private void AddPerson_Click(object sender, RoutedEventArgs e)
-        {
-            querybox.Text = ""; //clears query box
             var viewmodel = DataContext as InstructorViewModel;
-            (DataContext as InstructorViewModel).PersonDialog(viewmodel);
-        }
-
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as InstructorViewModel).SearchPeople();
-        }
-
-        private void DeletePerson_Click(object sender, RoutedEventArgs e)
-        {
-            querybox.Text = ""; //clears query box
-            (DataContext as InstructorViewModel).DeletePerson();
-        }
-
-        private void UpdateStudent_Click(object sender, RoutedEventArgs e)
-        {
-            var viewmodel = DataContext as InstructorViewModel;
-            Frame.Navigate(typeof(UpdateStudentView), viewmodel);
+            Frame.Navigate(typeof(InstructorView), viewmodel);
         }
     }
 }
