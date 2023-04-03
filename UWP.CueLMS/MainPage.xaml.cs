@@ -16,19 +16,6 @@ namespace UWP.CueLMS
             this.InitializeComponent();
             DataContext = new MainViewModel();
         }
-
-        private void Search_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            (DataContext as MainViewModel).SearchPeople();
-        }
-
-        private void AddPerson_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            querybox.Text=""; //clears query box
-            var main = DataContext as MainViewModel;
-            //(DataContext as MainViewModel).Adder(main);
-        }
-
         private void InstructorView_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(InstructorView));
