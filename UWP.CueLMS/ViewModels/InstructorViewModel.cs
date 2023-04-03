@@ -13,7 +13,7 @@ using UWP.CueLMS.Views;
 
 namespace UWP.CueLMS.ViewModels
 {
-    public class InstructorViewModel
+    public class InstructorViewModel : ObservableObject
     {
         public InstructorViewModel()
         {
@@ -25,16 +25,11 @@ namespace UWP.CueLMS.ViewModels
         }
         public Person SelectedPerson { get; set; }
         private CourseService courseService { get; set; }
-        private PersonService personService { get; set; }
+        public PersonService personService { get; set; }
         public List<Course> Courses { get; set; }
         public List<Person> People { get; set; }
         private ObservableCollection<Person> collection { get; set; }
         public ObservableCollection<Person> Collection { get { return collection; } set { collection = value; } } 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         public async void PersonDialog(InstructorViewModel viewmodel)
         {
             var dialog = new AddPerson(viewmodel);
@@ -120,7 +115,7 @@ namespace UWP.CueLMS.ViewModels
             {
                 SelectedPerson.ID = NewId;
             }
-            DisplayPerson = SelectedPerson.Display;
+            NotifyPropertyChanged(nameof(DisplayPerson));
         }
         public void UpdateName()
         {
@@ -128,6 +123,7 @@ namespace UWP.CueLMS.ViewModels
             {
                 SelectedPerson.Name = NewName;
             }
+            NotifyPropertyChanged(nameof(DisplayPerson));
         }
         public void UpdateClassification()
         {
@@ -136,30 +132,17 @@ namespace UWP.CueLMS.ViewModels
                 Student selected = (Student)SelectedPerson;
                 selected.Classification = NewClassification;
             }
-        }
-        private string displaystuff
-        {
-            get
-            {
-                return SelectedPerson.Display;
-            }
-            set { }
+            NotifyPropertyChanged(nameof(DisplayPerson));
         }
         public string DisplayPerson 
         {
             get
             {
-                if (SelectedPerson != null) {
+                if (SelectedPerson != null)
+                {
                     return SelectedPerson.Display;
                 }
-                else
-                {
-                    return $"No Person Selected";
-                }
-            }
-            set
-            { 
-                displaystuff = value;
+                else { return "No Person Selected"; }
             }
         }
 
