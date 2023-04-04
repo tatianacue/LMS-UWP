@@ -109,10 +109,5 @@ namespace UWP.CueLMS.ViewModels
         {
             people.Add(Instructor);
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

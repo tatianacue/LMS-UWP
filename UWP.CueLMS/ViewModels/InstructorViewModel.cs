@@ -19,17 +19,20 @@ namespace UWP.CueLMS.ViewModels
         {
             courseService = new CourseService();
             personService = new PersonService();
-            Courses = courseService.courseList;
+            Courses = courseService.SpringList;
             People = personService.personList;
             Collection = new ObservableCollection<Person>(People);
+            courseCollection = new ObservableCollection<Course>(Courses);
         }
         public Person SelectedPerson { get; set; }
         private CourseService courseService { get; set; }
         public PersonService personService { get; set; }
         public List<Course> Courses { get; set; }
         public List<Person> People { get; set; }
-        private ObservableCollection<Person> collection { get; set; }
-        public ObservableCollection<Person> Collection { get { return collection; } set { collection = value; } } 
+        private ObservableCollection<Person> collection { get; set; } //person collection
+        public ObservableCollection<Person> Collection { get { return collection; } set { collection = value; } }
+        private ObservableCollection<Course> courseC { get; set; } //course collection
+        public ObservableCollection<Course> courseCollection { get { return courseC; } set { courseC = value; } }
         public async void PersonDialog(InstructorViewModel viewmodel)
         {
             var dialog = new AddPerson(viewmodel);
@@ -78,6 +81,7 @@ namespace UWP.CueLMS.ViewModels
             }
         }
         public string Query { get; set; }
+        public string Search { get; set; }
         public string NewName { get; set; }
         public string NewId { get; set; }
         private string classification;
@@ -143,6 +147,40 @@ namespace UWP.CueLMS.ViewModels
                     return SelectedPerson.Display;
                 }
                 else { return "No Person Selected"; }
+            }
+        }
+        public void SemesterSelect(int choice)
+        {
+            if (choice == 1) //spring list
+            {
+                Courses = courseService.SpringList;
+            }
+            else if (choice == 2) //summer list
+            {
+                Courses = courseService.SummerList;
+            }
+            else if(choice == 3) //fall list
+            {
+                Courses = courseService.FallList;
+            }
+        }
+        public async void AddCourse()
+        {
+            var dialog = new CourseDialog(Courses);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            Search = ""; //refresh
+            SearchCourses();
+        }
+        public void SearchCourses()
+        {
+            var searchResults = Courses.Where(p => p.Name.Contains(Search)).ToList();
+            courseCollection.Clear();
+            foreach (var course in searchResults)
+            {
+                courseCollection.Add(course);
             }
         }
 
