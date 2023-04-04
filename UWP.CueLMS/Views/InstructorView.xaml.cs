@@ -84,5 +84,10 @@ namespace UWP.CueLMS.Views
             var viewmodel = DataContext as InstructorViewModel;
             (DataContext as InstructorViewModel).SemesterDialog(viewmodel);
         }
+
+        private void DeleteCourse_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).DeleteCourse();
+        }
     }
 }

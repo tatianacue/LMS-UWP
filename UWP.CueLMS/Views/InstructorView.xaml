@@ -13,13 +13,13 @@
             <RowDefinition/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="IndianRed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="18*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Content="Exit" FontSize="20" Click="Exit_Click" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <TextBlock Text="Instructor View" FontSize="30" Grid.Column="0" HorizontalAlignment="Center"/>
+            <Button Content="Exit" FontSize="20" Click="Exit_Click" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
+            <TextBlock Text="Instructor View" FontSize="45" Grid.Column="0" HorizontalAlignment="Center" FontWeight="SemiBold"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -44,7 +44,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Spacing="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
                     <Button Content="Add Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="AddCourse_Click"/>
-                    <Button Content="Delete Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
+                    <Button Content="Delete Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="DeleteCourse_Click"/>
                     <Button Content="Update Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
                     <Button Content="Manage Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
                     <Button Content="Semester Select" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="SemesterSelect_Click"/>
@@ -52,7 +52,7 @@
             </Grid>
             <Grid Grid.Column="1" Grid.Row="0">
                 <!--holds listbox for courses-->
-                <ListBox ItemsSource="{Binding courseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox ItemsSource="{Binding courseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCourse, Mode=TwoWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>

@@ -19,18 +19,23 @@ namespace UWP.CueLMS.ViewModels
         private List<Course> courses {  get; set; }
         public string Name
         {
-            get { return Course.Name; }
             set { Course.Name = value; }
         }
         public string Code
         {
-            get { return Course.Code; }
             set { Course.Code = value; }
         }
         public int CreditHours
         {
-            get { return Course.CreditHours; }
             set { Course.CreditHours = value; }
+        }
+        public string Description
+        {
+            set { Course.Description = value; }
+        }
+        public string Room
+        {
+            set { Course.RoomLocation = value; }
         }
         public void AddCourse()
         {
