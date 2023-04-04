@@ -164,6 +164,16 @@ namespace UWP.CueLMS.ViewModels
                 Courses = courseService.FallList;
             }
         }
+        public async void SemesterDialog(InstructorViewModel viewmodel)
+        {
+            var dialog = new SemesterDialog(viewmodel);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            Search = ""; //refresh
+            SearchCourses();
+        }
         public async void AddCourse()
         {
             var dialog = new CourseDialog(Courses);

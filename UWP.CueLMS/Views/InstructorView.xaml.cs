@@ -78,5 +78,11 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as InstructorViewModel).AddCourse();
         }
+
+        private void SemesterSelect_Click(object sender, RoutedEventArgs e)
+        {
+            var viewmodel = DataContext as InstructorViewModel;
+            (DataContext as InstructorViewModel).SemesterDialog(viewmodel);
+        }
     }
 }
