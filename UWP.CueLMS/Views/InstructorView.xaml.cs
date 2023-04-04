@@ -73,5 +73,10 @@ namespace UWP.CueLMS.Views
             var viewmodel = DataContext as InstructorViewModel;
             Frame.Navigate(typeof(UpdateTAInstructorView), viewmodel);
         }
+
+        private void AddCourse_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).AddCourse();
+        }
     }
 }

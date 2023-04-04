@@ -11,10 +11,16 @@ namespace Library.LMS.Services
     public class CourseService
     {
         public List<Course> courseList { get; set; }
+        public List<Course> SpringList { get; set; } //jan 1 - april 30
+        public List<Course> SummerList { get; set; } //may 1 - july 31
+        public List<Course> FallList { get; set; } //aug 1 - dec 31
         public Dictionary<string, int> Codes { get; set; }
         public CourseService() 
         { 
             courseList = new List<Course>();
+            SpringList = new List<Course>();
+            SummerList = new List<Course>();
+            FallList = new List<Course>();
             Codes = new Dictionary<string, int>();
         }
         public void Add(Course course) //adds course to course list

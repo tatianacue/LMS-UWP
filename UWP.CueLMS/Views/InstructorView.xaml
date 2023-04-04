@@ -43,7 +43,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Spacing="25" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
-                    <Button Content="Add Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
+                    <Button Content="Add Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="AddCourse_Click"/>
                     <Button Content="Delete Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
                     <Button Content="Update Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
                     <Button Content="Manage Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
@@ -51,7 +51,7 @@
             </Grid>
             <Grid Grid.Column="1" Grid.Row="0">
                 <!--holds listbox for courses-->
-                <ListBox ItemsSource="{Binding Courses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox ItemsSource="{Binding courseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>

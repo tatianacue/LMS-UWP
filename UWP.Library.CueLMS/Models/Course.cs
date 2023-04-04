@@ -31,6 +31,7 @@ namespace Library.LMS.Models
         public List<Module> Modules { get; set; }
         public List<Submission> Submissions { get; set; }
         public List<Announcement> Announcements { get; set; }
+        public string RoomLocation { get; set; }
 
         //list manipulation
         public void AddStudent(Student newStudent) //adds student to course
@@ -38,7 +39,7 @@ namespace Library.LMS.Models
             Roster.Add(newStudent); //adds to roster
         }
 
-        public void RemoveStudent(Student student) //removes student from course EDIT THIS
+        public void RemoveStudent(Student student) //removes student from course
         {
             Roster.Remove(student);
         }
@@ -100,5 +101,6 @@ namespace Library.LMS.Models
                 $"\tRoster:\n\t{string.Join("\n\t", Roster.Select(s => s.ToString()).ToArray())}\n" +
                 $"\tAssignments:\n\t{string.Join("\n\t", Assignments.Select(s => s.ToString()).ToArray())}";
         }
+        public string Display => $"[{Code}] - {Name}";
     }
 }
