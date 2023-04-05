@@ -47,8 +47,7 @@ namespace UWP.CueLMS.Views
         private void AddPerson_Click(object sender, RoutedEventArgs e)
         {
             querybox.Text = ""; //clears query box
-            var viewmodel = DataContext as InstructorViewModel;
-            (DataContext as InstructorViewModel).PersonDialog(viewmodel);
+            (DataContext as InstructorViewModel).PersonDialog();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -81,8 +80,7 @@ namespace UWP.CueLMS.Views
 
         private void SemesterSelect_Click(object sender, RoutedEventArgs e)
         {
-            var viewmodel = DataContext as InstructorViewModel;
-            (DataContext as InstructorViewModel).SemesterDialog(viewmodel);
+            (DataContext as InstructorViewModel).SemesterDialog();
         }
 
         private void DeleteCourse_Click(object sender, RoutedEventArgs e)
