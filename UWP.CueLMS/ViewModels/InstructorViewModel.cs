@@ -197,7 +197,7 @@ namespace UWP.CueLMS.ViewModels
         public void DeleteCourse()
         {
             Courses.Remove(SelectedCourse);
-            Query = ""; //refresh
+            Search = ""; //refresh
             SearchCourses();
         }
 
