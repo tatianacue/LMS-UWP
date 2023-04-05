@@ -24,6 +24,7 @@ namespace UWP.CueLMS.ViewModels
         public ObservableCollection<Announcement> Announcements { get; set; }
         public ObservableCollection<Person> Roster { get; set; }
         public Announcement SelectedAnnouncement { get; set; }
+        public Module SelectedModule { get; set; }
         public string DisplayATitle //announcement display title
         {
             get
@@ -69,9 +70,9 @@ namespace UWP.CueLMS.ViewModels
         {
             var searchResults = Course.Announcements.Where(p => p.Title.Contains("")).ToList();
             Announcements.Clear();
-            foreach (var person in searchResults)
+            foreach (var a in searchResults)
             {
-                Announcements.Add(person);
+                Announcements.Add(a);
             }
         }
         public string NewATitle { get; set; }//new announcment title
@@ -91,6 +92,30 @@ namespace UWP.CueLMS.ViewModels
                 SelectedAnnouncement.Text = NewAText;
             }
             NotifyPropertyChanged(nameof(DisplayAText));
+        }
+        //Module Stuff
+        public async void ModuleDialog()
+        {
+            var dialog = new ModuleDialog(Course.Modules);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            MAutoRefresh();
+        }
+        public void DeleteModule()
+        {
+            Course.Modules.Remove(SelectedModule);
+            MAutoRefresh();
+        }
+        public void MAutoRefresh()
+        {
+            var searchResults = Course.Modules.Where(p => p.Name.Contains("")).ToList();
+            Modules.Clear();
+            foreach (var module in searchResults)
+            {
+                Modules.Add(module);
+            }
         }
     }
 }
