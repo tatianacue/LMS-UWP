@@ -10,7 +10,7 @@ using UWP.CueLMS.Dialogs;
 
 namespace UWP.CueLMS.ViewModels
 {
-    public class CourseManagerViewModel
+    public class CourseManagerViewModel : ObservableObject
     {
         public CourseManagerViewModel(Course course) 
         {
@@ -24,7 +24,33 @@ namespace UWP.CueLMS.ViewModels
         public ObservableCollection<Announcement> Announcements { get; set; }
         public ObservableCollection<Person> Roster { get; set; }
         public Announcement SelectedAnnouncement { get; set; }
+        public string DisplayATitle //announcement display title
+        {
+            get
+            {
+                if (SelectedAnnouncement != null)
+                {
+                    return SelectedAnnouncement.Title;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+        public string DisplayAText //announcement display title
+        {
+            get
+            {
+                if (SelectedAnnouncement != null)
+                {
+                    return SelectedAnnouncement.Text;
+                }
+                else { return string.Empty; }
+            }
+        }
 
+        //Announcement stuff
         public async void AnnouncementDialog()
         {
             var dialog = new AnnouncementDialog(Course.Announcements);
@@ -47,6 +73,24 @@ namespace UWP.CueLMS.ViewModels
             {
                 Announcements.Add(person);
             }
+        }
+        public string NewATitle { get; set; }//new announcment title
+        public string NewAText { get; set; }//new announcement body
+        public void UpdateATitle()
+        {
+            if (NewATitle!= null)
+            {
+                SelectedAnnouncement.Title = NewATitle;
+            }
+            NotifyPropertyChanged(nameof(DisplayATitle));
+        }
+        public void UpdateAText()
+        {
+            if (NewAText != null)
+            {
+                SelectedAnnouncement.Text = NewAText;
+            }
+            NotifyPropertyChanged(nameof(DisplayAText));
         }
     }
 }
