@@ -122,6 +122,9 @@
     <Compile Include="Dialogs\AddPerson.xaml.cs">
       <DependentUpon>AddPerson.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AnnouncementDialog.xaml.cs">
+      <DependentUpon>AnnouncementDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CourseDialog.xaml.cs">
       <DependentUpon>CourseDialog.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,8 @@
     </Compile>
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AnnouncementViewModel.cs" />
+    <Compile Include="ViewModels\CourseManagerViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\InstructorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -149,6 +154,9 @@
     <Compile Include="ViewModels\StudentViewModel.cs" />
     <Compile Include="Views\InstructorView.xaml.cs">
       <DependentUpon>InstructorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageCourseView.xaml.cs">
+      <DependentUpon>ManageCourseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentView.xaml.cs">
       <DependentUpon>StudentView.xaml</DependentUpon>
@@ -184,6 +192,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\AnnouncementDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\CourseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -209,6 +221,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\InstructorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageCourseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
