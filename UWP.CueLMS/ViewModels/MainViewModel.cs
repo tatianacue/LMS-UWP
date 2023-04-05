@@ -17,71 +17,8 @@ namespace UWP.CueLMS.ViewModels
 {
     public class MainViewModel
     {
-        private PersonService personService { get; set; }
-        public string Query { get; set; }
-        public List<Person> allPeople { get; set; }
-        private List<Person> people { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName]  string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         public MainViewModel() 
         { 
-            personService = new PersonService();
-            allPeople = new List<Person>(personService.personList);
-            people = new List<Person>(personService.personList);
-        }
-        public List<Person> People
-        {
-            get 
-            {
-                return people; 
-            }
-            set 
-            {
-                people = value;
-            }
-        }
-        public void SearchPeople() 
-        {
-            var searchResults = allPeople.Where(p => p.Name.Contains(Query)).ToList();
-            People.Clear();
-            foreach (var person in searchResults)
-            {
-                People.Add(person);
-            }
-        }
-        public async void AddStudent()
-        {
-            var dialog = new StudentDialog(allPeople);
-            if (dialog != null)
-            {
-                await dialog.ShowAsync();
-            }
-            Query = "";
-            SearchPeople(); //autorefresh
-        }
-        public async void AddTeachingAssistant()
-        {
-            var dialog = new TeachingAssistantDialog(allPeople);
-            if (dialog != null)
-            {
-                await dialog.ShowAsync();
-            }
-            Query = "";
-            SearchPeople(); //autorefresh
-        }
-        public async void AddInstructor()
-        {
-            var dialog = new InstructorDialog(allPeople);
-            if (dialog != null)
-            {
-                await dialog.ShowAsync();
-            }
-            Query = "";
-            SearchPeople(); //autorefresh
         }
     }
 }

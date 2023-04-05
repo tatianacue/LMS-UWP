@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Models
 {
@@ -22,9 +23,11 @@ namespace Library.LMS.Models
         {
             return $"[{Id}] - {Title}";
         }
+
         public string DisplayAll()
         {
             return $"[ANNOUNCEMENT]: {Title}\n{Text}";
         }
+        public string Display => $"[{Id}] - {Title}";
     }
 }

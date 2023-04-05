@@ -87,5 +87,11 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as InstructorViewModel).DeleteCourse();
         }
+
+        private void ManageCourse_Click(object sender, RoutedEventArgs e)
+        {
+            var viewmodel = DataContext as InstructorViewModel;
+            Frame.Navigate(typeof(ManageCourseView), viewmodel);
+        }
     }
 }

@@ -46,7 +46,7 @@
                     <Button Content="Add Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="AddCourse_Click"/>
                     <Button Content="Delete Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="DeleteCourse_Click"/>
                     <Button Content="Update Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
-                    <Button Content="Manage Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch"/>
+                    <Button Content="Manage Course" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="ManageCourse_Click"/>
                     <Button Content="Semester Select" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="SemesterSelect_Click"/>
                 </StackPanel>
             </Grid>
