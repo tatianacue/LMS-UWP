@@ -124,6 +124,7 @@
                             <StackPanel Spacing="20" Grid.Column="1" VerticalAlignment="Center">
                                 <Button Content="Add Announcement" HorizontalAlignment="Stretch" Click="AddAnnouncement_Click"/>
                                 <Button Content="Delete Announcement" HorizontalAlignment="Stretch" Click="DeleteAnnouncement_Click"/>
+                                <Button Content="Update Announcement" HorizontalAlignment="Stretch" Click="UpdateAnnouncement_Click"/>
                             </StackPanel>
                         </Grid>
                     </Grid>

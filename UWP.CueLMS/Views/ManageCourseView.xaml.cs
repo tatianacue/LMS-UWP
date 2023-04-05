@@ -55,5 +55,13 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as CourseManagerViewModel).DeleteAnnouncement();
         }
+
+        private void UpdateAnnouncement_Click(object sender, RoutedEventArgs e)
+        {
+            var main = DataContext as CourseManagerViewModel;
+            Dictionary<InstructorViewModel, CourseManagerViewModel> dictionary = new Dictionary<InstructorViewModel, CourseManagerViewModel>
+            { { instructorviewmodel, main }}; //pass both viewmodels through
+            Frame.Navigate(typeof(UpdateAnnouncementView), dictionary);
+        }
     }
 }
