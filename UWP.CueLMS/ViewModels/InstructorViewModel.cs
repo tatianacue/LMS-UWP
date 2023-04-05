@@ -34,9 +34,9 @@ namespace UWP.CueLMS.ViewModels
         public ObservableCollection<Person> Collection { get { return collection; } set { collection = value; } }
         private ObservableCollection<Course> courseC { get; set; } //course collection
         public ObservableCollection<Course> courseCollection { get { return courseC; } set { courseC = value; } }
-        public async void PersonDialog(InstructorViewModel viewmodel)
+        public async void PersonDialog()
         {
-            var dialog = new AddPerson(viewmodel);
+            var dialog = new AddPerson(this);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
@@ -165,9 +165,9 @@ namespace UWP.CueLMS.ViewModels
                 Courses = courseService.FallList;
             }
         }
-        public async void SemesterDialog(InstructorViewModel viewmodel)
+        public async void SemesterDialog()
         {
-            var dialog = new SemesterDialog(viewmodel);
+            var dialog = new SemesterDialog(this);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
