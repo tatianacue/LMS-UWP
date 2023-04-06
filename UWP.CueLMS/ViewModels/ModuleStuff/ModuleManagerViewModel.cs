@@ -24,6 +24,15 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
             }
             AutoRefresh();
         }
+        public async void AddFileItem()
+        {
+            var dialog = new AddFileItem(Module.Content);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            AutoRefresh();
+        }
         public void AutoRefresh()
         {
             var copy = Module.Content;

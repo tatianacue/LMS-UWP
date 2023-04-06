@@ -41,5 +41,10 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as ModuleManagerViewModel).AddPageItem();
         }
+
+        private void AddFileItem_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ModuleManagerViewModel).AddFileItem();
+        }
     }
 }
