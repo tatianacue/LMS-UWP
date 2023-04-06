@@ -307,9 +307,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2578</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UWP.Library.CueLMS\UWP.Library.CueLMS.csproj">
