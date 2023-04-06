@@ -22,6 +22,7 @@ namespace Library.LMS.Models
         {
             return $"{Name} - {Description}";
         }
+        public virtual string Display => $"[{Id}] - {Name}";
 
     }
 }
