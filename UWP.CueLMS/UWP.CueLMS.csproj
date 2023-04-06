@@ -125,6 +125,15 @@
     <Compile Include="Dialogs\AnnouncementDialog.xaml.cs">
       <DependentUpon>AnnouncementDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ContentItemDialogs\AddAssignmentItem.xaml.cs">
+      <DependentUpon>AddAssignmentItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ContentItemDialogs\AddFileItem.xaml.cs">
+      <DependentUpon>AddFileItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ContentItemDialogs\AddPageItem.xaml.cs">
+      <DependentUpon>AddPageItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CourseDialog.xaml.cs">
       <DependentUpon>CourseDialog.xaml</DependentUpon>
     </Compile>
@@ -156,6 +165,8 @@
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\InstructorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ModuleStuff\ModuleManagerViewModel.cs" />
+    <Compile Include="ViewModels\ModuleStuff\PageItemViewModel.cs" />
     <Compile Include="ViewModels\ModuleViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
@@ -164,6 +175,9 @@
     </Compile>
     <Compile Include="Views\ManageCourseView.xaml.cs">
       <DependentUpon>ManageCourseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageModuleView.xaml.cs">
+      <DependentUpon>ManageModuleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentView.xaml.cs">
       <DependentUpon>StudentView.xaml</DependentUpon>
@@ -206,6 +220,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\ContentItemDialogs\AddAssignmentItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ContentItemDialogs\AddFileItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ContentItemDialogs\AddPageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\CourseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -243,6 +269,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManageCourseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageModuleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

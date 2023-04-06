@@ -66,6 +66,7 @@
                             <StackPanel Spacing="20" Grid.Column="1" VerticalAlignment="Center">
                                 <Button Content="Add Module" HorizontalAlignment="Stretch" Click="AddModule_Click"/>
                                 <Button Content="Delete Module" HorizontalAlignment="Stretch" Click="DeleteModule_Click"/>
+                                <Button Content="Manage Module" HorizontalAlignment="Stretch" Click="ManageModule_Click"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
