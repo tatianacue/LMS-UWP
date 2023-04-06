@@ -1,0 +1,35 @@
+﻿<ContentDialog
+    x:Class="UWP.CueLMS.Dialogs.AssignmentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP.CueLMS.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="ADD ASSIGNMENT"
+    PrimaryButtonText="Ok"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Name" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock Text="Description" Grid.Row="1" Grid.Column="0"/>
+        <TextBlock Text="Total Points" Grid.Row="2" Grid.Column="0"/>
+        <TextBlock Text="Due Date" Grid.Row="3" Grid.Column="0"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Description, Mode=TwoWay}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=TotalAvailablePoints, Mode=TwoWay}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=DueDate, Mode=TwoWay}"/>
+    </Grid>
+</ContentDialog>

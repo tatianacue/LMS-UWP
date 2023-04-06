@@ -32,8 +32,9 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Margin="10">
+                <Grid Grid.Column="1" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="15*"/>
@@ -71,7 +72,7 @@
                         </Grid>
                     </Grid>
             </Grid>
-                <Grid Grid.Column="1" Margin="10">
+                <Grid Grid.Column="0" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="15*"/>
@@ -142,6 +143,44 @@
                                 <Button Content="Add Announcement" HorizontalAlignment="Stretch" Click="AddAnnouncement_Click"/>
                                 <Button Content="Delete Announcement" HorizontalAlignment="Stretch" Click="DeleteAnnouncement_Click"/>
                                 <Button Content="Update Announcement" HorizontalAlignment="Stretch" Click="UpdateAnnouncement_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="3" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="15*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="SlateGray" Grid.Row="0">
+                        <TextBlock Text="Assignments" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <ListBox ItemsSource="{Binding Assignments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" SelectedItem="{Binding Path=SelectedAssignment, Mode=TwoWay}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Grid.Column="0" Text="{Binding Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="20" Grid.Column="1" VerticalAlignment="Center">
+                                <Button Content="Add Assignment" HorizontalAlignment="Stretch" Click="AddAssignment_Click"/>
+                                <Button Content="Delete Assignment" HorizontalAlignment="Stretch" Click="DeleteAssignment_Click"/>
+                                <Button Content="Update Assignment" HorizontalAlignment="Stretch"/>
                             </StackPanel>
                         </Grid>
                     </Grid>

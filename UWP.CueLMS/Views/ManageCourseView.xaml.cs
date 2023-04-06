@@ -81,5 +81,15 @@ namespace UWP.CueLMS.Views
             { { instructorviewmodel, main }}; //pass both viewmodels through
             Frame.Navigate(typeof(ManageModuleView), dictionary);
         }
+
+        private void AddAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).AssignmentDialog();
+        }
+
+        private void DeleteAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).DeleteAssignment();
+        }
     }
 }
