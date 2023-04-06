@@ -84,7 +84,15 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <ListBox></ListBox>
+                            <ListBox ItemsSource="{Binding Roster, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" SelectedItem="{Binding Path=SelectedStudent, Mode=TwoWay}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Grid.Column="0" Text="{Binding Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Grid>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -93,8 +101,8 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Spacing="20" Grid.Column="1" VerticalAlignment="Center">
-                                <Button Content="Add Student" HorizontalAlignment="Stretch"/>
-                                <Button Content="Delete Student" HorizontalAlignment="Stretch"/>
+                                <Button Content="Add Student" HorizontalAlignment="Stretch" Click="AddStudent_Click"/>
+                                <Button Content="Delete Student" HorizontalAlignment="Stretch" Click="DeleteStudent_Click"/>
                             </StackPanel>
                         </Grid>
                     </Grid>

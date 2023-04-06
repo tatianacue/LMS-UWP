@@ -31,9 +31,10 @@ namespace UWP.CueLMS.Views
             var viewModel = (InstructorViewModel)e.Parameter;
             if (e.Parameter != null)
             {
-                instructorviewmodel = viewModel;
+                instructorviewmodel = viewModel; //instructor view model
+                var list = instructorviewmodel.People; //all people
                 var course = viewModel.SelectedCourse;
-                DataContext = new CourseManagerViewModel(course);
+                DataContext = new CourseManagerViewModel(course, list);
             }
         }
         public ManageCourseView()
@@ -72,6 +73,16 @@ namespace UWP.CueLMS.Views
         private void DeleteModule_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as CourseManagerViewModel).DeleteModule();
+        }
+
+        private void AddStudent_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).StudentToCourseDialog();
+        }
+
+        private void DeleteStudent_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).RemoveFromRoster();
         }
     }
 }

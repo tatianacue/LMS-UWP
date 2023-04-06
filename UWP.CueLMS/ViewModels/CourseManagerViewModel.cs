@@ -12,19 +12,39 @@ namespace UWP.CueLMS.ViewModels
 {
     public class CourseManagerViewModel : ObservableObject
     {
-        public CourseManagerViewModel(Course course) 
+        public CourseManagerViewModel(Course course, List<Person> people) 
         {
             Course = course;
             Modules = new ObservableCollection<Module>(Course.Modules);
             Announcements = new ObservableCollection<Announcement>(Course.Announcements);
             Roster = new ObservableCollection<Person>(Course.Roster);
+
+            peopleList = people;
+            var students = people.Where(x => x is Student).ToList();
+            AllStudents = new ObservableCollection<Person>(students);
+            if (Roster != null) //make sure add student doesn't show already added people
+            {
+                foreach (var student in Roster)
+                {
+                    foreach (var person in students) 
+                    {
+                        if (person == student)
+                        {
+                            AllStudents.Remove(student);
+                        }
+                    }
+                }
+            }
         }
         public Course Course { get; set; }
         public ObservableCollection<Module> Modules { get; set; }
         public ObservableCollection<Announcement> Announcements { get; set; }
         public ObservableCollection<Person> Roster { get; set; }
+        public ObservableCollection<Person> AllStudents { get; set; }
         public Announcement SelectedAnnouncement { get; set; }
         public Module SelectedModule { get; set; }
+        public Student SelectedStudent { get; set; }
+        private List<Person> peopleList {  get; set; }
         public string DisplayATitle //announcement display title
         {
             get
@@ -115,6 +135,51 @@ namespace UWP.CueLMS.ViewModels
             foreach (var module in searchResults)
             {
                 Modules.Add(module);
+            }
+        }
+        //Roster Stuff
+        public async void StudentToCourseDialog()
+        {
+            var dialog = new StudentToCourseDialog(this);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            RAutoRefresh();
+            AllStudents.Remove(SelectedStudent); //wont display again
+        }
+        public void AddToRoster()
+        {
+            Course.Roster.Add(SelectedStudent);
+        }
+        public void RemoveFromRoster()
+        {
+            Course.Roster.Remove(SelectedStudent);
+            RAutoRefresh();
+
+            var students = peopleList.Where(x => x is Student).ToList(); //refresh adder list
+            AllStudents = new ObservableCollection<Person>(students);
+            if (Roster != null)
+            {
+                foreach (var student in Roster)
+                {
+                    foreach (var person in students)
+                    {
+                        if (person == student)
+                        {
+                            AllStudents.Remove(student);
+                        }
+                    }
+                }
+            }
+        }
+        public void RAutoRefresh()
+        {
+            var searchResults = Course.Roster.Where(p => p.Name.Contains("")).ToList();
+            Roster.Clear();
+            foreach (var person in searchResults)
+            {
+                Roster.Add(person);
             }
         }
     }
