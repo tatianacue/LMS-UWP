@@ -165,6 +165,7 @@
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\InstructorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ModuleStuff\FileItemViewModel.cs" />
     <Compile Include="ViewModels\ModuleStuff\ModuleManagerViewModel.cs" />
     <Compile Include="ViewModels\ModuleStuff\PageItemViewModel.cs" />
     <Compile Include="ViewModels\ModuleViewModel.cs" />

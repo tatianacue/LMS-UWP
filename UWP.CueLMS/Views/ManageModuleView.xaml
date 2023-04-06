@@ -51,7 +51,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="1" Spacing="20" VerticalAlignment="Center">
-                        <Button HorizontalAlignment="Stretch" Content="Add File Item" FontSize="20"/>
+                        <Button HorizontalAlignment="Stretch" Content="Add File Item" FontSize="20" Click="AddFileItem_Click"/>
                         <Button HorizontalAlignment="Stretch" Content="Add Page Item" FontSize="20" Click="AddPageItem_Click"/>
                         <Button HorizontalAlignment="Stretch" Content="Add Assignment Item" FontSize="20"/>
                         <Button HorizontalAlignment="Stretch" Content="Delete Item" FontSize="20"/>
