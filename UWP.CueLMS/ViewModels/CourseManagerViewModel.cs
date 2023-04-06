@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using UWP.CueLMS.Dialogs;
@@ -18,6 +19,7 @@ namespace UWP.CueLMS.ViewModels
             Modules = new ObservableCollection<Module>(Course.Modules);
             Announcements = new ObservableCollection<Announcement>(Course.Announcements);
             Roster = new ObservableCollection<Person>(Course.Roster);
+            Assignments = new ObservableCollection<Assignment>(Course.Assignments);
 
             peopleList = people;
             var students = people.Where(x => x is Student).ToList();
@@ -37,6 +39,7 @@ namespace UWP.CueLMS.ViewModels
             }
         }
         public Course Course { get; set; }
+        public ObservableCollection<Assignment> Assignments { get; set; }
         public ObservableCollection<Module> Modules { get; set; }
         public ObservableCollection<Announcement> Announcements { get; set; }
         public ObservableCollection<Person> Roster { get; set; }
@@ -44,6 +47,7 @@ namespace UWP.CueLMS.ViewModels
         public Announcement SelectedAnnouncement { get; set; }
         public Module SelectedModule { get; set; }
         public Student SelectedStudent { get; set; }
+        public Assignment SelectedAssignment { get; set; }
         private List<Person> peopleList {  get; set; }
         public string DisplayATitle //announcement display title
         {
@@ -181,6 +185,30 @@ namespace UWP.CueLMS.ViewModels
             {
                 Roster.Add(person);
             }
+        }
+        //Assignment Stuff
+        public async void AssignmentDialog()
+        {
+            var dialog = new AssignmentDialog(Course.Assignments);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            AssignmentAutoRefresh();
+        }
+        public void AssignmentAutoRefresh()
+        {
+            var copy = Course.Assignments;
+            Assignments.Clear();
+            foreach (var a in copy)
+            {
+                Assignments.Add(a);
+            }
+        }
+        public void DeleteAssignment()
+        {
+            Course.Assignments.Remove(SelectedAssignment);
+            AssignmentAutoRefresh();
         }
     }
 }

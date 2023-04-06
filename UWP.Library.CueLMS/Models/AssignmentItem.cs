@@ -18,8 +18,7 @@ namespace Library.LMS.Models
         private static int LastId = 1;
         public override string DisplayAll()
         {
-            return $"{Name} - {Description}\n" +
-                $"{Assignment.Display()}";
+            return $"{Name} - {Description}\n";
         }
     }
 }
