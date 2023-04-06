@@ -24,7 +24,7 @@ namespace UWP.CueLMS.Views
             {
                 var coursemvm = dictionary.Values.First(); //saves coursemanagerviewmodel
                 instructorviewmodel = dictionary.Keys.First(); //saves instructorviewmodel
-                DataContext = new ModuleManagerViewModel(coursemvm.SelectedModule);
+                DataContext = new ModuleManagerViewModel(coursemvm.SelectedModule, coursemvm.Assignments);
             }
         }
         public ManageModuleView()
@@ -45,6 +45,16 @@ namespace UWP.CueLMS.Views
         private void AddFileItem_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as ModuleManagerViewModel).AddFileItem();
+        }
+
+        private void AddAssignmentItem_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ModuleManagerViewModel).AddAssignmentItem();
+        }
+
+        private void DeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ModuleManagerViewModel).DeleteItem();
         }
     }
 }
