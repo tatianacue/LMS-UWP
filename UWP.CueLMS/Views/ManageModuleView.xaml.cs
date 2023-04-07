@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Library.LMS.Models;
+using System.Collections.Generic;
 using System.Linq;
 using UWP.CueLMS.ViewModels;
 using UWP.CueLMS.ViewModels.ModuleStuff;
+using UWP.CueLMS.Views.ContentItemUpdates;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -55,6 +57,23 @@ namespace UWP.CueLMS.Views
         private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as ModuleManagerViewModel).DeleteItem();
+        }
+
+        private void UpdateItem_Click(object sender, RoutedEventArgs e)
+        {
+            var main = DataContext as ModuleManagerViewModel;
+            if (main.SelectedItem is AssignmentItem)
+            {
+                Frame.Navigate(typeof(UpdateAssignmentItem), main);
+            }
+            else if (main.SelectedItem is PageItem)
+            {
+                Frame.Navigate(typeof(UpdatePageItemView), main);
+            }
+            else if (main.SelectedItem is FileItem)
+            {
+                Frame.Navigate(typeof(UpdateFileItemView), main);
+            }
         }
     }
 }

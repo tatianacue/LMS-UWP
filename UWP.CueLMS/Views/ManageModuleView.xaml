@@ -55,7 +55,7 @@
                         <Button HorizontalAlignment="Stretch" Content="Add Page Item" FontSize="20" Click="AddPageItem_Click"/>
                         <Button HorizontalAlignment="Stretch" Content="Add Assignment Item" FontSize="20" Click="AddAssignmentItem_Click"/>
                         <Button HorizontalAlignment="Stretch" Content="Delete Item" FontSize="20" Click="DeleteItem_Click"/>
-                        <Button HorizontalAlignment="Stretch" Content="Update Item" FontSize="20"/>
+                        <Button HorizontalAlignment="Stretch" Content="Update Item" FontSize="20" Click="UpdateItem_Click"/>
                     </StackPanel>
                 </Grid>    
             </Grid>

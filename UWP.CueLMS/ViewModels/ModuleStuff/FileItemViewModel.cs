@@ -30,7 +30,7 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
                 FileItem.Description = value;
             }
         }
-        public string HTMLBody
+        public string FilePath
         {
             set
             {

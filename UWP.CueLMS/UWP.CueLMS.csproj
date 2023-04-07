@@ -176,6 +176,15 @@
     <Compile Include="ViewModels\ModuleViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
+    <Compile Include="Views\ContentItemUpdates\UpdateAssignmentItem.xaml.cs">
+      <DependentUpon>UpdateAssignmentItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentItemUpdates\UpdateFileItemView.xaml.cs">
+      <DependentUpon>UpdateFileItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentItemUpdates\UpdatePageItemView.xaml.cs">
+      <DependentUpon>UpdatePageItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InstructorView.xaml.cs">
       <DependentUpon>InstructorView.xaml</DependentUpon>
     </Compile>
@@ -273,6 +282,18 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContentItemUpdates\UpdateAssignmentItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentItemUpdates\UpdateFileItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentItemUpdates\UpdatePageItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InstructorView.xaml">
       <SubType>Designer</SubType>

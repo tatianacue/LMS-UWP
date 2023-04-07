@@ -11,10 +11,6 @@
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
-    <ContentDialog.Resources>
-        <x:Double x:Key="ContentDialogMaxWidth">1200</x:Double>
-        <x:Double x:Key="ContentDialogMaxHeight">1000</x:Double>
-    </ContentDialog.Resources>
 
     <Grid>
         <ListBox ItemsSource="{Binding AllStudents, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedStudent, Mode=TwoWay}" Height="NaN">
