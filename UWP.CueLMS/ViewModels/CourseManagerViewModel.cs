@@ -39,6 +39,13 @@ namespace UWP.CueLMS.ViewModels
             }
         }
         public Course Course { get; set; }
+        public string CourseCode
+        {
+            get
+            {     if (Course != null) {return Course.Code;}
+                  else { return String.Empty; }
+            }
+        }
         public ObservableCollection<Assignment> Assignments { get; set; }
         public ObservableCollection<Module> Modules { get; set; }
         public ObservableCollection<Announcement> Announcements { get; set; }

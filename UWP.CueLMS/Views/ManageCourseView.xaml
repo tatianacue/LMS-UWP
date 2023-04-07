@@ -26,7 +26,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="11*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="CourseName - Code" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
+            <TextBlock Text="{Binding Path=CourseCode}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -180,7 +180,6 @@
                             <StackPanel Spacing="20" Grid.Column="1" VerticalAlignment="Center">
                                 <Button Content="Add Assignment" HorizontalAlignment="Stretch" Click="AddAssignment_Click"/>
                                 <Button Content="Delete Assignment" HorizontalAlignment="Stretch" Click="DeleteAssignment_Click"/>
-                                <Button Content="Update Assignment" HorizontalAlignment="Stretch"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
