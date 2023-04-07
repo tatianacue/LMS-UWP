@@ -200,6 +200,119 @@ namespace UWP.CueLMS.ViewModels
             Search = ""; //refresh
             SearchCourses();
         }
+        //course update stuff
+        public string NewCourseCode { get; set; }
+        public string NewCourseName { get; set; }
+        public string NewCourseDescription { get; set; }
+        public int NewCourseHours { private get; set; }
+        public string NewCourseRoom { get; set; }
+        public string CourseCode
+        {
+            get
+            {
+                if (SelectedCourse != null)
+                {
+                    return SelectedCourse.Code;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+        public string CourseName
+        {
+            get
+            {
+                if (SelectedCourse != null)
+                {
+                    return SelectedCourse.Name;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+        public string CourseDescription
+        {
+            get
+            {
+                if (SelectedCourse != null)
+                {
+                    return SelectedCourse.Description;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+        public int CourseHours
+        {
+            get
+            {
+                if (SelectedCourse != null)
+                {
+                    return SelectedCourse.CreditHours;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        public string CourseRoom
+        {
+            get
+            {
+                if (SelectedCourse != null)
+                {
+                    return SelectedCourse.RoomLocation;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+        public void UpdateCourseCode()
+        {
+            if (NewCourseCode != null)
+            {
+                SelectedCourse.Code = NewCourseCode;
+            }
+            NotifyPropertyChanged(nameof(CourseCode));
+        }
+        public void UpdateCourseName()
+        {
+            if (NewCourseName != null)
+            {
+                SelectedCourse.Name = NewCourseName;
+            }
+            NotifyPropertyChanged(nameof(CourseName));
+        }
+        public void UpdateCourseDescription()
+        {
+            if (NewCourseDescription != null)
+            {
+                SelectedCourse.Description = NewCourseDescription;
+            }
+            NotifyPropertyChanged(nameof(CourseDescription));
+        }
+        public void UpdateCourseCreditHours()
+        {
+            SelectedCourse.CreditHours = NewCourseHours;
+            NotifyPropertyChanged(nameof(CourseHours));
+        }
+        public void UpdateCourseRoom()
+        {
+            if (NewCourseRoom != null)
+            {
+                SelectedCourse.RoomLocation = NewCourseRoom;
+            }
+            NotifyPropertyChanged(nameof(CourseRoom));
+        }
 
     }
 }

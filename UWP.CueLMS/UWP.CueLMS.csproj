@@ -200,6 +200,9 @@
     <Compile Include="Views\UpdateAnnouncementView.xaml.cs">
       <DependentUpon>UpdateAnnouncementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UpdateCourseView.xaml.cs">
+      <DependentUpon>UpdateCourseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UpdateStudentView.xaml.cs">
       <DependentUpon>UpdateStudentView.xaml</DependentUpon>
     </Compile>
@@ -312,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UpdateAnnouncementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateCourseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
