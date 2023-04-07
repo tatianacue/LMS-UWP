@@ -83,10 +83,10 @@ namespace UWP.CueLMS.ViewModels
         }
         public string Query { get; set; }
         public string Search { get; set; }
-        public string NewName { get; set; }
-        public string NewId { get; set; }
+        public string NewName { private get; set; }
+        public string NewId { private get; set; }
         private string classification;
-        public string NewClassification { get { return classification; }  
+        public string NewClassification { private get { return classification; }  
             set 
             { 
                 if (value.Equals("f"))
@@ -107,7 +107,6 @@ namespace UWP.CueLMS.ViewModels
                 }
             } 
         }   
-        public string NewDescription { get; set; }
         public void DeletePerson()
         {
             People.Remove(SelectedPerson);
