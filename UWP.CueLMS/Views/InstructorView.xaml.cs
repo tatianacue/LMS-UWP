@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.LMS.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -61,16 +62,18 @@ namespace UWP.CueLMS.Views
             (DataContext as InstructorViewModel).DeletePerson();
         }
 
-        private void UpdateStudent_Click(object sender, RoutedEventArgs e)
+        private void UpdatePerson_Click(object sender, RoutedEventArgs e)
         {
             var viewmodel = DataContext as InstructorViewModel;
-            Frame.Navigate(typeof(UpdateStudentView), viewmodel);
-        }
-
-        private void UpdateTAInstructor_Click(object sender, RoutedEventArgs e)
-        {
-            var viewmodel = DataContext as InstructorViewModel;
-            Frame.Navigate(typeof(UpdateTAInstructorView), viewmodel);
+            if (viewmodel.SelectedPerson is Student)
+            {
+                Frame.Navigate(typeof(UpdateStudentView), viewmodel);
+            }
+            else
+            {
+                Frame.Navigate(typeof(UpdateTAInstructorView), viewmodel);
+            }
+            
         }
 
         private void AddCourse_Click(object sender, RoutedEventArgs e)
