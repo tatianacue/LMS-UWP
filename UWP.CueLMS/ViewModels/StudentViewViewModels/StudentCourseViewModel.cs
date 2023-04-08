@@ -57,5 +57,50 @@ namespace UWP.CueLMS.ViewModels.StudentViewViewModels
                 else { return string.Empty; }
             }
         }
+        //assignment stuff
+        public string AssignmentName
+        {
+            get
+            {
+                if (SelectedAssignment != null)
+                {
+                    return SelectedAssignment.Name;
+                }
+                else { return string.Empty; }
+            }
+        }
+        public string AssignmentDescription
+        {
+            get
+            {
+                if (SelectedAssignment != null)
+                {
+                    return SelectedAssignment.Description;
+                }
+                else { return string.Empty; }
+            }
+        }
+        public string AssignmentDueDate
+        {
+            get
+            {
+                if (SelectedAssignment != null)
+                {
+                    return SelectedAssignment.DueDate;
+                }
+                else { return string.Empty; }
+            }
+        }
+        public int AssignmentPoints
+        {
+            get
+            {
+                if (SelectedAssignment != null)
+                {
+                    return SelectedAssignment.TotalAvailablePoints;
+                }
+                else { return 0; }
+            }
+        }
     }
 }
