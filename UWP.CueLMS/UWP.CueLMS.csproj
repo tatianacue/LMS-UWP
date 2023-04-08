@@ -128,6 +128,15 @@
     <Compile Include="Dialogs\AssignmentDialog.xaml.cs">
       <DependentUpon>AssignmentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AssignmentGroupDialogs\AddToExistingDialog.xaml.cs">
+      <DependentUpon>AddToExistingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AssignmentGroupDialogs\AddToGroupDialog.xaml.cs">
+      <DependentUpon>AddToGroupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AssignmentGroupDialogs\AssignmentGroupDialog.xaml.cs">
+      <DependentUpon>AssignmentGroupDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ContentItemDialogs\AddAssignmentItem.xaml.cs">
       <DependentUpon>AddAssignmentItem.xaml</DependentUpon>
     </Compile>
@@ -164,6 +173,7 @@
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AnnouncementViewModel.cs" />
+    <Compile Include="ViewModels\AssignmentGroupViewModel.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\CourseManagerViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
@@ -239,6 +249,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\AssignmentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AssignmentGroupDialogs\AddToExistingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AssignmentGroupDialogs\AddToGroupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AssignmentGroupDialogs\AssignmentGroupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

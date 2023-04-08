@@ -16,6 +16,13 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
             Assignments = assignments;
         }
         public Module Module { get; set; }
+        public string ModuleName { 
+            get { 
+                    if (Module != null) 
+                    { return Module.Name; }
+                    else { return string.Empty; }
+                }
+        }
         public ObservableCollection<ContentItem> Items { get; set; }
         public ObservableCollection<Assignment> Assignments { get; set; }
         public ContentItem SelectedItem { get; set; }

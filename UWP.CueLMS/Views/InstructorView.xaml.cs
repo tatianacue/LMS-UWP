@@ -78,16 +78,19 @@ namespace UWP.CueLMS.Views
 
         private void AddCourse_Click(object sender, RoutedEventArgs e)
         {
+            searchbox.Text = string.Empty;
             (DataContext as InstructorViewModel).AddCourse();
         }
 
         private void SemesterSelect_Click(object sender, RoutedEventArgs e)
         {
+            searchbox.Text = string.Empty;
             (DataContext as InstructorViewModel).SemesterDialog();
         }
 
         private void DeleteCourse_Click(object sender, RoutedEventArgs e)
         {
+            searchbox.Text = string.Empty;
             (DataContext as InstructorViewModel).DeleteCourse();
         }
 
@@ -101,6 +104,11 @@ namespace UWP.CueLMS.Views
         {
             var viewmodel = DataContext as InstructorViewModel;
             Frame.Navigate(typeof(UpdateCourseView), viewmodel);
+        }
+
+        private void SearchCourses_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).SearchCourses();
         }
     }
 }
