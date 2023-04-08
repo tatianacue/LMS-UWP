@@ -37,5 +37,11 @@ namespace UWP.CueLMS.Views.StudentViews
             { {studentviewmodel.CourseService, studentviewmodel.PersonService } };
             Frame.Navigate(typeof(StudentView), services);
         }
+
+        private void ViewAnnouncement_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var main = DataContext as StudentCourseViewModel;
+            Frame.Navigate(typeof(StudentAnnouncementView), main);
+        }
     }
 }

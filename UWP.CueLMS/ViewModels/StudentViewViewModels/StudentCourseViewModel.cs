@@ -34,5 +34,28 @@ namespace UWP.CueLMS.ViewModels.StudentViewViewModels
         public Module SelectedModule { get; set; }
         public Announcement SelectedAnnouncement { get; set; }
         public Assignment SelectedAssignment { get; set; }
+        //announcement stuff
+        public string AnnouncementTitle
+        {
+            get
+            {
+                if (SelectedAnnouncement != null)
+                {
+                    return SelectedAnnouncement.Title;
+                }
+                else { return string.Empty; }
+            }
+        }
+        public string AnnouncementBody
+        {
+            get
+            {
+                if (SelectedAnnouncement != null)
+                {
+                    return SelectedAnnouncement.Text;
+                }
+                else { return string.Empty; }
+            }
+        }
     }
 }

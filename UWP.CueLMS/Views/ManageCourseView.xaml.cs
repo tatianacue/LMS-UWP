@@ -52,9 +52,7 @@ namespace UWP.CueLMS.Views
         private void UpdateAnnouncement_Click(object sender, RoutedEventArgs e)
         {
             var main = DataContext as CourseManagerViewModel;
-            Dictionary<InstructorViewModel, CourseManagerViewModel> dictionary = new Dictionary<InstructorViewModel, CourseManagerViewModel>
-            { { instructorviewmodel, main }}; //pass both viewmodels through
-            Frame.Navigate(typeof(UpdateAnnouncementView), dictionary);
+            Frame.Navigate(typeof(UpdateAnnouncementView), main);
         }
 
         private void AddModule_Click(object sender, RoutedEventArgs e)
