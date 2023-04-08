@@ -1,4 +1,5 @@
 ﻿using Library.LMS.Models;
+using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,24 +26,26 @@ namespace UWP.CueLMS.Views
     /// </summary>
     public sealed partial class InstructorView : Page
     {
+        private Dictionary<CourseService, PersonService> services { get; set; }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var viewModel = (InstructorViewModel)e.Parameter;
             if (e.Parameter != null)
             {
-                DataContext = viewModel;
+                services = (Dictionary<CourseService, PersonService>)e.Parameter;
+                var courseservice = services.Keys.First();
+                var personservice = services.Values.First();
+                DataContext = new InstructorViewModel(courseservice, personservice);
             }
         }
         public InstructorView()
         {
             this.InitializeComponent();
-            DataContext = new InstructorViewModel();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            this.Frame.Navigate(typeof(MainPage), services);
         }
 
         private void AddPerson_Click(object sender, RoutedEventArgs e)

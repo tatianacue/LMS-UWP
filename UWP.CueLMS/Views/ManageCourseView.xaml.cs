@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Library.LMS.Services;
+using System.Collections.Generic;
 using UWP.CueLMS.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,7 +39,9 @@ namespace UWP.CueLMS.Views
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(InstructorView), instructorviewmodel);
+            Dictionary<CourseService, PersonService> services = new Dictionary<CourseService, PersonService>() //pass services through
+            { {instructorviewmodel.courseService, instructorviewmodel.personService } };
+            Frame.Navigate(typeof(InstructorView), services);
         }
 
         private void DeleteAnnouncement_Click(object sender, RoutedEventArgs e)
