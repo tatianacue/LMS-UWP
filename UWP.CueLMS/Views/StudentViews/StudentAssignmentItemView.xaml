@@ -19,7 +19,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid Background="IndianRed">
-                <TextBlock Text="File Item" FontSize="45" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBlock Text="Assignment Item" FontSize="45" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
             </Grid>
             <Button Content="Exit" Background="Gray" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="35" Click="Exit_Click"/>
         </Grid>
