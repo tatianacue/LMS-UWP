@@ -26,6 +26,7 @@ namespace UWP.CueLMS
                     main.Services = updatedservices;
                     main.courseService = updatedservices.Keys.First();
                     main.personService = updatedservices.Values.First();
+                    main.AutoRefresh(); //updates list for student selector if modified
                 }
             }
         }

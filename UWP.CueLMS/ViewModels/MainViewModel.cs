@@ -52,5 +52,10 @@ namespace UWP.CueLMS.ViewModels
                 await dialog.ShowAsync();
             }
         }
+        public void AutoRefresh()
+        {
+            Students.Clear();
+            FilterStudents();
+        }
     }
 }

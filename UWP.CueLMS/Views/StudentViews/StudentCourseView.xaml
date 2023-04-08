@@ -94,7 +94,7 @@
                 <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="View Announcement" FontSize="20" Click="ViewAnnouncement_Click"/>
             </Grid>
             <Grid Grid.Column="2" Grid.Row="1" Margin="50">
-                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="View Assignment" FontSize="20"/>
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="View Assignment" FontSize="20" Click="ViewAssignment_Click"/>
             </Grid>
         </Grid>
     </Grid>

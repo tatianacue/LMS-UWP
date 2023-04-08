@@ -53,5 +53,11 @@ namespace UWP.CueLMS.Views.StudentViews
             { { studentviewmodel, module }};
             Frame.Navigate(typeof(StudentModuleView), dictionary); //passes in viewmodel and selected module
         }
+
+        private void ViewAssignment_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var main = DataContext as StudentCourseViewModel;
+            Frame.Navigate(typeof(StudentAssignmentView), main);
+        }
     }
 }
