@@ -86,12 +86,12 @@ namespace UWP.CueLMS.ViewModels
         public string NewName { private get; set; }
         public string NewId { private get; set; }
         private string classification;
-        public string NewClassification { private get { return classification; }  
-            set 
-            { 
+        public string NewClassification { private get { return classification; }
+            set
+            {
                 if (value.Equals("f"))
                 {
-                    classification = "Freshman";     
+                    classification = "Freshman";
                 }
                 else if (value.Equals("s"))
                 {
@@ -105,8 +105,8 @@ namespace UWP.CueLMS.ViewModels
                 {
                     classification = "Senior";
                 }
-            } 
-        }   
+            }
+        }
         public void DeletePerson()
         {
             People.Remove(SelectedPerson);
@@ -138,7 +138,7 @@ namespace UWP.CueLMS.ViewModels
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
-        public string DisplayPerson 
+        public string DisplayPerson
         {
             get
             {
@@ -159,7 +159,7 @@ namespace UWP.CueLMS.ViewModels
             {
                 Courses = courseService.SummerList;
             }
-            else if(choice == 3) //fall list
+            else if (choice == 3) //fall list
             {
                 Courses = courseService.FallList;
             }
@@ -186,7 +186,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public void SearchCourses()
         {
-            var searchResults = Courses.Where(p => p.Name.Contains(Search)).ToList();
+            var searchResults = Courses.Where(p => p.Name.Contains(Search) || p.Description.Contains(Search)).ToList();
             courseCollection.Clear();
             foreach (var course in searchResults)
             {

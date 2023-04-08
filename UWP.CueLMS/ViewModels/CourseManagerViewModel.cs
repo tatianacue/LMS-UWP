@@ -1,4 +1,5 @@
 ﻿using Library.LMS.Models;
+using Library.LMS.Models.Grading;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UWP.CueLMS.Dialogs;
+using UWP.CueLMS.Dialogs.AssignmentGroupDialogs;
 
 namespace UWP.CueLMS.ViewModels
 {
@@ -20,6 +23,7 @@ namespace UWP.CueLMS.ViewModels
             Announcements = new ObservableCollection<Announcement>(Course.Announcements);
             Roster = new ObservableCollection<Person>(Course.Roster);
             Assignments = new ObservableCollection<Assignment>(Course.Assignments);
+            AssignmentGroups = new ObservableCollection<AssignmentGroup>(Course.AssignmentGroups);
 
             peopleList = people;
             var students = people.Where(x => x is Student).ToList();
@@ -51,10 +55,12 @@ namespace UWP.CueLMS.ViewModels
         public ObservableCollection<Announcement> Announcements { get; set; }
         public ObservableCollection<Person> Roster { get; set; }
         public ObservableCollection<Person> AllStudents { get; set; }
+        public ObservableCollection<AssignmentGroup> AssignmentGroups { get; set; }
         public Announcement SelectedAnnouncement { get; set; }
         public Module SelectedModule { get; set; }
         public Student SelectedStudent { get; set; }
         public Assignment SelectedAssignment { get; set; }
+        public AssignmentGroup SelectedAssignmentGroup { get; set; }
         private List<Person> peopleList {  get; set; }
         public string DisplayATitle //announcement display title
         {
@@ -81,7 +87,6 @@ namespace UWP.CueLMS.ViewModels
                 else { return string.Empty; }
             }
         }
-
         //Announcement stuff
         public async void AnnouncementDialog()
         {
@@ -217,5 +222,44 @@ namespace UWP.CueLMS.ViewModels
             Course.Assignments.Remove(SelectedAssignment);
             AssignmentAutoRefresh();
         }
+        public async void AddToGroupDialog()
+        {
+            var dialog = new AddToGroupDialog(this);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+        }
+        public async void CreateGroup() //create new assignment group
+        {
+            var dialog = new AssignmentGroupDialog(Course.AssignmentGroups, SelectedAssignment);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            AGAutoRefresh();
+        }
+        public async void AddToExisting() //add to existing group
+        {
+            var dialog = new AddToExistingDialog(this);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+        }
+        public void AddToAssignmentGroup()
+        {
+            SelectedAssignmentGroup.AddAssignment(SelectedAssignment);
+        }
+        public void AGAutoRefresh()
+        {
+            var copy = Course.AssignmentGroups;
+            AssignmentGroups.Clear();
+            foreach (var group in copy)
+            {
+                AssignmentGroups.Add(group);
+            }
+        }
+
     }
 }

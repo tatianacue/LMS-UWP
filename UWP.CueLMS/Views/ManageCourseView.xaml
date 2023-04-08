@@ -180,6 +180,7 @@
                             <StackPanel Spacing="20" Grid.Column="1" VerticalAlignment="Center">
                                 <Button Content="Add Assignment" HorizontalAlignment="Stretch" Click="AddAssignment_Click"/>
                                 <Button Content="Delete Assignment" HorizontalAlignment="Stretch" Click="DeleteAssignment_Click"/>
+                                <Button Content="Add to Assignment Group" HorizontalAlignment="Stretch" Click="AssignmentGroup_Click"/>
                             </StackPanel>
                         </Grid>
                     </Grid>

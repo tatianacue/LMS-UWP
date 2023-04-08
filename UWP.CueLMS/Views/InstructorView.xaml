@@ -52,7 +52,11 @@
             </Grid>
             <Grid Grid.Column="1" Grid.Row="0">
                 <!--holds listbox for courses-->
-                <ListBox ItemsSource="{Binding courseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCourse, Mode=TwoWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="12*"/>
+                </Grid.RowDefinitions>
+                <ListBox ItemsSource="{Binding courseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCourse, Mode=TwoWay}" Grid.Row="1">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -61,6 +65,14 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="searchbox" Grid.Column="0" Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Click="SearchCourses_Click"  Grid.Column="1" Content="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Button>
+                </Grid>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0">
                 <!--holds buttons for people-->

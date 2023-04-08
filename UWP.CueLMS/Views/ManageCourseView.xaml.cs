@@ -91,5 +91,10 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as CourseManagerViewModel).DeleteAssignment();
         }
+
+        private void AssignmentGroup_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).AddToGroupDialog();
+        }
     }
 }

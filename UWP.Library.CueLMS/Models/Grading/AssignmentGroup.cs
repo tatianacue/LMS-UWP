@@ -26,5 +26,6 @@ namespace Library.LMS.Models.Grading
         {
             return $"[{Id}] - {Name}";        
         }
+        public string Display => $"[{Id}] - {Name} [Weight: {Weight}]";
     }
 }
