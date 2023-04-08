@@ -88,7 +88,7 @@
                 </ListBox>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1" Margin="50">
-                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="View Module" FontSize="20"/>
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="View Module" FontSize="20" Click="ViewModule_Click"/>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="1" Margin="50">
                 <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="View Announcement" FontSize="20" Click="ViewAnnouncement_Click"/>
