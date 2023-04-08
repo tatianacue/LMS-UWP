@@ -1,4 +1,5 @@
-﻿using Library.LMS.Services;
+﻿using Library.LMS.Models;
+using Library.LMS.Services;
 using System.Collections.Generic;
 using UWP.CueLMS.ViewModels;
 using UWP.CueLMS.ViewModels.StudentViewViewModels;
@@ -42,6 +43,15 @@ namespace UWP.CueLMS.Views.StudentViews
         {
             var main = DataContext as StudentCourseViewModel;
             Frame.Navigate(typeof(StudentAnnouncementView), main);
+        }
+
+        private void ViewModule_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var main = DataContext as StudentCourseViewModel;
+            var module = main.SelectedModule;
+            Dictionary<StudentViewModel, Module> dictionary = new Dictionary<StudentViewModel, Module>
+            { { studentviewmodel, module }};
+            Frame.Navigate(typeof(StudentModuleView), dictionary); //passes in viewmodel and selected module
         }
     }
 }
