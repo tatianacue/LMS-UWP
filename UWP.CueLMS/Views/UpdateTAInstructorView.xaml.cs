@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.LMS.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,6 @@ namespace UWP.CueLMS.Views
         public UpdateTAInstructorView()
         {
             this.InitializeComponent();
-            DataContext = new InstructorViewModel();
         }
         private void UpdateId_Click(object sender, RoutedEventArgs e)
         {
@@ -48,8 +48,10 @@ namespace UWP.CueLMS.Views
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            var viewmodel = DataContext as InstructorViewModel;
-            Frame.Navigate(typeof(InstructorView), viewmodel);
+            var main = DataContext as InstructorViewModel;
+            Dictionary<CourseService, PersonService> services = new Dictionary<CourseService, PersonService>() //pass services through
+            { {main.courseService, main.personService } };
+            Frame.Navigate(typeof(InstructorView), services);
         }
     }
 }

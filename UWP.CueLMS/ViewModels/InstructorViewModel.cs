@@ -15,10 +15,10 @@ namespace UWP.CueLMS.ViewModels
 {
     public class InstructorViewModel : ObservableObject
     {
-        public InstructorViewModel()
+        public InstructorViewModel(CourseService courseservice, PersonService personservice)
         {
-            courseService = new CourseService();
-            personService = new PersonService();
+            courseService = courseservice;
+            personService = personservice;
             Courses = courseService.SpringList;
             People = personService.personList;
             Collection = new ObservableCollection<Person>(People);
@@ -26,7 +26,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public Person SelectedPerson { get; set; }
         public Course SelectedCourse { get; set; }
-        private CourseService courseService { get; set; }
+        public CourseService courseService { get; set; }
         public PersonService personService { get; set; }
         public List<Course> Courses { get; set; }
         public List<Person> People { get; set; }

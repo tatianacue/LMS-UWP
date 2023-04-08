@@ -24,7 +24,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="30">
                 <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Instructor View" FontSize="50" Click="InstructorView_Click"/>
-                <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Student View" FontSize="50"/>
+                <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Student View" FontSize="50" Click="StudentView_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace UWP.CueLMS.ViewModels
 {
-    internal class StudentViewModel
+    public class StudentViewModel
     {
+        public StudentViewModel() 
+        {
+
+        }
     }
 }
