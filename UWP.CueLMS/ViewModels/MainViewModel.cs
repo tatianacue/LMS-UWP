@@ -30,9 +30,9 @@ namespace UWP.CueLMS.ViewModels
         public CourseService courseService { get; set; }
         public PersonService personService { get; set; }
         public Dictionary<CourseService, PersonService> Services { get; set; }
-        public ObservableCollection<Person> Students { get; set; }
+        public ObservableCollection<Person> Students { get; set; } //displays students for selection
         public Person Selection { get; set; }
-        public void FilterStudents()
+        public void FilterStudents() //filters person list to just students for student selection
         {
             var allstudents = personService.personList.Where(x => x is Student);
             foreach (var student in allstudents)

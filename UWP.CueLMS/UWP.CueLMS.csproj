@@ -189,6 +189,7 @@
     <Compile Include="ViewModels\ModuleViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
+    <Compile Include="ViewModels\StudentViewViewModels\StudentCourseViewModel.cs" />
     <Compile Include="Views\ContentItemUpdates\UpdateAssignmentItem.xaml.cs">
       <DependentUpon>UpdateAssignmentItem.xaml</DependentUpon>
     </Compile>
@@ -209,6 +210,9 @@
     </Compile>
     <Compile Include="Views\StudentView.xaml.cs">
       <DependentUpon>StudentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentViews\StudentCourseView.xaml.cs">
+      <DependentUpon>StudentCourseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UpdateAnnouncementView.xaml.cs">
       <DependentUpon>UpdateAnnouncementView.xaml</DependentUpon>
@@ -340,6 +344,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StudentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudentViews\StudentCourseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
