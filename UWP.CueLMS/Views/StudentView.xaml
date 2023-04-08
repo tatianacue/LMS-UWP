@@ -9,6 +9,67 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="IndianRed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="18*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Exit" FontSize="20" Click="Exit_Click"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
+            <TextBlock Text="Student View" FontSize="45" Grid.Column="0" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="12*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="STUDENT:" FontSize="30" HorizontalAlignment="Right" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" FontSize="30" HorizontalAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Text="SEMESTER:" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Text="Semester" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="12*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Switch Student" FontSize="30" FontWeight="Bold"/>
+                    <Button Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="View Past Semesters" FontSize="30" FontWeight="Bold"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="13*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Current Courses:" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="30" Grid.Row="0"/>
+                    <ListBox ItemsSource="{Binding CurrentCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCourse, Mode=TwoWay}" Grid.Row="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
+        </Grid>
 
     </Grid>
 </Page>
