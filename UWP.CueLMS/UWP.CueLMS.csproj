@@ -215,11 +215,20 @@
     <Compile Include="Views\StudentViews\StudentAnnouncementView.xaml.cs">
       <DependentUpon>StudentAnnouncementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StudentViews\StudentAssignmentItemView.xaml.cs">
+      <DependentUpon>StudentAssignmentItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StudentViews\StudentCourseView.xaml.cs">
       <DependentUpon>StudentCourseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StudentViews\StudentFileItemView.xaml.cs">
+      <DependentUpon>StudentFileItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StudentViews\StudentModuleView.xaml.cs">
       <DependentUpon>StudentModuleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentViews\StudentPageItemView.xaml.cs">
+      <DependentUpon>StudentPageItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UpdateAnnouncementView.xaml.cs">
       <DependentUpon>UpdateAnnouncementView.xaml</DependentUpon>
@@ -358,11 +367,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StudentViews\StudentAssignmentItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StudentViews\StudentCourseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StudentViews\StudentFileItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StudentViews\StudentModuleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudentViews\StudentPageItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

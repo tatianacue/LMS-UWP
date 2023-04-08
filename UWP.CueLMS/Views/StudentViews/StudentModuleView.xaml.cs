@@ -37,5 +37,22 @@ namespace UWP.CueLMS.Views.StudentViews
         {
             Frame.Navigate(typeof(StudentCourseView), studentviewmodel);
         }
+
+        private void SelectItem_Click(object sender, RoutedEventArgs e)
+        {
+            var viewmodel = DataContext as StudentModuleViewModel;
+            if (viewmodel.SelectedItem is FileItem)
+            {
+                Frame.Navigate(typeof(StudentFileItemView), viewmodel);
+            }
+            else if (viewmodel.SelectedItem is PageItem)
+            {
+                Frame.Navigate(typeof(StudentPageItemView), viewmodel);
+            }
+            else if (viewmodel.SelectedItem is AssignmentItem)
+            {
+                Frame.Navigate(typeof(StudentAssignmentItemView), viewmodel);
+            }
+        }
     }
 }
