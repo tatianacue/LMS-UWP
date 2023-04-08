@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Library.LMS.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP.CueLMS.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +24,26 @@ namespace UWP.CueLMS.Views
     /// </summary>
     public sealed partial class StudentView : Page
     {
+        private Dictionary<CourseService, PersonService> services { get; set; }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                services = (Dictionary<CourseService, PersonService>)e.Parameter;
+                var courseservice = services.Keys.First();
+                var personservice = services.Values.First();
+                DataContext = new StudentViewModel(courseservice, personservice, personservice.SelectedStudent);
+            }
+        }
         public StudentView()
         {
             this.InitializeComponent();
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage), services);
         }
     }
 }

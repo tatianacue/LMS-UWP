@@ -50,5 +50,6 @@ namespace Library.LMS.Services
 
             return results;
         }
+        public Person SelectedStudent { get; set; }
     }
 }

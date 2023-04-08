@@ -33,6 +33,7 @@ namespace UWP.CueLMS
         {
             this.InitializeComponent();
             DataContext = new MainViewModel();
+            studentview.IsEnabled = false;
         }
         private void InstructorView_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -40,9 +41,16 @@ namespace UWP.CueLMS
             Frame.Navigate(typeof(InstructorView), main.Services);
         }
 
+        private void SelectStudent_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            (DataContext as MainViewModel).SelectStudentDialog();
+            var main = DataContext as MainViewModel;
+            studentview.IsEnabled = true;
+        }
         private void StudentView_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(StudentView));
+            var main = DataContext as MainViewModel;
+            Frame.Navigate(typeof(StudentView), main.Services);
         }
     }
 }
