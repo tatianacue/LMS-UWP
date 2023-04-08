@@ -52,7 +52,7 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Content="View Item" FontSize="30"/>
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Content="View Item" FontSize="30" Click="SelectItem_Click"/>
             </Grid>
         </Grid>
     </Grid>
