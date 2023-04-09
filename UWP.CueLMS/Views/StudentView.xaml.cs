@@ -43,5 +43,10 @@ namespace UWP.CueLMS.Views
             var main = DataContext as StudentViewModel;
             Frame.Navigate(typeof(StudentCourseView), main); //takes you to course view for students
         }
+
+        private void SwitchStudent_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StudentViewModel).SwitchStudent();
+        }
     }
 }

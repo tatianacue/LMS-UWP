@@ -35,7 +35,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="STUDENT:" FontSize="30" HorizontalAlignment="Right" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" FontSize="30" HorizontalAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}" FontSize="30" HorizontalAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="3" Text="SEMESTER:" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="4" Text="Semester" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
             </Grid>
@@ -49,7 +49,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Switch Student" FontSize="30" FontWeight="Bold"/>
+                    <Button Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Switch Student" FontSize="30" FontWeight="Bold" Click="SwitchStudent_Click"/>
                     <Button Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="View Past Semesters" FontSize="30" FontWeight="Bold"/>
                 </Grid>
                 <Grid Grid.Row="1">
