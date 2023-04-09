@@ -104,9 +104,11 @@ namespace UWP.CueLMS.ViewModels
         }
         public void UpdateId()
         {
+            var oldId = SelectedPerson.ID;
             if (NewId != null)
             {
                 SelectedPerson.ID = NewId;
+                personService.IDDictionary.Remove(oldId); //removes old Id from Id check
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
@@ -195,12 +197,26 @@ namespace UWP.CueLMS.ViewModels
         }
         public void DeleteCourse()
         {
+            var oldCode = SelectedCourse.Code;
             Courses.Remove(SelectedCourse);
+            courseService.Codes.Remove(oldCode); //clears up so old code can be used again
             Search = ""; //refresh
             SearchCourses();
         }
         //course update stuff
-        public string NewCourseCode { get; set; }
+        public string NewCourseCode { get { return newcode; } set { newcode = value.ToUpper(); } }
+        private string newcode { get; set; }
+        public bool CheckCode() //checks if code doesnt exist
+        {
+            if (courseService.CheckCode(NewCourseCode) == true) //if it doesnt exist
+            {
+                return true;
+            }
+            else //if it does
+            {
+                return false;
+            }
+        }
         public string NewCourseName { get; set; }
         public string NewCourseDescription { get; set; }
         public int NewCourseHours { private get; set; }
@@ -277,9 +293,11 @@ namespace UWP.CueLMS.ViewModels
         }
         public void UpdateCourseCode()
         {
+            var oldCode = SelectedCourse.Code;
             if (NewCourseCode != null)
             {
                 SelectedCourse.Code = NewCourseCode;
+                courseService.Codes.Remove(oldCode);
             }
             NotifyPropertyChanged(nameof(CourseCode));
         }

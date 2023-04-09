@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UWP.CueLMS.ViewModels;
-using UWP.CueLMS.ViewModels.ModuleStuff;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using UWP.CueLMS.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -36,16 +24,17 @@ namespace UWP.CueLMS.Views
         public UpdateCourseView()
         {
             this.InitializeComponent();
+            savecode.IsEnabled = false;
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            var viewmodel = DataContext as InstructorViewModel;
-            Frame.Navigate(typeof(InstructorView), viewmodel);
+            Frame.GoBack();
         }
         private void SaveCode_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as InstructorViewModel).UpdateCourseCode();
             codebox.Text = string.Empty;
+            savecode.IsEnabled = false;
         }
         private void SaveName_Click(object sender, RoutedEventArgs e)
         {
@@ -66,6 +55,18 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as InstructorViewModel).UpdateCourseRoom();
             roombox.Text = string.Empty;
+        }
+        private void CheckCode_Click(object sender, RoutedEventArgs e)
+        {
+            var main = DataContext as InstructorViewModel;
+            if (main.CheckCode() == true)
+            {
+                savecode.IsEnabled = true;
+            }
+            else
+            {
+                savecode.IsEnabled = false;
+            }
         }
     }
 }
