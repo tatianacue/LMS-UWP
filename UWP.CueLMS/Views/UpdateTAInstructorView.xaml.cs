@@ -29,6 +29,7 @@ namespace UWP.CueLMS.Views
             base.OnNavigatedTo(e);
             var viewModel = (InstructorViewModel)e.Parameter;
             DataContext = viewModel;
+            updateid.IsEnabled = false;
         }
         public UpdateTAInstructorView()
         {
@@ -38,6 +39,7 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as InstructorViewModel).UpdateId();
             idbox.Text = string.Empty;
+            updateid.IsEnabled = false;
         }
 
         private void UpdateName_Click(object sender, RoutedEventArgs e)
@@ -52,6 +54,18 @@ namespace UWP.CueLMS.Views
             Dictionary<CourseService, PersonService> services = new Dictionary<CourseService, PersonService>() //pass services through
             { {main.courseService, main.personService } };
             Frame.Navigate(typeof(InstructorView), services);
+        }
+        private void CheckId_Click(object sender, RoutedEventArgs e)
+        {
+            var main = DataContext as InstructorViewModel;
+            if (main.CheckId() == true)
+            {
+                updateid.IsEnabled = true;
+            }
+            else
+            {
+                updateid.IsEnabled = false;
+            }
         }
     }
 }

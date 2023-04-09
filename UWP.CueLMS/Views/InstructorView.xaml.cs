@@ -58,13 +58,6 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as InstructorViewModel).SearchPeople();
         }
-
-        private void DeletePerson_Click(object sender, RoutedEventArgs e)
-        {
-            querybox.Text = ""; //clears query box
-            (DataContext as InstructorViewModel).DeletePerson();
-        }
-
         private void UpdatePerson_Click(object sender, RoutedEventArgs e)
         {
             var viewmodel = DataContext as InstructorViewModel;

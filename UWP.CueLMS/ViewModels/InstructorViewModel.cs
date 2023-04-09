@@ -84,34 +84,28 @@ namespace UWP.CueLMS.ViewModels
         public string Query { get; set; }
         public string Search { get; set; }
         public string NewName { private get; set; }
-        public string NewId { private get; set; }
-        private string classification;
-        public string NewClassification { private get { return classification; }
-            set
-            {
-                if (value.Equals("f"))
-                {
-                    classification = "Freshman";
-                }
-                else if (value.Equals("s"))
-                {
-                    classification = "Sophomore";
-                }
-                else if (value.Equals("j"))
-                {
-                    classification = "Junior";
-                }
-                else if (value.Equals("e"))
-                {
-                    classification = "Senior";
-                }
-            }
-        }
-        public void DeletePerson()
+        public string NewId { get { return newid; } set { newid = value.ToUpper(); } }
+        private string newid { get ; set; }
+        private string classification { get; set; }
+        public void Classification(string s)
         {
-            People.Remove(SelectedPerson);
-            Query = "";
-            SearchPeople();
+            var student = (Student)SelectedPerson;
+            if (s == "f")
+            {
+                classification = "Freshman";
+            }
+            else if (s == "s")
+            {
+                classification = "Sophomore";
+            }
+            else if (s == "j")
+            {
+                classification = "Junior";
+            }
+            else if (s == "e")
+            {
+                classification = "Senior";
+            }
         }
         public void UpdateId()
         {
@@ -120,6 +114,17 @@ namespace UWP.CueLMS.ViewModels
                 SelectedPerson.ID = NewId;
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
+        }
+        public bool CheckId()
+        {
+            if (personService.CheckID(NewId) == true) //if it doesnt exist
+            {
+                return true;
+            }
+            else //if it does
+            {
+                return false;
+            }
         }
         public void UpdateName()
         {
@@ -131,10 +136,10 @@ namespace UWP.CueLMS.ViewModels
         }
         public void UpdateClassification()
         {
-            if (NewClassification != null)
+            if (classification != null)
             {
                 Student selected = (Student)SelectedPerson;
-                selected.Classification = NewClassification;
+                selected.Classification = classification;
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
