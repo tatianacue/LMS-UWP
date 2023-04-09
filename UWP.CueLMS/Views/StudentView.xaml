@@ -75,7 +75,7 @@
                         <Grid Grid.Column="1">
                             <StackPanel Margin="20" VerticalAlignment="Center" Spacing="30">
                                 <Button HorizontalAlignment="Stretch" Content="Enter Course" FontSize="20" Click="EnterCourse_Click"/>
-                                <Button HorizontalAlignment="Stretch" Content="View Course Grade" FontSize="20"/>
+                                <Button HorizontalAlignment="Stretch" Content="View Course Grade" FontSize="20" Click="ViewCourseGrade_Click"/>
                                 <Button HorizontalAlignment="Stretch" Content="Calculate GPA" FontSize="20"/>
                             </StackPanel>
                         </Grid>
