@@ -75,10 +75,7 @@ namespace UWP.CueLMS.Views
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            var main = DataContext as InstructorViewModel;
-            Dictionary<CourseService, PersonService> services = new Dictionary<CourseService, PersonService>() //pass services through
-            { {main.courseService, main.personService } };
-            Frame.Navigate(typeof(InstructorView), services);
+            Frame.GoBack();
         }
 
         private void CheckId_Click(object sender, RoutedEventArgs e)
