@@ -44,7 +44,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddStudent()
         {
-            var dialog = new StudentDialog(People);
+            var dialog = new StudentDialog(personService);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
@@ -54,7 +54,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddTeachingAssistant()
         {
-            var dialog = new TeachingAssistantDialog(People);
+            var dialog = new TeachingAssistantDialog(personService);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
@@ -64,7 +64,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddInstructor()
         {
-            var dialog = new InstructorDialog(People);
+            var dialog = new InstructorDialog(personService);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
