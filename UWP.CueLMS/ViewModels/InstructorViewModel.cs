@@ -3,13 +3,8 @@ using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using UWP.CueLMS.Dialogs;
-using UWP.CueLMS.Views;
 
 namespace UWP.CueLMS.ViewModels
 {
@@ -181,7 +176,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddCourse()
         {
-            var dialog = new CourseDialog(Courses);
+            var dialog = new CourseDialog(Courses, courseService);
             if (dialog != null)
             {
                 await dialog.ShowAsync();

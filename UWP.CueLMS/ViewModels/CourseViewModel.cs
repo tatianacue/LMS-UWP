@@ -1,30 +1,30 @@
 ﻿using Library.LMS.Models;
-using System;
-using System.Collections;
+using Library.LMS.Services;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UWP.CueLMS.ViewModels
 {
     public class CourseViewModel
     {
-        public CourseViewModel(List<Course> courseList) 
+        public CourseViewModel(List<Course> courses, CourseService service) 
         {
             Course = new Course();
-            courses = courseList;
+            Service = service;
+            Courses = courses; //list of courses depending on semester
         }
         private Course Course { get; set; }
-        private List<Course> courses {  get; set; }
+        private CourseService Service { get; set; }
+        private List<Course> Courses {  get; set; }
         public string Name
         {
             set { Course.Name = value; }
         }
         public string Code
         {
-            set { Course.Code = value; }
+            get { return code; }
+            set { code = value.ToUpper(); }
         }
+        private string code { get; set; }
         public int CreditHours
         {
             set { Course.CreditHours = value; }
@@ -39,7 +39,19 @@ namespace UWP.CueLMS.ViewModels
         }
         public void AddCourse()
         {
-            courses.Add(Course);
+            Course.Code = Code;
+            Courses.Add(Course);
+        }
+        public bool CheckCode() //checks if Id doesnt exist
+        {
+            if (Service.CheckCode(Code) == true) //if it doesnt exist
+            {
+                return true;
+            }
+            else //if it does
+            {
+                return false;
+            }
         }
     }
 }
