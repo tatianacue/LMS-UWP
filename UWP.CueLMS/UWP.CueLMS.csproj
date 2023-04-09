@@ -149,6 +149,9 @@
     <Compile Include="Dialogs\CourseDialog.xaml.cs">
       <DependentUpon>CourseDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\GradeSubmissionDialog.xaml.cs">
+      <DependentUpon>GradeSubmissionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\InstructorDialog.xaml.cs">
       <DependentUpon>InstructorDialog.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,9 @@
     </Compile>
     <Compile Include="Dialogs\StudentViewDialogs\StudentViewSelector.xaml.cs">
       <DependentUpon>StudentViewSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\StudentViewDialogs\SubmissionDialog.xaml.cs">
+      <DependentUpon>SubmissionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\TeachingAssistantDialog.xaml.cs">
       <DependentUpon>TeachingAssistantDialog.xaml</DependentUpon>
@@ -309,6 +315,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\GradeSubmissionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\InstructorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -334,6 +344,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\StudentViewDialogs\StudentViewSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\StudentViewDialogs\SubmissionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

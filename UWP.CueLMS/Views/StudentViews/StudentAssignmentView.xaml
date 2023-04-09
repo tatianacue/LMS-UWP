@@ -40,7 +40,7 @@
                 <TextBlock Text="Points:" FontWeight="SemiBold" FontSize="30" Grid.Column="2" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Path=AssignmentDueDate}" FontSize="30" Grid.Column="1" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Path=AssignmentPoints}" FontSize="30" Grid.Column="3" VerticalAlignment="Center"/>
-                <Button Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Submit" FontSize="20" Margin="10"/>
+                <Button Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Submit" FontSize="20" Margin="10" Click="Submit_Click"/>
             </Grid>
             <Grid Grid.Row="1">
                 <TextBlock Text="{Binding Path=AssignmentDescription}" FontSize="30"/>

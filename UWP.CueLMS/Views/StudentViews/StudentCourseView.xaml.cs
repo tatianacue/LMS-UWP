@@ -24,7 +24,8 @@ namespace UWP.CueLMS.Views.StudentViews
             {
                 studentviewmodel = viewModel; //student view model
                 var course = viewModel.SelectedCourse;
-                DataContext = new StudentCourseViewModel(course);
+                var student = viewModel.Student;
+                DataContext = new StudentCourseViewModel(course, student);
             }
         }
         public StudentCourseView()

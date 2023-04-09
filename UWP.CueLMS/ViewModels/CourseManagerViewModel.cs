@@ -56,12 +56,16 @@ namespace UWP.CueLMS.ViewModels
         public ObservableCollection<Person> Roster { get; set; }
         public ObservableCollection<Person> AllStudents { get; set; }
         public ObservableCollection<AssignmentGroup> AssignmentGroups { get; set; }
+        public ObservableCollection<Submission> Submissions { get { return new ObservableCollection<Submission>(SubmissionList); } }
         public Announcement SelectedAnnouncement { get; set; }
         public Module SelectedModule { get; set; }
         public Student SelectedStudent { get; set; }
         public Assignment SelectedAssignment { get; set; }
         public AssignmentGroup SelectedAssignmentGroup { get; set; }
+        public Submission SelectedSubmission { get; set; }
+        public int Grade { private get; set; }
         private List<Person> peopleList {  get; set; }
+        private List<Submission> SubmissionList { get { return Course.Submissions; } }
         public string DisplayATitle //announcement display title
         {
             get
@@ -259,6 +263,18 @@ namespace UWP.CueLMS.ViewModels
             {
                 AssignmentGroups.Add(group);
             }
+        }
+        public async void GradeSubmissionDialog()
+        {
+            var dialog = new GradeSubmissionDialog(this);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+        }
+        public void GradeSubmission()
+        {
+            SelectedSubmission.Grade = Grade;
         }
 
     }
