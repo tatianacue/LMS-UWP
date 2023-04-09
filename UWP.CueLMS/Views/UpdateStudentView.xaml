@@ -10,16 +10,19 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="11*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Exit" Click="Exit_Click"/>
+            <Grid Background="IndianRed">
+                <TextBlock Text="Update Student" FontSize="45" FontWeight="SemiBold" VerticalAlignment="Center"/>
+            </Grid>
+            <Button Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Exit" Click="Exit_Click" FontSize="35"/>
         </Grid>
         <TextBlock Grid.Row="1" Text="{Binding DisplayPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Grid Grid.Row="2">
@@ -32,12 +35,27 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox Name="idbox" Grid.Column="0" Text="{Binding NewId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-            <Button Content="Update Id" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="UpdateStudentId_Click" Grid.Column="1" FontSize="20"/>
-            <TextBox Name="namebox" Grid.Column="0" Grid.Row="1" Text="{Binding NewName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-            <Button Content="Update Name" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="UpdateStudentName_Click" Grid.Row="1" Grid.Column="1" FontSize="20"/>
-            <TextBox Name="classbox" Grid.Column="0" Grid.Row="2" Text="{Binding NewClassification, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20"/>
-            <Button Content="Update Classification" HorizontalAlignment="Stretch" Foreground="Black" Background="Gray" VerticalAlignment="Stretch" Click="UpdateClassification_Click" Grid.Row="2" Grid.Column="1" FontSize="20"/>
+            <TextBox Name="idbox" Grid.Column="0" Text="{Binding NewId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="25" Grid.Row="0"/>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Update Id" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="UpdateStudentId_Click" FontSize="20" Grid.Column="1" Name="updateid"/>
+                <Button Content="Check" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CheckId_Click" Grid.Column="0" FontSize="20"/>
+            </Grid>
+            
+            <TextBox Name="namebox" Grid.Column="0" Grid.Row="1" Text="{Binding NewName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="25"/>
+            <Button Content="Update Name" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="UpdateStudentName_Click" Grid.Row="1" Grid.Column="1" FontSize="20"/>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Spacing="35" HorizontalAlignment="Center">
+                <RadioButton Content="Freshman" FontSize="25" Name="fresh"/>
+                <RadioButton Content="Sophomore" FontSize="25" Name="soph"/>
+                <RadioButton Content="Junior" FontSize="25" Name="junior"/>
+                <RadioButton Content="Senior" FontSize="25" Name="senior"/>
+            </StackPanel>
+            <Button Content="Update Classification" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="UpdateClassification_Click" Grid.Row="2" Grid.Column="1" FontSize="20"/>
+
         </Grid>
     </Grid>
 </Page>
