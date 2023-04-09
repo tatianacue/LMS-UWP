@@ -1,21 +1,7 @@
-﻿using Library.LMS.Models;
-using Library.LMS.Services;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using Library.LMS.Services;
 using UWP.CueLMS.ViewModels;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,19 +9,49 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class StudentDialog : ContentDialog
     {
-        public StudentDialog(List<Person> people)
+        public StudentDialog(PersonService service)
         {
             this.InitializeComponent();
-            DataContext = new PersonViewModel(people);
+            DataContext = new PersonViewModel(service);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            var main = DataContext as PersonViewModel;
+            if (fresh.IsChecked == true) //freshman
+            {
+                main.Classification("f");
+            }
+            else if (soph.IsChecked == true) //sophomore
+            {
+                main.Classification("s");
+            }
+            else if (junior.IsChecked == true) //junior
+            {
+                main.Classification("j");
+            }
+            else if (senior.IsChecked == true) //senior
+            {
+                main.Classification("e");
+            }
             (DataContext as PersonViewModel).AddStudent();
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+
+        }
+        private void CheckId_Click(object sender, RoutedEventArgs e)
+        {
+            var main = DataContext as PersonViewModel;
+            if (main.CheckId() == true)
+            {
+                IsPrimaryButtonEnabled = true;
+            }
+            else
+            {
+                IsPrimaryButtonEnabled = false;
+            }
         }
     }
 }

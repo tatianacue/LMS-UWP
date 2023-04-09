@@ -1,4 +1,5 @@
 ﻿using Library.LMS.Models;
+using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,10 +23,10 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class TeachingAssistantDialog : ContentDialog
     {
-        public TeachingAssistantDialog(List<Person> persons)
+        public TeachingAssistantDialog(PersonService service)
         {
             this.InitializeComponent();
-            this.DataContext = new PersonViewModel(persons);
+            this.DataContext = new PersonViewModel(service);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -35,6 +36,18 @@ namespace UWP.CueLMS.Dialogs
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+        }
+        private void CheckId_Click(object sender, RoutedEventArgs e)
+        {
+            var main = DataContext as PersonViewModel;
+            if (main.CheckId() == true)
+            {
+                IsPrimaryButtonEnabled = true;
+            }
+            else
+            {
+                IsPrimaryButtonEnabled = false;
+            }
         }
     }
 }
