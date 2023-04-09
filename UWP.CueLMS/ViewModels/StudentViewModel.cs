@@ -123,12 +123,98 @@ namespace UWP.CueLMS.ViewModels
             else { return 0; }
         }
         public string CourseGrade { get { return $"{CalculateCourseGrade()}%"; } }
-        public async void CourseGradeDialog()
+        public async void GetCourseGradeDialog()
         {
             var dialog = new CourseGradeDialog(this);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
+            }
+        }
+        public async void GetCurrentGPADialog()
+        {
+            var dialog = new CurrentGPADialog(this);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+        }
+        public double CalculateCurrentGPA()
+        {
+            Dictionary<Course, double> CourseGrades = new Dictionary<Course, double>(); //holds all course grades
+            var courses = StudentCourseList;
+            foreach (var course in courses)
+            {
+                SelectedCourse = course;
+                double grade = CalculateCourseGrade();
+                CourseGrades.Add(course, grade);
+            }
+            double numbers = 0;
+            int totalCredits = 0;
+            foreach (var pair in CourseGrades)
+            {
+                double gradeValue = ConvertGpaScale(pair.Value);
+                int credit = pair.Key.CreditHours;
+                totalCredits += credit;
+                numbers += (gradeValue * credit); //multiplies by credit hours and adds to total
+            }
+            double Gpa = numbers / totalCredits;
+            return Gpa;
+        }
+        public string CurrentGPA { get { return CalculateCurrentGPA().ToString("F2"); } }
+        private double ConvertGpaScale(double courseGrade)
+        {
+            if (courseGrade >= 96) //A+
+            {
+                return 4.0;
+            }
+            else if (courseGrade <= 95 && courseGrade >= 91) //A
+            {
+                return 4.0;
+            }
+            else if (courseGrade <= 91 && courseGrade >= 90) //A-
+            {
+                return 3.7;
+            }
+            else if (courseGrade <= 89 && courseGrade >= 86) //B+
+            {
+                return 3.3;
+            }
+            else if (courseGrade <= 85 && courseGrade >= 81) //B
+            {
+                return 3.0;
+            }
+            else if (courseGrade <= 81 && courseGrade >= 80) //B-
+            {
+                return 2.7;
+            }
+            else if (courseGrade <= 79 && courseGrade >= 76) //C+
+            {
+                return 2.3;
+            }
+            else if (courseGrade <= 75 && courseGrade >= 71) //C
+            {
+                return 2.0;
+            }
+            else if (courseGrade <= 71 && courseGrade >= 70) //C-
+            {
+                return 1.7;
+            }
+            else if (courseGrade <= 69 && courseGrade >= 66) //D+
+            {
+                return 1.3;
+            }
+            else if (courseGrade <= 65 && courseGrade >= 61) //D
+            {
+                return 1.0;
+            }
+            else if (courseGrade <= 61 && courseGrade >= 60) //D-
+            {
+                return 0.7;
+            }
+            else //F
+            {
+                return 0;
             }
         }
     }

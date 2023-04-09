@@ -51,7 +51,12 @@ namespace UWP.CueLMS.Views
 
         private void ViewCourseGrade_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as StudentViewModel).CourseGradeDialog();
+            (DataContext as StudentViewModel).GetCourseGradeDialog();
+        }
+
+        private void CalculateGPA_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StudentViewModel).GetCurrentGPADialog();
         }
     }
 }
