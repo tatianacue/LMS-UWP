@@ -48,5 +48,10 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as StudentViewModel).SwitchStudent();
         }
+
+        private void ViewCourseGrade_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StudentViewModel).CourseGradeDialog();
+        }
     }
 }

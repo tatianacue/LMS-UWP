@@ -1,4 +1,5 @@
 ﻿using Library.LMS.Models;
+using Library.LMS.Models.Grading;
 using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,52 @@ namespace UWP.CueLMS.ViewModels
             foreach (var course in copy)
             {
                 CurrentCollection.Add(course);
+            }
+        }
+        //grade and gpa
+        public double CalculateCourseGrade()
+        {
+            if (SelectedCourse != null)
+            {
+                var student = (Student)Student;
+                var tempList = SelectedCourse.Submissions.Where(s => s.Student == student).ToList(); //list of submissions by specific student
+                Dictionary<AssignmentGroup, double> GroupGrades = new Dictionary<AssignmentGroup, double>();
+                double courseGrade = 0;
+                foreach (var group in SelectedCourse.AssignmentGroups) //each group in course
+                {
+                    double totalGrades = 0;
+                    double totalPoints = 0;
+                    foreach (var submission in tempList) //for each submission
+                    {
+                        foreach (var assignment in group.Group) //each assignment in group
+                        {
+                            if (submission.Assignment == assignment)
+                            {
+                                totalGrades += submission.Grade;
+                                totalPoints += assignment.TotalAvailablePoints;
+                            }
+                        }
+                    }
+                    var totalGroupGrade = totalGrades / totalPoints; //total grade for entire group
+                    GroupGrades.Add(group, totalGroupGrade); //adds group and grade to dictionary
+                }
+                foreach (var pair in GroupGrades) //for each total grade in group, multiply by the weight
+                {
+                    double weightedTotal = (pair.Key.Weight) * (pair.Value);
+                    courseGrade += weightedTotal;
+                }
+                student.Grades[SelectedCourse] = courseGrade; //update course grade dictionary in student
+                return courseGrade;
+            }
+            else { return 0; }
+        }
+        public string CourseGrade { get { return $"{CalculateCourseGrade()}%"; } }
+        public async void CourseGradeDialog()
+        {
+            var dialog = new CourseGradeDialog(this);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
             }
         }
     }
