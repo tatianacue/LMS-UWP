@@ -97,5 +97,10 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as CourseManagerViewModel).AddToGroupDialog();
         }
+
+        private void GradeSubmission_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).GradeSubmissionDialog();
+        }
     }
 }

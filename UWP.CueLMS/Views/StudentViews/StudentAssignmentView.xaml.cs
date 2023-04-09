@@ -29,5 +29,10 @@ namespace UWP.CueLMS.Views.StudentViews
         {
             Frame.GoBack();
         }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StudentCourseViewModel).SubmissionDialog();
+        }
     }
 }

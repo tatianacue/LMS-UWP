@@ -37,7 +37,7 @@
                 <TextBlock Grid.Column="0" Text="STUDENT:" FontSize="30" HorizontalAlignment="Right" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}" FontSize="30" HorizontalAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="3" Text="SEMESTER:" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="4" Text="Semester" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Text="Spring" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>

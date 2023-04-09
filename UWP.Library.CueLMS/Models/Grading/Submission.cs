@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Models.Grading
 {
@@ -17,11 +18,11 @@ namespace Library.LMS.Models.Grading
         public double Grade { get; set; }
         public Student Student { get; set; }
         public Assignment Assignment { get; set; }
-        public Course Course { get; set; }
 
         public override string ToString()
         {
             return $"[{Id}] {Student.Name} - {Assignment.Name}";
         }
+        public string Display => $"[{Assignment.TotalAvailablePoints} points] {Student.Name} - {Assignment.Name}";
     }
 }
