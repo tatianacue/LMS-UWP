@@ -1,0 +1,26 @@
+﻿<ContentDialog
+    x:Class="UWP.CueLMS.Dialogs.StudentViewDialogs.StudentViewSelector"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP.CueLMS.Dialogs.StudentViewDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="SELECT STUDENT"
+    PrimaryButtonText="Ok"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <ListBox ItemsSource="{Binding StudentsCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedStudent, Mode=TwoWay}" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</ContentDialog>
