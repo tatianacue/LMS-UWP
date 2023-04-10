@@ -35,9 +35,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="STUDENT:" FontSize="30" HorizontalAlignment="Right" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="1" Text="{Binding Path=Name, Mode=TwoWay}" FontSize="30" HorizontalAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontSize="30" HorizontalAlignment="Center" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 <TextBlock Grid.Column="3" Text="SEMESTER:" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="4" Text="Spring" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Text="{Binding Path=SemesterName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" FontSize="30" HorizontalAlignment="Left" FontWeight="SemiBold" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -50,14 +50,14 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Switch Student" FontSize="30" FontWeight="Bold" Click="SwitchStudent_Click"/>
-                    <Button Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="View Past Semesters" FontSize="30" FontWeight="Bold"/>
+                    <Button Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="View Past Semesters" FontSize="30" FontWeight="Bold" Click="ViewPastSemesters_Click"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="13*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Current Courses:" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="30" Grid.Row="0"/>
+                    <TextBlock Text="{Binding Path=ListName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="30" Grid.Row="0"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
@@ -74,9 +74,9 @@
                         </ListBox>
                         <Grid Grid.Column="1">
                             <StackPanel Margin="20" VerticalAlignment="Center" Spacing="30">
-                                <Button HorizontalAlignment="Stretch" Content="Enter Course" FontSize="20" Click="EnterCourse_Click"/>
-                                <Button HorizontalAlignment="Stretch" Content="View Course Grade" FontSize="20" Click="ViewCourseGrade_Click"/>
-                                <Button HorizontalAlignment="Stretch" Content="Calculate GPA" FontSize="20" Click="CalculateGPA_Click"/>
+                                <Button HorizontalAlignment="Stretch" Content="Enter Selected Course" FontSize="20" Click="EnterCourse_Click" Name="enter" IsEnabled="{Binding ButtonEnable, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Button HorizontalAlignment="Stretch" Content="View Course Grade" FontSize="20" Click="ViewCourseGrade_Click" Name="viewgrade" IsEnabled="{Binding ButtonEnable, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Button HorizontalAlignment="Stretch" Content="Calculate GPA" FontSize="20" Click="CalculateGPA_Click" Name="calculategpa" IsEnabled="{Binding ButtonEnable, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                         </Grid>
                     </Grid>

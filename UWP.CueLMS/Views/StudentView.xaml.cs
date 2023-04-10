@@ -58,5 +58,10 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as StudentViewModel).GetCurrentGPADialog();
         }
+
+        private void ViewPastSemesters_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StudentViewModel).ViewPastSemesters();
+        }
     }
 }
