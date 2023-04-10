@@ -1,0 +1,22 @@
+﻿<ContentDialog
+    x:Class="UWP.CueLMS.Dialogs.StudentViewDialogs.SemesterSwitchDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP.CueLMS.Dialogs.StudentViewDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Which semester would you like to view?"
+    PrimaryButtonText="View"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <StackPanel>
+            <RadioButton Content="Spring (Current)" Name="spring"/>
+            <RadioButton Content="Summer (Past)" Name="summer"/>
+            <RadioButton Content="Fall (Past)" Name="fall"/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

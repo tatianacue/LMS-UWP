@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using UWP.CueLMS.Dialogs;
 using UWP.CueLMS.Dialogs.StudentViewDialogs;
 
 namespace UWP.CueLMS.ViewModels
 {
     public class StudentViewModel : ObservableObject
     {
-        public StudentViewModel(CourseService c, PersonService p, Person s) 
+        public StudentViewModel(CourseService c, PersonService p, Person s)
         {
             StudentCourseList = new List<Course>();
             Student = s;
@@ -21,20 +20,33 @@ namespace UWP.CueLMS.ViewModels
             AllCurrentCourses = CourseService.SpringList; //default semester is spring for now
             StudentCourses(); //finds all student courses
             CurrentCollection = new ObservableCollection<Course>(StudentCourseList);
+            SemesterName = "Spring"; //default display text
+            ListName = "Current Courses:";
+            ButtonEnable = true;
         }
         public Person Student { get; set; }
-        public PersonService PersonService { get; set;}
-        public CourseService CourseService { get; set;}
+        public PersonService PersonService { get; set; }
+        public CourseService CourseService { get; set; }
         public List<Course> AllCurrentCourses { get; set; }
         public List<Course> StudentCourseList { get; set; }
         public List<Person> AllStudents { get { return PersonService.personList.Where(x => x is Student).ToList(); } }
         public ObservableCollection<Course> CurrentCollection { get; set; }
-        public ObservableCollection<Person> StudentsCollection 
-        { 
+        public ObservableCollection<Person> StudentsCollection
+        {
             get { return new ObservableCollection<Person>(AllStudents); }
         }
         public Course SelectedCourse { get; set; }
         public Person SelectedStudent { get; set; }
+        private bool buttonenable { get; set; }
+        public bool ButtonEnable
+        {
+            get { return buttonenable; }
+            set 
+            { 
+                buttonenable = value;
+                NotifyPropertyChanged(nameof(ButtonEnable));
+            }
+        }
         public string Name
         {
             get
@@ -46,6 +58,8 @@ namespace UWP.CueLMS.ViewModels
                 else { return string.Empty; }
             }
         }
+        public string SemesterName { get; set; } //current semester name display
+        public string ListName { get; set; } //current list title display
         private void StudentCourses()
         {
             foreach (var course in AllCurrentCourses) 
@@ -83,6 +97,43 @@ namespace UWP.CueLMS.ViewModels
             foreach (var course in copy)
             {
                 CurrentCollection.Add(course);
+            }
+        }
+        public async void ViewPastSemesters()
+        {
+            var dialog = new SemesterSwitchDialog(this);
+            if (dialog != null)
+            {
+                await dialog.ShowAsync();
+            }
+            StudentCourseList.Clear();
+            StudentCourses(); //updates student courses list
+            AutoRefresh(); //updates collection to display new semester
+            NotifyPropertyChanged(nameof(SemesterName));
+            NotifyPropertyChanged(nameof(ListName));
+        }
+        public void SwitchSemesters(int choice)
+        {
+            if (choice == 1) //switch to spring
+            {
+                AllCurrentCourses = CourseService.SpringList;
+                SemesterName = "Spring";
+                ListName = "Current Courses:";
+                ButtonEnable = true; //enables buttons because spring is current
+            }
+            else if (choice == 2) //switch to summer
+            {
+                AllCurrentCourses = CourseService.SummerList;
+                SemesterName = "Summer";
+                ListName = "Past Courses:";
+                ButtonEnable = false; //disables buttons because summer is past
+            }
+            else if (choice == 3) //switch to fall
+            {
+                AllCurrentCourses = CourseService.FallList;
+                SemesterName = "Fall";
+                ListName = "Past Courses:";
+                ButtonEnable = false; //disables buttons because fall is past
             }
         }
         //grade and gpa
