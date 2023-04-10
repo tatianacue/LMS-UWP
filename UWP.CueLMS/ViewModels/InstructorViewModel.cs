@@ -1,4 +1,5 @@
-﻿using Library.LMS.Models;
+﻿using Library.LMS;
+using Library.LMS.Models;
 using Library.LMS.Services;
 using System;
 using System.Collections.Generic;
@@ -16,19 +17,76 @@ namespace UWP.CueLMS.ViewModels
             personService = personservice;
             Courses = courseService.SpringList;
             People = personService.personList;
-            Collection = new ObservableCollection<Person>(People);
-            courseCollection = new ObservableCollection<Course>(Courses);
+            NavigatedCourses = new List<Course>();
+            NavigatedPeople = new List<Person>();
+            if(Courses.Count == 0) //in case the list has nothing from the start, it wont run list navigation
+            {
+                courseCollection = new ObservableCollection<Course>(Courses);
+            }
+            else
+            {
+                CourseNavigator = new ListNavigator<Course>(Courses);
+                CourseListNavigation(); //sets current page for navigated course list
+                courseCollection = new ObservableCollection<Course>(NavigatedCourses);
+                
+            }
+            if(People.Count == 0)
+            {
+                Collection = new ObservableCollection<Person>(People);
+            }
+            else
+            {
+                PersonNavigator = new ListNavigator<Person>(People);
+                Collection = new ObservableCollection<Person>(People); //collection for person list
+            }
         }
+        private ListNavigator<Course> CourseNavigator { get; set; }
+        private ListNavigator<Person> PersonNavigator { get; set; }
         public Person SelectedPerson { get; set; }
         public Course SelectedCourse { get; set; }
         public CourseService courseService { get; set; }
         public PersonService personService { get; set; }
         public List<Course> Courses { get; set; }
         public List<Person> People { get; set; }
-        private ObservableCollection<Person> collection { get; set; } //person collection
-        public ObservableCollection<Person> Collection { get { return collection; } set { collection = value; } }
-        private ObservableCollection<Course> courseC { get; set; } //course collection
-        public ObservableCollection<Course> courseCollection { get { return courseC; } set { courseC = value; } }
+        private List<Course> NavigatedCourses { get; set; } //navigation list
+        private List<Person> NavigatedPeople { get; set; } //navigation list
+        public ObservableCollection<Person> Collection { get; set; } //person collection display
+        public ObservableCollection<Course> courseCollection { get; set; } //course collection display
+        private void CourseListNavigation()
+        {
+            var dictionary = CourseNavigator.GetCurrentPage();
+            NavigatedCourses.Clear();
+            foreach (var item in dictionary)
+            {
+                NavigatedCourses.Add(item.Value);
+            }
+        }
+        public void CourseNavigationBack()
+        {
+            if (CourseNavigator.HasPreviousPage == true)
+            {
+                CourseNavigator.GoBackward();
+                CourseListNavigation();
+                courseCollection.Clear();
+                foreach (var course in NavigatedCourses)
+                {
+                    courseCollection.Add(course);
+                }
+            }
+        }
+        public void CourseNavigationForward()
+        {
+            if (CourseNavigator.HasNextPage == true)
+            {
+                CourseNavigator.GoForward();
+                CourseListNavigation();
+                courseCollection.Clear();
+                foreach (var course in NavigatedCourses)
+                {
+                    courseCollection.Add(course);
+                }
+            }
+        }
         public async void PersonDialog()
         {
             var dialog = new AddPerson(this);
@@ -189,10 +247,23 @@ namespace UWP.CueLMS.ViewModels
         public void SearchCourses()
         {
             var searchResults = Courses.Where(p => p.Name.Contains(Search) || p.Description.Contains(Search)).ToList();
-            courseCollection.Clear();
-            foreach (var course in searchResults)
+            if (searchResults.Count == 0) //if the results are empty it won't use list navigator
             {
-                courseCollection.Add(course);
+                courseCollection.Clear();
+                foreach (var course in searchResults)
+                {
+                    courseCollection.Add(course);
+                }
+            }
+            else //calls list navigator
+            {
+                CourseNavigator = new ListNavigator<Course>(searchResults);
+                CourseListNavigation(); //adds new navigated list items to NavigatedCourses list
+                courseCollection.Clear();
+                foreach (var course in NavigatedCourses)
+                {
+                    courseCollection.Add(course);
+                }
             }
         }
         public void DeleteCourse()
