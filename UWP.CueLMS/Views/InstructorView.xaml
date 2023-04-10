@@ -56,15 +56,29 @@
                     <RowDefinition/>
                     <RowDefinition Height="12*"/>
                 </Grid.RowDefinitions>
-                <ListBox ItemsSource="{Binding courseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCourse, Mode=TwoWay}" Grid.Row="1">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="12*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ListBox ItemsSource="{Binding courseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedCourse, Mode=TwoWay}" Grid.Row="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Back" HorizontalAlignment="Stretch" Grid.Column="0" VerticalAlignment="Stretch" Background="LightSlateGray" Click="GoBack_Click"/>
+                        <Button Content="Forward" HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Stretch" Background="LightSlateGray" Click="GoForward_Click"/>
+                    </Grid>
+                </Grid>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="7*"/>

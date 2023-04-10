@@ -106,5 +106,15 @@ namespace UWP.CueLMS.Views
         {
             (DataContext as InstructorViewModel).SearchCourses();
         }
+
+        private void GoBack_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).CourseNavigationBack();
+        }
+
+        private void GoForward_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as InstructorViewModel).CourseNavigationForward();
+        }
     }
 }
