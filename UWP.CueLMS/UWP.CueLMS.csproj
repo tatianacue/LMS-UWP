@@ -119,9 +119,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\AddPerson.xaml.cs">
-      <DependentUpon>AddPerson.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\AnnouncementDialog.xaml.cs">
       <DependentUpon>AnnouncementDialog.xaml</DependentUpon>
     </Compile>
@@ -284,10 +281,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\AddPerson.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\AnnouncementDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

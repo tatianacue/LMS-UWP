@@ -48,10 +48,20 @@ namespace UWP.CueLMS.Views
             this.Frame.Navigate(typeof(MainPage), services);
         }
 
-        private void AddPerson_Click(object sender, RoutedEventArgs e)
+        private void AddStudent_Click(object sender, RoutedEventArgs e)
         {
             querybox.Text = ""; //clears query box
-            (DataContext as InstructorViewModel).PersonDialog();
+            (DataContext as InstructorViewModel).AddStudent();
+        }
+        private void AddTA_Click(object sender, RoutedEventArgs e)
+        {
+            querybox.Text = ""; //clears query box
+            (DataContext as InstructorViewModel).AddTeachingAssistant();
+        }
+        private void AddInstructor_Click(object sender, RoutedEventArgs e)
+        {
+            querybox.Text = ""; //clears query box
+            (DataContext as InstructorViewModel).AddInstructor();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)

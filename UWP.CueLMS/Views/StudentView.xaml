@@ -13,14 +13,16 @@
             <RowDefinition/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="IndianRed">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="18*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Content="Exit" FontSize="20" Click="Exit_Click"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DimGray"/>
-            <TextBlock Text="Student View" FontSize="45" Grid.Column="0" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-        </Grid>
+            <Button Content="Exit" FontSize="20" Click="Exit_Click"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Grid Grid.Column="0" Background="IndianRed">
+                <TextBlock Text="Student View" FontSize="45" Grid.Column="0" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+            </Grid>
+    </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
