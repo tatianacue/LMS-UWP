@@ -37,6 +37,7 @@ namespace UWP.CueLMS.ViewModels
             else
             {
                 PersonNavigator = new ListNavigator<Person>(People);
+                PersonListNavigation();
                 Collection = new ObservableCollection<Person>(NavigatedPeople); //collection for person list
             }
         }
@@ -122,16 +123,9 @@ namespace UWP.CueLMS.ViewModels
                 }
             }
         }
-        public async void PersonDialog()
-        {
-            var dialog = new AddPerson(this);
-            if (dialog != null)
-            {
-                await dialog.ShowAsync();
-            }
-        }
         public async void AddStudent()
         {
+
             var dialog = new StudentDialog(personService);
             if (dialog != null)
             {

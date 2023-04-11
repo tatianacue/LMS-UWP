@@ -21,7 +21,7 @@
             <Grid Background="IndianRed" Grid.Column="0">
                 <TextBlock Text="{Binding Path=CourseCode}" FontSize="45" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
             </Grid>
-            <Button Content="Exit" Background="Gray" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="35" Click="Exit_Click"/>
+            <Button Content="Exit" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="35" Click="Exit_Click"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

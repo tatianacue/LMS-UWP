@@ -173,7 +173,13 @@ namespace UWP.CueLMS.ViewModels
             }
             else { return 0; }
         }
-        public string CourseGrade { get { return $"{CalculateCourseGrade()}%"; } }
+        public string CourseGrade 
+        { get 
+            { 
+                var grade = CalculateCourseGrade();
+                return $"{grade.ToString("F2")}% {ConvertLetterGrade(grade)}"; 
+            } 
+        }
         public async void GetCourseGradeDialog()
         {
             var dialog = new CourseGradeDialog(this);
@@ -266,6 +272,61 @@ namespace UWP.CueLMS.ViewModels
             else //F
             {
                 return 0;
+            }
+        }
+        private string ConvertLetterGrade(double courseGrade)
+        {
+            if (courseGrade >= 96) //A+
+            {
+                return "A+";
+            }
+            else if (courseGrade <= 95 && courseGrade >= 91) //A
+            {
+                return "A";
+            }
+            else if (courseGrade <= 91 && courseGrade >= 90) //A-
+            {
+                return "A-";
+            }
+            else if (courseGrade <= 89 && courseGrade >= 86) //B+
+            {
+                return "B+";
+            }
+            else if (courseGrade <= 85 && courseGrade >= 81) //B
+            {
+                return "B";
+            }
+            else if (courseGrade <= 81 && courseGrade >= 80) //B-
+            {
+                return "B-";
+            }
+            else if (courseGrade <= 79 && courseGrade >= 76) //C+
+            {
+                return "C+";
+            }
+            else if (courseGrade <= 75 && courseGrade >= 71) //C
+            {
+                return "C";
+            }
+            else if (courseGrade <= 71 && courseGrade >= 70) //C-
+            {
+                return "C-";
+            }
+            else if (courseGrade <= 69 && courseGrade >= 66) //D+
+            {
+                return "D+";
+            }
+            else if (courseGrade <= 65 && courseGrade >= 61) //D
+            {
+                return "D";
+            }
+            else if (courseGrade <= 61 && courseGrade >= 60) //D-
+            {
+                return "D-";
+            }
+            else //F
+            {
+                return "F";
             }
         }
     }

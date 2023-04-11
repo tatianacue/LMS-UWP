@@ -274,7 +274,9 @@ namespace UWP.CueLMS.ViewModels
         }
         public void GradeSubmission()
         {
-            SelectedSubmission.Grade = Grade;
+            SelectedSubmission.Grade = Grade; //sets in grade for submission
+            var percent = (Grade/SelectedSubmission.Assignment.TotalAvailablePoints) * 100;
+            SelectedSubmission.Student.AddAssignmentGrade(SelectedSubmission.Assignment, percent); //puts in percent grade in student's grade dictionary
         }
 
     }

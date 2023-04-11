@@ -21,7 +21,7 @@
             <Grid Background="IndianRed">
                 <TextBlock Text="Assignment Item" FontSize="45" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
             </Grid>
-            <Button Content="Exit" Background="Gray" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="35" Click="Exit_Click"/>
+            <Button Content="Exit" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="35" Click="Exit_Click"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -42,10 +42,10 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="6*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Description:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Total Points:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Due Date:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Description:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Total Points:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Due Date:" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=AssignmentName}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=AssignmentDescription}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=AssignmentPoints}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>

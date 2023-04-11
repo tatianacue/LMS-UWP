@@ -28,7 +28,7 @@ namespace Library.LMS.Models
         }
         public void AddAssignmentGrade(Assignment assignment, double grade) //takes in assignment id and grade for it
         {
-            AssignmentGrades.Add(assignment, grade);
+            AssignmentGrades[assignment] = grade;
         }
     }
 }

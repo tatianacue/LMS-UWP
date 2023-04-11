@@ -13,13 +13,15 @@
             <RowDefinition/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="IndianRed">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="11*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Course Manager" FontSize="45" Grid.Column="0" VerticalAlignment="Center" FontWeight="SemiBold"/>
-            <Button Content="Exit" Background="Gray" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="35" Click="Exit_Click"/>
+            <Grid Background="IndianRed" Grid.Column="0">
+                <TextBlock Text="Course Manager" FontSize="45" VerticalAlignment="Center" FontWeight="SemiBold"/>
+            </Grid>
+            <Button Content="Exit" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="35" Click="Exit_Click"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
