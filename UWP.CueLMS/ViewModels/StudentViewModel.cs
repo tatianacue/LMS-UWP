@@ -177,7 +177,7 @@ namespace UWP.CueLMS.ViewModels
         { get 
             { 
                 var grade = CalculateCourseGrade();
-                return $"{grade.ToString("F2")}% {ConvertLetterGrade(grade)}"; 
+                return $"{grade.ToString("F1")}% {ConvertLetterGrade(grade)}"; 
             } 
         }
         public async void GetCourseGradeDialog()
