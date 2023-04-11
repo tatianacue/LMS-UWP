@@ -37,7 +37,7 @@ namespace UWP.CueLMS.ViewModels
             else
             {
                 PersonNavigator = new ListNavigator<Person>(People);
-                Collection = new ObservableCollection<Person>(People); //collection for person list
+                Collection = new ObservableCollection<Person>(NavigatedPeople); //collection for person list
             }
         }
         private ListNavigator<Course> CourseNavigator { get; set; }
@@ -87,6 +87,41 @@ namespace UWP.CueLMS.ViewModels
                 }
             }
         }
+        public void PersonListNavigation()
+        {
+            var dictionary = PersonNavigator.GetCurrentPage();
+            NavigatedPeople.Clear();
+            foreach (var item in dictionary)
+            {
+                NavigatedPeople.Add(item.Value);
+            }
+        }
+        public void PersonNavigationForward()
+        {
+            if (PersonNavigator.HasNextPage == true)
+            {
+                PersonNavigator.GoForward();
+                PersonListNavigation();
+                Collection.Clear();
+                foreach (var person in NavigatedPeople)
+                {
+                    Collection.Add(person);
+                }
+            }
+        }
+        public void PersonNavigationBack()
+        {
+            if (PersonNavigator.HasPreviousPage == true)
+            {
+                PersonNavigator.GoBackward();
+                PersonListNavigation();
+                Collection.Clear();
+                foreach (var person in NavigatedPeople)
+                {
+                    Collection.Add(person);
+                }
+            }
+        }
         public async void PersonDialog()
         {
             var dialog = new AddPerson(this);
@@ -128,10 +163,23 @@ namespace UWP.CueLMS.ViewModels
         public void SearchPeople()
         {
             var searchResults = People.Where(p => p.Name.Contains(Query)).ToList();
-            Collection.Clear();
-            foreach (var person in searchResults)
+            if (searchResults.Count == 0) //if count is 0, then it won't call list navigator
             {
-                Collection.Add(person);
+                Collection.Clear();
+                foreach (var person in searchResults)
+                {
+                    Collection.Add(person);
+                }
+            }
+            else //list navigator called
+            {
+                PersonNavigator = new ListNavigator<Person>(searchResults);
+                PersonListNavigation(); //adds new navigated list items to NavigatedPeople list
+                Collection.Clear();
+                foreach (var person in NavigatedPeople)
+                {
+                    Collection.Add(person);
+                }
             }
         }
         public string Query { get; set; }

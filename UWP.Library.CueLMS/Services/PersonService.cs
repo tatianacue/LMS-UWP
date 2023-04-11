@@ -16,10 +16,10 @@ namespace Library.LMS.Services
         {
             personList = new List<Person>()
             {
-                new TeachingAssistant{ID = "tbc20n", Name = "Tatiana" }, //temp
-                new Instructor { ID = "cbc50n", Name = "Carl" }, //temp
-                new Student { ID = "tnt30", Name = "Bob", Classification="f"}, //temp
-                new Student { ID = "pnt4", Name = "Patrick", Classification="e"} //temp
+                //new TeachingAssistant{ID = "tbc20n", Name = "Tatiana" }, //temp
+                //new Instructor { ID = "cbc50n", Name = "Carl" }, //temp
+                //new Student { ID = "tnt30", Name = "Bob", Classification="f"}, //temp
+                //new Student { ID = "pnt4", Name = "Patrick", Classification="e"} //temp
             };
             IDDictionary = new Dictionary<string, int>();
         }

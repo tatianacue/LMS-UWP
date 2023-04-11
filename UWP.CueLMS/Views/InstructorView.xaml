@@ -65,7 +65,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Grid.Column="0" Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Text="{Binding Display, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -111,15 +111,29 @@
                     <RowDefinition/>
                     <RowDefinition Height="12*"/>
                 </Grid.RowDefinitions>
-                <ListBox ItemsSource="{Binding Collection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" SelectedItem="{Binding Path=SelectedPerson, Mode=TwoWay}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock Grid.Column="0" Text="{Binding Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="12*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ListBox ItemsSource="{Binding Collection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" SelectedItem="{Binding Path=SelectedPerson, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding Display, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Back" HorizontalAlignment="Stretch" Grid.Column="0" VerticalAlignment="Stretch" Background="LightSlateGray" Click="PersonGoBack_Click"/>
+                        <Button Content="Forward" HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Stretch" Background="LightSlateGray" Click="PersonGoForward_Click"/>
+                    </Grid>
+                </Grid>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="7*"/>
