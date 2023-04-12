@@ -1,17 +1,12 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Models.Grading;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using UWP.CueLMS.Dialogs;
 using UWP.CueLMS.Dialogs.AssignmentGroupDialogs;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class CourseManagerViewModel : ObservableObject
@@ -225,14 +220,6 @@ namespace UWP.CueLMS.ViewModels
         {
             Course.Assignments.Remove(SelectedAssignment);
             AssignmentAutoRefresh();
-        }
-        public async void AddToGroupDialog()
-        {
-            var dialog = new AddToGroupDialog(this);
-            if (dialog != null)
-            {
-                await dialog.ShowAsync();
-            }
         }
         public async void CreateGroup() //create new assignment group
         {

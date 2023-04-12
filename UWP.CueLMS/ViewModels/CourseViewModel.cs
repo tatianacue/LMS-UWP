@@ -1,7 +1,7 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Services;
 using System.Collections.Generic;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class CourseViewModel

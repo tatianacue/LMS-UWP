@@ -1,12 +1,6 @@
 ﻿using Library.LMS.Models;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class AnnouncementViewModel

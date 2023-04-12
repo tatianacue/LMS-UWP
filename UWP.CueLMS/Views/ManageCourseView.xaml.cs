@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.Views
 {
     /// <summary>
@@ -93,14 +93,19 @@ namespace UWP.CueLMS.Views
             (DataContext as CourseManagerViewModel).DeleteAssignment();
         }
 
-        private void AssignmentGroup_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as CourseManagerViewModel).AddToGroupDialog();
-        }
-
         private void GradeSubmission_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as CourseManagerViewModel).GradeSubmissionDialog();
+        }
+
+        private void AddExistingGroup_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).AddToExisting();
+        }
+
+        private void AddNewGroup_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CourseManagerViewModel).CreateGroup();
         }
     }
 }

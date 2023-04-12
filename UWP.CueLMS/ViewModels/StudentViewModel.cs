@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UWP.CueLMS.Dialogs.StudentViewDialogs;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class StudentViewModel : ObservableObject
@@ -60,7 +60,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public string SemesterName { get; set; } //current semester name display
         public string ListName { get; set; } //current list title display
-        private void StudentCourses()
+        private void StudentCourses() //adds to student course list
         {
             foreach (var course in AllCurrentCourses) 
             {
