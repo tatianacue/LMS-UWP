@@ -1,20 +1,11 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Services;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using UWP.CueLMS.Dialogs;
-using Windows.Graphics.Printing.PrintSupport;
-using Windows.UI.Xaml.Controls.Primitives;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class MainViewModel

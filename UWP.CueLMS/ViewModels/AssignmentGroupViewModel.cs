@@ -1,12 +1,7 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Models.Grading;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Appointments.AppointmentsProvider;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class AssignmentGroupViewModel

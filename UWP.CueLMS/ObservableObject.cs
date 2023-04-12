@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+/* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS
 {
     public class ObservableObject : INotifyPropertyChanged
