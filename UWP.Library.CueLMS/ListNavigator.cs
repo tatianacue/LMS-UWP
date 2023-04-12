@@ -41,7 +41,7 @@ namespace Library.LMS
             }
 
         }
-        public ListNavigator(List<T> list, int pageSize = 2)
+        public ListNavigator(List<T> list, int pageSize = 5)
         {
             this.pageSize = pageSize;
             this.currentPage = 1;

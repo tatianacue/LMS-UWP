@@ -14,13 +14,7 @@ namespace Library.LMS.Services
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
         public PersonService()
         {
-            personList = new List<Person>()
-            {
-                new TeachingAssistant{ID = "tbc20n", Name = "Tatiana" }, //temp
-                new Instructor { ID = "cbc50n", Name = "Carl" }, //temp
-                new Student { ID = "tnt30", Name = "Bob", Classification="f"}, //temp
-                new Student { ID = "pnt4", Name = "Patrick", Classification="e"} //temp
-            };
+            personList = new List<Person>();
             IDDictionary = new Dictionary<string, int>();
         }
         

@@ -11,12 +11,8 @@ namespace Library.LMS.Services
         public List<Course> FallList { get; set; } //aug 1 - dec 31
         public Dictionary<string, int> Codes { get; set; }
         public CourseService() 
-        { 
-            SpringList = new List<Course>() 
-            { 
-                new Course{Code="COP4080", Name="Computers", CreditHours=3, Description="Stuff", RoomLocation="PaperStreet" }, //temp
-                new Course{Code="CNT70", Name="comppooo", CreditHours=2, Description="idk", RoomLocation="SoapCompany" } //temp
-            };
+        {
+            SpringList = new List<Course>();
             SummerList = new List<Course>();
             FallList = new List<Course>();
             Codes = new Dictionary<string, int>();
