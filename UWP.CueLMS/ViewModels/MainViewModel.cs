@@ -31,7 +31,7 @@ namespace UWP.CueLMS.ViewModels
                 Students.Add(student);
             }
         }
-        public void SelectStudent()
+        public void SelectStudent() //selected student to be displayed in student view
         {
             personService.SelectedStudent = Selection;
         }

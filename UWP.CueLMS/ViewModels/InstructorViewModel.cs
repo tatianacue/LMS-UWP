@@ -125,7 +125,6 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddStudent()
         {
-
             var dialog = new StudentDialog(personService);
             if (dialog != null)
             {
