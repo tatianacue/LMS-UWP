@@ -128,9 +128,6 @@
     <Compile Include="Dialogs\AssignmentGroupDialogs\AddToExistingDialog.xaml.cs">
       <DependentUpon>AddToExistingDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\AssignmentGroupDialogs\AddToGroupDialog.xaml.cs">
-      <DependentUpon>AddToGroupDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\AssignmentGroupDialogs\AssignmentGroupDialog.xaml.cs">
       <DependentUpon>AssignmentGroupDialog.xaml</DependentUpon>
     </Compile>
@@ -290,10 +287,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\AssignmentGroupDialogs\AddToExistingDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\AssignmentGroupDialogs\AddToGroupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
