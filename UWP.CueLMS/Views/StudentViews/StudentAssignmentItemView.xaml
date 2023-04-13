@@ -49,7 +49,7 @@
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=AssignmentName}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=AssignmentDescription}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=AssignmentPoints}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=AssignmentDueDate}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=AssignmentDueDate}" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
     </Grid>
