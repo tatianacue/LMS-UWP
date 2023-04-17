@@ -5,24 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Library.LMS.Models;
+using Newtonsoft.Json;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Services
 {
     public class PersonService
     {
-        public List<Person> personList { get;}
+        //public List<Person> personList { get;}
+        public List<Person> personList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get("http://localhost:5100/Person").Result;
+                return JsonConvert.DeserializeObject<List<Person>>(payload);
+            }
+        }
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
         public PersonService()
         {
-            personList = new List<Person>();
             IDDictionary = new Dictionary<string, int>();
         }
         
-        public void Add(Person person) //adds student, TA, or instructor to list
-        {
-            personList.Add(person);
-        }
-
         public bool CheckID(string ID)
         {
             var result = new ArgumentException();
@@ -36,13 +40,6 @@ namespace Library.LMS.Services
                 return true;
             }
             else { return false; }
-        }
-        public List<Person> Search(string srch) //searches for student based on string
-        {
-            var searchStudent = personList.Where(t => t is Student && t.Name.Contains(srch)); //list of students
-            List<Person> results = searchStudent.ToList(); //enumerable to list
-
-            return results;
         }
         public Person SelectedStudent { get; set; }
     }
