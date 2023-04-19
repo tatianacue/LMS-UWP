@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UWP.CueLMS.Dialogs;
-using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
@@ -17,6 +16,7 @@ namespace UWP.CueLMS.ViewModels
             courseService = courseservice;
             personService = personservice;
             Courses = courseService.SpringList;
+            People = personService.personList;
             NavigatedCourses = new List<Course>();
             NavigatedPeople = new List<Person>();
             if(Courses.Count == 0) //in case the list has nothing from the start, it wont run list navigation
@@ -48,7 +48,7 @@ namespace UWP.CueLMS.ViewModels
         public CourseService courseService { get; set; }
         public PersonService personService { get; set; }
         public List<Course> Courses { get; set; }
-        public List<Person> People { get { return personService.personList; } }
+        public List<Person> People { get; set; }
         private List<Course> NavigatedCourses { get; set; } //navigation list
         private List<Person> NavigatedPeople { get; set; } //navigation list
         public ObservableCollection<Person> Collection { get; set; } //person collection display
@@ -201,15 +201,13 @@ namespace UWP.CueLMS.ViewModels
                 classification = "Senior";
             }
         }
-        public async void UpdateId()
+        public void UpdateId()
         {
             var oldId = SelectedPerson.ID;
             if (NewId != null)
             {
                 SelectedPerson.ID = NewId;
                 personService.IDDictionary.Remove(oldId); //removes old Id from Id check
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson);
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
@@ -224,24 +222,20 @@ namespace UWP.CueLMS.ViewModels
                 return false;
             }
         }
-        public async void UpdateName()
+        public void UpdateName()
         {
             if (NewName != null)
             {
                 SelectedPerson.Name = NewName;
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson);
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
-        public async void UpdateClassification()
+        public void UpdateClassification()
         {
             if (classification != null)
             {
                 Student selected = (Student)SelectedPerson;
                 selected.Classification = classification;
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson);
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }

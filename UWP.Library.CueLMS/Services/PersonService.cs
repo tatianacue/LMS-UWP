@@ -18,7 +18,7 @@ namespace Library.LMS.Services
             get
             {
                 var payload = new WebRequestHandler().Get("http://localhost:5100/Person").Result;
-                return JsonConvert.DeserializeObject<List<Person>>(payload).OrderBy(p => p.IdNumber).ToList();
+                return JsonConvert.DeserializeObject<List<Person>>(payload);
             }
         }
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
