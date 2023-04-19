@@ -1,6 +1,7 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Services;
 using System.Collections.Generic;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
@@ -47,30 +48,33 @@ namespace UWP.CueLMS.ViewModels
                 Student.Classification = "Senior";
             }
         }
-        public void AddStudent()
+        public async void AddStudent()
         {
             Student.ID = Id; //sets Id
-            people.Add(Student);
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Person", Student);
         }
         public string TAName
         {
             get { return TeachingAssistant.Name; }
             set { TeachingAssistant.Name = value; }
         }
-        public void AddTA()
+        public async void AddTA()
         {
             TeachingAssistant.ID = Id; //sets Id
-            people.Add(TeachingAssistant);
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Person", TeachingAssistant);
         }
         public string InstructorName
         {
             get { return Instructor.Name; }
             set { Instructor.Name = value; }
         }
-        public void AddInstructor()
+        public async void AddInstructor()
         {
             Instructor.ID = Id; //sets Id
-            people.Add(Instructor);
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Person", Instructor);
         }
         public bool CheckId() //checks if Id doesnt exist
         {
