@@ -13,7 +13,6 @@ namespace Library.LMS.Models
         //properties
         public string Name { get; set; }
         public string ID { get; set; }
-        public int IdNumber { get; set; }
         //other
         public override string ToString() //override output person
         {
