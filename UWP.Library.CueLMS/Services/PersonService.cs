@@ -12,13 +12,37 @@ namespace Library.LMS.Services
 {
     public class PersonService
     {
-        //public List<Person> personList { get;}
         public List<Person> personList
         {
             get
             {
                 var payload = new WebRequestHandler().Get("http://localhost:5100/Person").Result;
-                return JsonConvert.DeserializeObject<List<Person>>(payload).OrderBy(p => p.IdNumber).ToList();
+                var studentlist = JsonConvert.DeserializeObject<List<Student>>(payload);
+                var talist = JsonConvert.DeserializeObject<List<TeachingAssistant>>(payload);
+                var instructorlist = JsonConvert.DeserializeObject<List<Instructor>>(payload);
+                var people = new List<Person>();
+                foreach (var person in  studentlist) //make sure type is derived type
+                {
+                    if (person.Type == 0)
+                    {
+                        people.Add(person);
+                    }
+                }
+                foreach (var person in instructorlist)
+                {
+                    if (person.Type == 1)
+                    {
+                        people.Add(person);
+                    }
+                }
+                foreach (var person in talist)
+                {
+                    if (person.Type == 2)
+                    {
+                        people.Add(person);
+                    }
+                }
+                return people.OrderBy(x => x.IdNumber).ToList(); //default list order
             }
         }
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker
