@@ -426,6 +426,25 @@ namespace UWP.CueLMS.ViewModels
                 }
             }
         }
+        public async void PostUpdateCourse() //updates course to server
+        {
+            if (semester == 1) //send update to spring
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SpringCourse", SelectedCourse);
+            }
+            else if (semester == 2) //send update to summer
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SummerCourse", SelectedCourse);
+            }
+            else if (semester == 3) //send update to fall
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/FallCourse", SelectedCourse);
+            }
+            
+        }
         public void UpdateCourseCode()
         {
             var oldCode = SelectedCourse.Code;
@@ -433,6 +452,7 @@ namespace UWP.CueLMS.ViewModels
             {
                 SelectedCourse.Code = NewCourseCode;
                 courseService.Codes.Remove(oldCode);
+                PostUpdateCourse();
             }
             NotifyPropertyChanged(nameof(CourseCode));
         }
@@ -441,6 +461,7 @@ namespace UWP.CueLMS.ViewModels
             if (NewCourseName != null)
             {
                 SelectedCourse.Name = NewCourseName;
+                PostUpdateCourse();
             }
             NotifyPropertyChanged(nameof(CourseName));
         }
@@ -449,6 +470,7 @@ namespace UWP.CueLMS.ViewModels
             if (NewCourseDescription != null)
             {
                 SelectedCourse.Description = NewCourseDescription;
+                PostUpdateCourse();
             }
             NotifyPropertyChanged(nameof(CourseDescription));
         }
@@ -456,12 +478,14 @@ namespace UWP.CueLMS.ViewModels
         {
             SelectedCourse.CreditHours = NewCourseHours;
             NotifyPropertyChanged(nameof(CourseHours));
+            PostUpdateCourse();
         }
         public void UpdateCourseRoom()
         {
             if (NewCourseRoom != null)
             {
                 SelectedCourse.RoomLocation = NewCourseRoom;
+                PostUpdateCourse();
             }
             NotifyPropertyChanged(nameof(CourseRoom));
         }
