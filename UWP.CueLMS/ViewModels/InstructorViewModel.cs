@@ -14,9 +14,9 @@ namespace UWP.CueLMS.ViewModels
     {
         public InstructorViewModel(CourseService courseservice, PersonService personservice)
         {
+            semester = 1; //default semester is spring
             courseService = courseservice;
             personService = personservice;
-            Courses = courseService.SpringList;
             NavigatedCourses = new List<Course>();
             NavigatedPeople = new List<Person>();
             if(Courses.Count == 0) //in case the list has nothing from the start, it wont run list navigation
@@ -47,7 +47,23 @@ namespace UWP.CueLMS.ViewModels
         public Course SelectedCourse { get; set; }
         public CourseService courseService { get; set; }
         public PersonService personService { get; set; }
-        public List<Course> Courses { get; set; }
+        public List<Course> Courses { 
+            get 
+            {
+                if (semester == 1)
+                {
+                    return courseService.SpringList;
+                }
+                else if (semester == 2)
+                {
+                    return courseService.SummerList;
+                }
+                else
+                {
+                    return courseService.FallList;
+                }
+            } 
+        }
         public List<Person> People { get { return personService.personList; } }
         private List<Course> NavigatedCourses { get; set; } //navigation list
         private List<Person> NavigatedPeople { get; set; } //navigation list
@@ -260,17 +276,18 @@ namespace UWP.CueLMS.ViewModels
         {
             if (choice == 1) //spring list
             {
-                Courses = courseService.SpringList;
+                semester = 1;
             }
             else if (choice == 2) //summer list
             {
-                Courses = courseService.SummerList;
+                semester = 2;
             }
             else if (choice == 3) //fall list
             {
-                Courses = courseService.FallList;
+                semester = 3;
             }
         }
+        private int semester { get; set; }
         public async void SemesterDialog()
         {
             var dialog = new SemesterDialog(this);
@@ -283,7 +300,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void AddCourse()
         {
-            var dialog = new CourseDialog(Courses, courseService);
+            var dialog = new CourseDialog(courseService, semester);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
