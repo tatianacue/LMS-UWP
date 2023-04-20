@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UWP.Library.CueLMS.Database
 {
-    public static class DatabaseContext
+    public static class FakeDatabaseContext
     {
         public static List<Person> People = new List<Person>() {
                 new Student{ ID = "tbc20n", Name = "Tat", Classification = "Junior", IdNumber=1},
