@@ -18,13 +18,25 @@ namespace Library.LMS.Services
                 return JsonConvert.DeserializeObject<List<Course>>(payload).OrderBy(x => x.Id).ToList();
             }
         } //jan 1 - april 30
-        public List<Course> SummerList { get; set; } //may 1 - july 31
-        public List<Course> FallList { get; set; } //aug 1 - dec 31
+        public List<Course> SummerList
+        { 
+            get
+            {
+                var payload = new WebRequestHandler().Get("http://localhost:5100/SummerCourse").Result;
+                return JsonConvert.DeserializeObject<List<Course>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        } //may 1 - july 31
+        public List<Course> FallList 
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get("http://localhost:5100/FallCourse").Result;
+                return JsonConvert.DeserializeObject<List<Course>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        } //aug 1 - dec 31
         public Dictionary<string, int> Codes { get; set; }
         public CourseService() 
         {
-            SummerList = new List<Course>();
-            FallList = new List<Course>();
             Codes = new Dictionary<string, int>();
         }
         public bool CheckCode(string c)
