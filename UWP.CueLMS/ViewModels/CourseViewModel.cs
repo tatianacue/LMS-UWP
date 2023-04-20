@@ -1,18 +1,20 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Services;
 using System.Collections.Generic;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class CourseViewModel
     {
-        public CourseViewModel(List<Course> courses, CourseService service) 
+        public CourseViewModel(CourseService service, int s) 
         {
             Course = new Course();
             Service = service;
-            Courses = courses; //list of courses depending on semester
+            semester = s;
         }
         private Course Course { get; set; }
+        private int semester { get; set; }
         private CourseService Service { get; set; }
         private List<Course> Courses {  get; set; }
         public string Name
@@ -37,10 +39,14 @@ namespace UWP.CueLMS.ViewModels
         {
             set { Course.RoomLocation = value; }
         }
-        public void AddCourse()
+        public async void AddCourse()
         {
             Course.Code = Code;
-            Courses.Add(Course);
+            if (semester == 1)
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SpringCourse", Course);
+            }
         }
         public bool CheckCode() //checks if Id doesnt exist
         {
