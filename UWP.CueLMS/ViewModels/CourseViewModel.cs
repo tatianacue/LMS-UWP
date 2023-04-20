@@ -42,10 +42,20 @@ namespace UWP.CueLMS.ViewModels
         public async void AddCourse()
         {
             Course.Code = Code;
-            if (semester == 1)
+            if (semester == 1) //add to spring
             {
                 var handler = new WebRequestHandler();
                 await handler.Post("http://localhost:5100/SpringCourse", Course);
+            }
+            else if (semester == 2) //add to summer
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SummerCourse", Course);
+            }
+            else if (semester == 3) //add to fall
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/FallCourse", Course);
             }
         }
         public bool CheckCode() //checks if Id doesnt exist
