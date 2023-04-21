@@ -13,7 +13,7 @@ namespace UWP.CueLMS.ViewModels.StudentViewViewModels
             Course = course;
             Student = (Student)student;
             Modules = new ObservableCollection<Module>(Course.Modules);
-            Announcements = new ObservableCollection<Announcement>(Course.Announcements);
+            Announcements = new ObservableCollection<Announcement>();
             Assignments = new ObservableCollection<Assignment>(Course.Assignments);
         }
         public Course Course { get; set;}

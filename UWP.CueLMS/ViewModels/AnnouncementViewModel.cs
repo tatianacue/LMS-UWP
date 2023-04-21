@@ -1,17 +1,21 @@
 ﻿using Library.LMS.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
+using UWP.Library.CueLMS;
+using UWP.Library.CueLMS.Database;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class AnnouncementViewModel
     {
-        public AnnouncementViewModel(List<Announcement> announcements) 
+        public AnnouncementViewModel(List<int> ids) 
         { 
             Announcement = new Announcement();
-            Announcements = announcements;
+            Ids = ids;
         }
         public Announcement Announcement { get; set; }
-        public List<Announcement> Announcements { get; set; }
+        public List<int> Ids { get; set; }
         public string Title 
         { 
             set { Announcement.Title = value; }
@@ -20,9 +24,24 @@ namespace UWP.CueLMS.ViewModels
         { 
             set { Announcement.Text = value;}
         }
-        public void AddAnnouncement()
+        public async void AddAnnouncement()
         {
-            Announcements.Add(Announcement);
+            var payload = new WebRequestHandler().Get("http://localhost:5100/Announcement").Result;
+            var list = JsonConvert.DeserializeObject<List<Announcement>>(payload).OrderBy(x => x.Id).ToList();
+            if (list.Count == 0) //if this is going to be the first item
+            {
+                Announcement.Id = 1;
+            }
+            else
+            {
+                var lastId = list.Select(x => x.Id).Max();
+                Announcement.Id = ++lastId; //do last id thing
+            }
+
+            Ids.Add(Announcement.Id); //add to list of announcement ids in course
+
+            var handler = new WebRequestHandler(); //send announcement to database
+            await handler.Post("http://localhost:5100/Announcement", Announcement);
         }
     }
 }

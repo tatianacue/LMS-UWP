@@ -15,7 +15,7 @@ namespace Library.LMS.Models
             Modules = new List<Module>();
             AssignmentGroups = new List<AssignmentGroup>();
             Submissions = new List<Submission>();
-            Announcements = new List<Announcement>();
+            Announcements = new List<int>();
             Name = string.Empty;
             Description= string.Empty;
         }
@@ -31,28 +31,8 @@ namespace Library.LMS.Models
         public List<AssignmentGroup> AssignmentGroups { get; set; } //groups of assignments
         public List<Module> Modules { get; set; }
         public List<Submission> Submissions { get; set; }
-        public List<Announcement> Announcements { get; set; }
+        public List<int> Announcements { get; set; } //list of announcement Id's to grab from database
         public string RoomLocation { get; set; }
-
-        //list manipulation
-        public void AddStudent(Student newStudent) //adds student to course
-        {
-            Roster.Add(newStudent); //adds to roster
-        }
-
-        public void RemoveStudent(Student student) //removes student from course
-        {
-            Roster.Remove(student);
-        }
-
-        public void AddAssignment(Assignment newAssignment) //add assignment to course
-        {
-            Assignments.Add(newAssignment);
-        }
-        public void AddAssignmentGroup(AssignmentGroup group)
-        {
-            AssignmentGroups.Add(group);
-        }
 
         public bool FindStudent(Person student) //finds if student is in roster
         {
@@ -74,33 +54,11 @@ namespace Library.LMS.Models
                 return true;
             }
         }
-        public void AddModule(Module newModule) //creates module
-        {
-            Modules.Add(newModule);
-        }
-        public void AddAnnouncement(Announcement announcement) //add announcement
-        {
-            Announcements.Add(announcement);
-        }
-        public void RemoveAnnouncement(Announcement announcement) //remove announcement
-        {
-            Announcements.Remove(announcement);
-        }
 
         //output
         public override string ToString() //override output course
         {
             return $"{Code.ToUpper()} - {Name}";
-        }
-
-        public string DisplayAll() //displays detailed view
-        {
-            return $"\t\tCOURSE DETAILS\n" +
-                $"\tCode: {Code.ToUpper()}\n" +
-                $"\tName: {Name}\n" +
-                $"\tDescription: {Description}\n" +
-                $"\tRoster:\n\t{string.Join("\n\t", Roster.Select(s => s.ToString()).ToArray())}\n" +
-                $"\tAssignments:\n\t{string.Join("\n\t", Assignments.Select(s => s.ToString()).ToArray())}";
         }
         public string Display => $"[{Code}] - {Name}";
     }

@@ -1,21 +1,25 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Models.Grading;
+using Library.LMS.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UWP.CueLMS.Dialogs;
 using UWP.CueLMS.Dialogs.AssignmentGroupDialogs;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class CourseManagerViewModel : ObservableObject
     {
-        public CourseManagerViewModel(Course course, List<Person> people) 
+        public CourseManagerViewModel(Course course, List<Person> people, int semester)
         {
             Course = course;
+            Semester = semester;
             Modules = new ObservableCollection<Module>(Course.Modules);
-            Announcements = new ObservableCollection<Announcement>(Course.Announcements);
+            Announcements = new ObservableCollection<Announcement>(announcementList);
             Roster = new ObservableCollection<Person>(Course.Roster);
             Assignments = new ObservableCollection<Assignment>(Course.Assignments);
             AssignmentGroups = new ObservableCollection<AssignmentGroup>(Course.AssignmentGroups);
@@ -27,7 +31,7 @@ namespace UWP.CueLMS.ViewModels
             {
                 foreach (var student in Roster)
                 {
-                    foreach (var person in students) 
+                    foreach (var person in students)
                     {
                         if (person == student)
                         {
@@ -36,13 +40,54 @@ namespace UWP.CueLMS.ViewModels
                     }
                 }
             }
+            Semester = semester;
         }
         public Course Course { get; set; }
+        public int Semester { get; set; }
         public string CourseCode
         {
             get
-            {     if (Course != null) {return Course.Code;}
-                  else { return String.Empty; }
+            { if (Course != null) { return Course.Code; }
+                else { return String.Empty; }
+            }
+        }
+        public async void CourseUpdate() //updates course in database when you make property change
+        {
+            if (Semester == 1) //send update to spring
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SpringCourse", Course);
+            }
+            else if (Semester == 2) //send update to summer
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SummerCourse", Course);
+            }
+            else if (Semester == 3) //send update to fall
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/FallCourse", Course);
+            }
+        }
+        //lists from database
+        public List<Announcement> announcementList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get("http://localhost:5100/Announcement").Result;
+                var all = JsonConvert.DeserializeObject<List<Announcement>>(payload).OrderBy(x => x.Id).ToList();
+                List<Announcement> list = new List<Announcement>();
+                foreach (var Id in Course.Announcements)
+                {
+                    foreach (var a in all)
+                    {
+                        if (a.Id == Id) //if id's saves in local equals id of announcement
+                        {
+                            list.Add(a); // then add announcement to new local list
+                        }
+                    }
+                }
+                return list;
             }
         }
         public ObservableCollection<Assignment> Assignments { get; set; }
@@ -95,15 +140,16 @@ namespace UWP.CueLMS.ViewModels
                 await dialog.ShowAsync();
             }
             AAutoRefresh();
+            CourseUpdate(); //updates the course
         }
         public void DeleteAnnouncement()
         {
-            Course.Announcements.Remove(SelectedAnnouncement);
+            Course.Announcements.Remove(SelectedAnnouncement.Id);
             AAutoRefresh();
         }
         public void AAutoRefresh()
         {
-            var searchResults = Course.Announcements.Where(p => p.Title.Contains("")).ToList();
+            var searchResults = announcementList.Where(p => p.Title.Contains("")).ToList();
             Announcements.Clear();
             foreach (var a in searchResults)
             {

@@ -287,7 +287,7 @@ namespace UWP.CueLMS.ViewModels
                 semester = 3;
             }
         }
-        private int semester { get; set; }
+        public int semester { get; set; }
         public async void SemesterDialog()
         {
             var dialog = new SemesterDialog(this);

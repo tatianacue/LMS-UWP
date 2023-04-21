@@ -24,7 +24,8 @@ namespace UWP.CueLMS.Views
                 instructorviewmodel = viewModel; //instructor view model
                 var list = instructorviewmodel.People; //all people
                 var course = viewModel.SelectedCourse;
-                DataContext = new CourseManagerViewModel(course, list);
+                var semester = viewModel.semester;
+                DataContext = new CourseManagerViewModel(course, list, semester);
             }
         }
         public ManageCourseView()
