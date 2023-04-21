@@ -158,20 +158,24 @@ namespace UWP.CueLMS.ViewModels
         }
         public string NewATitle { get; set; }//new announcment title
         public string NewAText { get; set; }//new announcement body
-        public void UpdateATitle()
+        public async void UpdateATitle()
         {
             if (NewATitle!= null)
             {
                 SelectedAnnouncement.Title = NewATitle;
             }
+            var handler = new WebRequestHandler(); //send announcement to database
+            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement);
             NotifyPropertyChanged(nameof(DisplayATitle));
         }
-        public void UpdateAText()
+        public async void UpdateAText()
         {
             if (NewAText != null)
             {
                 SelectedAnnouncement.Text = NewAText;
             }
+            var handler = new WebRequestHandler(); //send announcement to database
+            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement);
             NotifyPropertyChanged(nameof(DisplayAText));
         }
         //Module Stuff
