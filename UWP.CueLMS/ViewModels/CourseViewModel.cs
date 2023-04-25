@@ -1,6 +1,7 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Services;
 using System.Collections.Generic;
+using System.Net.Http;
 using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
@@ -45,17 +46,17 @@ namespace UWP.CueLMS.ViewModels
             if (semester == 1) //add to spring
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SpringCourse", Course);
+                await handler.Post("http://localhost:5100/SpringCourse", Course, HttpMethod.Post);
             }
             else if (semester == 2) //add to summer
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SummerCourse", Course);
+                await handler.Post("http://localhost:5100/SummerCourse", Course, HttpMethod.Post);
             }
             else if (semester == 3) //add to fall
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/FallCourse", Course);
+                await handler.Post("http://localhost:5100/FallCourse", Course, HttpMethod.Post);
             }
         }
         public bool CheckCode() //checks if Id doesnt exist
