@@ -1,7 +1,9 @@
 ﻿using Library.LMS.Models.Grading;
 using Library.LMS.Services;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace Library.LMS.Models
 {
@@ -15,9 +17,9 @@ namespace Library.LMS.Models
             Modules = new List<Module>();
             AssignmentGroups = new List<AssignmentGroup>();
             Submissions = new List<Submission>();
-            Announcements = new List<int>();
             Name = string.Empty;
             Description= string.Empty;
+            SelectedAnnouncement = new Announcement();
         }
 
         //properties
@@ -31,7 +33,9 @@ namespace Library.LMS.Models
         public List<AssignmentGroup> AssignmentGroups { get; set; } //groups of assignments
         public List<Module> Modules { get; set; }
         public List<Submission> Submissions { get; set; }
-        public List<int> Announcements { get; set; } //list of announcement Id's to grab from database
+
+        public List<Announcement> Announcements = new List<Announcement>(); //list for database
+        public Announcement SelectedAnnouncement { get; set; }
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster
