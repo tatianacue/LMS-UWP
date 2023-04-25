@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using UWP.CueLMS.Dialogs;
 using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
@@ -225,7 +226,7 @@ namespace UWP.CueLMS.ViewModels
                 SelectedPerson.ID = NewId;
                 personService.IDDictionary.Remove(oldId); //removes old Id from Id check
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson);
+                await handler.Post("http://localhost:5100/Person", SelectedPerson, HttpMethod.Post);
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
@@ -246,7 +247,7 @@ namespace UWP.CueLMS.ViewModels
             {
                 SelectedPerson.Name = NewName;
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson);
+                await handler.Post("http://localhost:5100/Person", SelectedPerson, HttpMethod.Post);
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
@@ -257,7 +258,7 @@ namespace UWP.CueLMS.ViewModels
                 Student selected = (Student)SelectedPerson;
                 selected.Classification = classification;
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson);
+                await handler.Post("http://localhost:5100/Person", SelectedPerson, HttpMethod.Post);
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
@@ -431,17 +432,17 @@ namespace UWP.CueLMS.ViewModels
             if (semester == 1) //send update to spring
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SpringCourse", SelectedCourse);
+                await handler.Post("http://localhost:5100/SpringCourse", SelectedCourse, HttpMethod.Post);
             }
             else if (semester == 2) //send update to summer
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SummerCourse", SelectedCourse);
+                await handler.Post("http://localhost:5100/SummerCourse", SelectedCourse, HttpMethod.Post);
             }
             else if (semester == 3) //send update to fall
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/FallCourse", SelectedCourse);
+                await handler.Post("http://localhost:5100/FallCourse", SelectedCourse, HttpMethod.Post);
             }
             
         }

@@ -31,11 +31,11 @@ namespace UWP.Library.CueLMS
                 }
                 return null;
             }
-            public async Task<string> Post(string url, object obj)
+            public async Task<string> Post(string url, object obj, HttpMethod method) //now takes in the method so it can do delete
             {
                 using (var client = new HttpClient())
                 {
-                    using (var request = new HttpRequestMessage(HttpMethod.Post, url))
+                    using (var request = new HttpRequestMessage(method, url))
                     {
                         var json = JsonConvert.SerializeObject(obj);
                         using (var stringContent = new StringContent(json,

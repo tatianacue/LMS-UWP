@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using UWP.CueLMS.Dialogs;
 using UWP.CueLMS.Dialogs.AssignmentGroupDialogs;
 using UWP.Library.CueLMS;
@@ -56,17 +57,17 @@ namespace UWP.CueLMS.ViewModels
             if (Semester == 1) //send update to spring
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SpringCourse", Course);
+                await handler.Post("http://localhost:5100/SpringCourse", Course, HttpMethod.Post);
             }
             else if (Semester == 2) //send update to summer
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SummerCourse", Course);
+                await handler.Post("http://localhost:5100/SummerCourse", Course, HttpMethod.Post);
             }
             else if (Semester == 3) //send update to fall
             {
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/FallCourse", Course);
+                await handler.Post("http://localhost:5100/FallCourse", Course, HttpMethod.Post);
             }
         }
         //lists from database
@@ -165,7 +166,7 @@ namespace UWP.CueLMS.ViewModels
                 SelectedAnnouncement.Title = NewATitle;
             }
             var handler = new WebRequestHandler(); //send announcement to database
-            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement);
+            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement, HttpMethod.Post);
             NotifyPropertyChanged(nameof(DisplayATitle));
         }
         public async void UpdateAText()
@@ -175,7 +176,7 @@ namespace UWP.CueLMS.ViewModels
                 SelectedAnnouncement.Text = NewAText;
             }
             var handler = new WebRequestHandler(); //send announcement to database
-            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement);
+            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement, HttpMethod.Post);
             NotifyPropertyChanged(nameof(DisplayAText));
         }
         //Module Stuff

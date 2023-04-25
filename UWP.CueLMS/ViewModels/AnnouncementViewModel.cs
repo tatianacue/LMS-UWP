@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using UWP.Library.CueLMS;
 using UWP.Library.CueLMS.Database;
 /* Tatiana Graciela Cue COP4870-0001*/
@@ -41,7 +42,7 @@ namespace UWP.CueLMS.ViewModels
             Ids.Add(Announcement.Id); //add to list of announcement ids in course
 
             var handler = new WebRequestHandler(); //send announcement to database
-            await handler.Post("http://localhost:5100/Announcement", Announcement);
+            await handler.Post("http://localhost:5100/Announcement", Announcement, HttpMethod.Post);
         }
     }
 }
