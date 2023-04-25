@@ -52,45 +52,17 @@ namespace UWP.CueLMS.ViewModels
                 else { return String.Empty; }
             }
         }
-        public async void CourseUpdate() //updates course in database when you make property change
-        {
-            if (Semester == 1) //send update to spring
-            {
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SpringCourse", Course, HttpMethod.Post);
-            }
-            else if (Semester == 2) //send update to summer
-            {
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/SummerCourse", Course, HttpMethod.Post);
-            }
-            else if (Semester == 3) //send update to fall
-            {
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/FallCourse", Course, HttpMethod.Post);
-            }
-        }
         //lists from database
         public List<Announcement> announcementList
         {
             get
             {
-                var payload = new WebRequestHandler().Get("http://localhost:5100/Announcement").Result;
-                var all = JsonConvert.DeserializeObject<List<Announcement>>(payload).OrderBy(x => x.Id).ToList();
-                List<Announcement> list = new List<Announcement>();
-                foreach (var Id in Course.Announcements)
-                {
-                    foreach (var a in all)
-                    {
-                        if (a.Id == Id) //if id's saves in local equals id of announcement
-                        {
-                            list.Add(a); // then add announcement to new local list
-                        }
-                    }
-                }
-                return list;
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Announcement/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<Announcement>>(payload).OrderBy(x => x.Id).ToList();
             }
         }
+        //collections
         public ObservableCollection<Assignment> Assignments { get; set; }
         public ObservableCollection<Module> Modules { get; set; }
         public ObservableCollection<Announcement> Announcements { get; set; }
@@ -135,17 +107,16 @@ namespace UWP.CueLMS.ViewModels
         //Announcement stuff
         public async void AnnouncementDialog()
         {
-            var dialog = new AnnouncementDialog(Course.Announcements);
+            var dialog = new AnnouncementDialog(Course);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
             }
             AAutoRefresh();
-            CourseUpdate(); //updates the course
         }
         public void DeleteAnnouncement()
         {
-            Course.Announcements.Remove(SelectedAnnouncement.Id);
+            //Course.Announcements.Remove(SelectedAnnouncement);
             AAutoRefresh();
         }
         public void AAutoRefresh()
@@ -165,8 +136,9 @@ namespace UWP.CueLMS.ViewModels
             {
                 SelectedAnnouncement.Title = NewATitle;
             }
-            var handler = new WebRequestHandler(); //send announcement to database
-            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement, HttpMethod.Post);
+            Course.SelectedAnnouncement = SelectedAnnouncement; //packages announcement in course to send through
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Announcement", Course, HttpMethod.Post);
             NotifyPropertyChanged(nameof(DisplayATitle));
         }
         public async void UpdateAText()
@@ -175,8 +147,9 @@ namespace UWP.CueLMS.ViewModels
             {
                 SelectedAnnouncement.Text = NewAText;
             }
-            var handler = new WebRequestHandler(); //send announcement to database
-            await handler.Post("http://localhost:5100/Announcement", SelectedAnnouncement, HttpMethod.Post);
+            Course.SelectedAnnouncement = SelectedAnnouncement; //packages announcement in course to send through
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Announcement", Course, HttpMethod.Post);
             NotifyPropertyChanged(nameof(DisplayAText));
         }
         //Module Stuff
