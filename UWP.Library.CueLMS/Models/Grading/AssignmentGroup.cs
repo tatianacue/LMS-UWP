@@ -16,7 +16,7 @@ namespace Library.LMS.Models.Grading
         public int Id { get; set; }
         public string Name { get; set; }
         public int Weight { get; set; }
-        public List<Assignment> Group = new List<Assignment>();
+        public List<Assignment> Group { get; set; }
         public void AddAssignment(Assignment assignment)
         {
             Group.Add(assignment);
