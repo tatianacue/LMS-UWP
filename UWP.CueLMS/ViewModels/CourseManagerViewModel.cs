@@ -21,22 +21,22 @@ namespace UWP.CueLMS.ViewModels
             Semester = semester;
             Modules = new ObservableCollection<Module>(moduleList);
             Announcements = new ObservableCollection<Announcement>(announcementList);
-            Roster = new ObservableCollection<Person>(Course.Roster);
+            Roster = new ObservableCollection<Student>(rosterList);
             Assignments = new ObservableCollection<Assignment>(assignmentList);
             AssignmentGroups = new ObservableCollection<AssignmentGroup>(assignmentgroupList);
 
             peopleList = people;
             var students = people.Where(x => x is Student).ToList();
             AllStudents = new ObservableCollection<Person>(students);
-            if (Roster != null) //make sure add student doesn't show already added people
+            if (rosterList.Count != 0) //make sure add student doesn't show already added people
             {
-                foreach (var student in Roster)
+                foreach (var student in rosterList)
                 {
                     foreach (var person in students)
                     {
-                        if (person == student)
+                        if (person.IdNumber == student.IdNumber)
                         {
-                            AllStudents.Remove(student);
+                            AllStudents.Remove(person);
                         }
                     }
                 }
@@ -89,11 +89,33 @@ namespace UWP.CueLMS.ViewModels
                 return JsonConvert.DeserializeObject<List<Module>>(payload).OrderBy(x => x.Id).ToList();
             }
         }
+        public List<Student> rosterList
+        {
+            get
+            {
+                var id = Course.Id;
+                if (Semester == 1) //spring
+                {
+                    var payload = new WebRequestHandler().Get($"http://localhost:5100/SpringCourse/GetRoster/{id}").Result;
+                    return JsonConvert.DeserializeObject<List<Student>>(payload).OrderBy(x => x.IdNumber).ToList();
+                }
+                else if (Semester == 2) //summer
+                {
+                    var payload = new WebRequestHandler().Get($"http://localhost:5100/SummerCourse/GetRoster/{id}").Result;
+                    return JsonConvert.DeserializeObject<List<Student>>(payload).OrderBy(x => x.IdNumber).ToList();
+                }
+                else //fall
+                {
+                    var payload = new WebRequestHandler().Get($"http://localhost:5100/FallCourse/GetRoster/{id}").Result;
+                    return JsonConvert.DeserializeObject<List<Student>>(payload).OrderBy(x => x.IdNumber).ToList();
+                }
+            }
+        }
         //collections
         public ObservableCollection<Assignment> Assignments { get; set; }
         public ObservableCollection<Module> Modules { get; set; }
         public ObservableCollection<Announcement> Announcements { get; set; }
-        public ObservableCollection<Person> Roster { get; set; }
+        public ObservableCollection<Student> Roster { get; set; }
         public ObservableCollection<Person> AllStudents { get; set; }
         public ObservableCollection<AssignmentGroup> AssignmentGroups { get; set; }
         public ObservableCollection<Submission> Submissions { get { return new ObservableCollection<Submission>(SubmissionList); } }
@@ -218,9 +240,22 @@ namespace UWP.CueLMS.ViewModels
             RAutoRefresh();
             AllStudents.Remove(SelectedStudent); //wont display again
         }
-        public void AddToRoster()
+        public async void AddToRoster()
         {
-            Course.Roster.Add(SelectedStudent);
+            Course.SelectedStudent = SelectedStudent;
+            if (Semester == 1) //spring
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SpringCourse/AddToRoster", Course, HttpMethod.Post);
+            }
+            else if (Semester == 2) //summer
+            {
+
+            }
+            else if (Semester == 3) //fall
+            {
+
+            }
         }
         public void RemoveFromRoster()
         {
@@ -245,7 +280,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public void RAutoRefresh()
         {
-            var searchResults = Course.Roster.Where(p => p.Name.Contains("")).ToList();
+            var searchResults = rosterList.Where(p => p.Name.Contains("")).ToList();
             Roster.Clear();
             foreach (var person in searchResults)
             {

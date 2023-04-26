@@ -43,7 +43,6 @@ namespace UWP.CueLMS.ViewModels
         public async void AddCourse()
         {
             Course.Code = Code;
-            Course.Semester = semester;
             if (semester == 1) //add to spring
             {
                 var handler = new WebRequestHandler();
