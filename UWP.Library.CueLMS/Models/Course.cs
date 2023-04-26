@@ -12,7 +12,6 @@ namespace Library.LMS.Models
         //default constructor
         public Course()
         {
-            Roster = new List<Person>();
             Submissions = new List<Submission>();
             Name = string.Empty;
             Description= string.Empty;
@@ -20,6 +19,7 @@ namespace Library.LMS.Models
             SelectedAssignment = new Assignment();
             SelectedAssignmentGroup = new AssignmentGroup();
             SelectedModule = new Module();
+            SelectedStudent = new Student();
         }
 
         //properties
@@ -28,10 +28,9 @@ namespace Library.LMS.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int CreditHours { get; set; }
-        public int Semester { get; set; } //1 is spring, 2 is summer, 3 is fall
 
-        //lists for database
-        public List<Person> Roster { get; set; }
+        //lists
+        public List<Student> Roster = new List<Student>();
         public List<Assignment> Assignments = new List<Assignment>(); 
         public List<AssignmentGroup> AssignmentGroups = new List<AssignmentGroup>(); 
         public List<Module> Modules = new List<Module>(); 
@@ -43,6 +42,7 @@ namespace Library.LMS.Models
         public Assignment SelectedAssignment { get; set; }
         public AssignmentGroup SelectedAssignmentGroup { get; set; }
         public Module SelectedModule { get; set; }
+        public Student SelectedStudent { get; set; }
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster
