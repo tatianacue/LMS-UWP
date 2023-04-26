@@ -9,10 +9,10 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class ModuleDialog : ContentDialog
     {
-        public ModuleDialog(List<Module> list)
+        public ModuleDialog(Course course)
         {
             this.InitializeComponent();
-            DataContext = new ModuleViewModel(list);
+            DataContext = new ModuleViewModel(course);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

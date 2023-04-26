@@ -1,17 +1,20 @@
 ﻿using Library.LMS.Models;
 using System.Collections.Generic;
+using System.Net.Http;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class ModuleViewModel
     {
-        public ModuleViewModel(List<Module> modules)
+        public ModuleViewModel(Course course)
         {
             Module = new Module();
-            Modules = modules;
+            Course = course;
         }
         public Module Module { get; set; }
         public List<Module> Modules { get; set; }
+        public Course Course { get; set; }
         public string Name
         {
             set { Module.Name = value; }
@@ -20,9 +23,11 @@ namespace UWP.CueLMS.ViewModels
         {
             set { Module.Description = value; }
         }
-        public void AddModule()
+        public async void AddModule()
         {
-            Modules.Add(Module);
+            Course.SelectedModule = Module;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Module", Course, HttpMethod.Post);
         }
     }
 }
