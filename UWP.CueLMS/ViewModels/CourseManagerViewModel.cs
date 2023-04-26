@@ -259,22 +259,37 @@ namespace UWP.CueLMS.ViewModels
                 await handler.Post("http://localhost:5100/FallCourse/AddToRoster", Course, HttpMethod.Post);
             }
         }
-        public void RemoveFromRoster()
+        public async void RemoveFromRoster()
         {
-            Course.Roster.Remove(SelectedStudent);
+            Course.SelectedStudent = SelectedStudent;
+            if (Semester == 1) //spring
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SpringCourse/RemoveFromRoster", Course, HttpMethod.Delete);
+            }
+            else if (Semester == 2) //summer
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SummerCourse/RemoveFromRoster", Course, HttpMethod.Delete);
+            }
+            else if (Semester == 3) //fall
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/FallCourse/RemoveFromRoster", Course, HttpMethod.Delete);
+            }
             RAutoRefresh();
 
             var students = peopleList.Where(x => x is Student).ToList(); //refresh adder list
             AllStudents = new ObservableCollection<Person>(students);
-            if (Roster != null)
+            if (rosterList.Count != 0)
             {
-                foreach (var student in Roster)
+                foreach (var student in rosterList)
                 {
                     foreach (var person in students)
                     {
-                        if (person == student)
+                        if (person.IdNumber == student.IdNumber)
                         {
-                            AllStudents.Remove(student);
+                            AllStudents.Remove(person);
                         }
                     }
                 }
