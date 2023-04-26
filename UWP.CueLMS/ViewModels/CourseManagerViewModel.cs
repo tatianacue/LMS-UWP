@@ -23,7 +23,7 @@ namespace UWP.CueLMS.ViewModels
             Announcements = new ObservableCollection<Announcement>(announcementList);
             Roster = new ObservableCollection<Person>(Course.Roster);
             Assignments = new ObservableCollection<Assignment>(assignmentList);
-            AssignmentGroups = new ObservableCollection<AssignmentGroup>(Course.AssignmentGroups);
+            AssignmentGroups = new ObservableCollection<AssignmentGroup>(assignmentgroupList);
 
             peopleList = people;
             var students = people.Where(x => x is Student).ToList();
@@ -69,6 +69,15 @@ namespace UWP.CueLMS.ViewModels
                 var id = Course.Id;
                 var payload = new WebRequestHandler().Get($"http://localhost:5100/Assignment/GetList/{id}").Result;
                 return JsonConvert.DeserializeObject<List<Assignment>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        }
+        public List<AssignmentGroup> assignmentgroupList
+        {
+            get
+            {
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/AssignmentGroup/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<AssignmentGroup>>(payload).OrderBy(x => x.Id).ToList();
             }
         }
         //collections
@@ -260,7 +269,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public async void CreateGroup() //create new assignment group
         {
-            var dialog = new AssignmentGroupDialog(Course.AssignmentGroups, SelectedAssignment);
+            var dialog = new AssignmentGroupDialog(Course);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
@@ -275,13 +284,16 @@ namespace UWP.CueLMS.ViewModels
                 await dialog.ShowAsync();
             }
         }
-        public void AddToAssignmentGroup()
+        public async void AddToAssignmentGroup()
         {
-            SelectedAssignmentGroup.AddAssignment(SelectedAssignment);
+            Course.SelectedAssignment = SelectedAssignment;
+            Course.SelectedAssignmentGroup = SelectedAssignmentGroup;
+            var handler = new WebRequestHandler();
+            await handler.Post($"http://localhost:5100/AssignmentGroup", Course, HttpMethod.Post);
         }
         public void AGAutoRefresh()
         {
-            var copy = Course.AssignmentGroups;
+            var copy = assignmentgroupList;
             AssignmentGroups.Clear();
             foreach (var group in copy)
             {

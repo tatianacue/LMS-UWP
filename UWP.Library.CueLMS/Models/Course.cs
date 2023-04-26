@@ -36,6 +36,7 @@ namespace Library.LMS.Models
         public List<Announcement> Announcements = new List<Announcement>(); //list for database
         public Announcement SelectedAnnouncement { get; set; }
         public Assignment SelectedAssignment { get; set; }
+        public AssignmentGroup SelectedAssignmentGroup { get; set; }
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster

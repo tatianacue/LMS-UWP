@@ -1,20 +1,20 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Models.Grading;
 using System.Collections.Generic;
+using System.Net.Http;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class AssignmentGroupViewModel
     {
-        public AssignmentGroupViewModel(List<AssignmentGroup> list, Assignment a)
+        public AssignmentGroupViewModel(Course course)
         {
-            Groups = list;
             AssignmentGroup = new AssignmentGroup();
-            assignment = a;
+            Course = course;
         }
-        List<AssignmentGroup> Groups { get; set; }
+        public Course Course { get; set; }
         public AssignmentGroup AssignmentGroup { get; set; }
-        private Assignment assignment { get; set; }
         public string Name 
         { 
             set { AssignmentGroup.Name = value; }
@@ -23,11 +23,11 @@ namespace UWP.CueLMS.ViewModels
         { 
             set { AssignmentGroup.Weight = value; }
         }
-        public void Add()
+        public async void Add()
         {
-            AssignmentGroup.AddAssignment(assignment); //adds assignment to group
-            Groups.Add(AssignmentGroup); //adds group to list of groups
-
+            Course.SelectedAssignmentGroup = AssignmentGroup;
+            var handler = new WebRequestHandler();
+            await handler.Post($"http://localhost:5100/AssignmentGroup", Course, HttpMethod.Post);
         }
     }
 }
