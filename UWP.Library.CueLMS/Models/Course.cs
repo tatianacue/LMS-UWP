@@ -28,6 +28,7 @@ namespace Library.LMS.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int CreditHours { get; set; }
+        public int Semester { get; set; } //1 is spring, 2 is summer, 3 is fall
 
         //lists for database
         public List<Person> Roster { get; set; }
