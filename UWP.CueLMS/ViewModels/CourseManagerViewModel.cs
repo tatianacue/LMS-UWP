@@ -19,7 +19,7 @@ namespace UWP.CueLMS.ViewModels
         {
             Course = course;
             Semester = semester;
-            Modules = new ObservableCollection<Module>(Course.Modules);
+            Modules = new ObservableCollection<Module>(moduleList);
             Announcements = new ObservableCollection<Announcement>(announcementList);
             Roster = new ObservableCollection<Person>(Course.Roster);
             Assignments = new ObservableCollection<Assignment>(assignmentList);
@@ -78,6 +78,15 @@ namespace UWP.CueLMS.ViewModels
                 var id = Course.Id;
                 var payload = new WebRequestHandler().Get($"http://localhost:5100/AssignmentGroup/GetList/{id}").Result;
                 return JsonConvert.DeserializeObject<List<AssignmentGroup>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        }
+        public List<Module> moduleList
+        {
+            get
+            {
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<Module>>(payload).OrderBy(x => x.Id).ToList();
             }
         }
         //collections
@@ -175,21 +184,23 @@ namespace UWP.CueLMS.ViewModels
         //Module Stuff
         public async void ModuleDialog()
         {
-            var dialog = new ModuleDialog(Course.Modules);
+            var dialog = new ModuleDialog(Course);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
             }
             MAutoRefresh();
         }
-        public void DeleteModule()
+        public async void DeleteModule()
         {
-            Course.Modules.Remove(SelectedModule);
+            Course.SelectedModule = SelectedModule;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Module", Course, HttpMethod.Delete);
             MAutoRefresh();
         }
         public void MAutoRefresh()
         {
-            var searchResults = Course.Modules.Where(p => p.Name.Contains("")).ToList();
+            var searchResults = moduleList.Where(p => p.Name.Contains("")).ToList();
             Modules.Clear();
             foreach (var module in searchResults)
             {

@@ -20,13 +20,14 @@ namespace UWP.Library.CueLMS.Database
         };
         public static List<Course> SummerCourses = new List<Course>()
         {
-            new Course {Code = "summer1", Name = "SUMMER", Description = "stuff", CreditHours = 3, RoomLocation = "room1", Id=1},
-            new Course {Code = "summer2", Name = "SUMMER CLASS", Description = "work", CreditHours = 3, RoomLocation = "room2", Id=2}
+            new Course {Code = "summer1", Name = "SUMMER", Description = "stuff", CreditHours = 3, RoomLocation = "room1", Id=3},
+            new Course {Code = "summer2", Name = "SUMMER CLASS", Description = "work", CreditHours = 3, RoomLocation = "room2", Id=4}
         };
         public static List<Course> FallCourses = new List<Course>()
         {
-            new Course {Code = "fall1", Name = "FALL", Description = "stuff", CreditHours = 3, RoomLocation = "room1", Id = 1},
-            new Course {Code = "fall2", Name = "FALL CLASS", Description = "work", CreditHours = 3, RoomLocation = "room2", Id = 2}
+            new Course {Code = "fall1", Name = "FALL", Description = "stuff", CreditHours = 3, RoomLocation = "room1", Id = 5},
+            new Course {Code = "fall2", Name = "FALL CLASS", Description = "work", CreditHours = 3, RoomLocation = "room2", Id = 6}
         };
+        public static List<int> CourseIds = new List<int>();
     }
 }

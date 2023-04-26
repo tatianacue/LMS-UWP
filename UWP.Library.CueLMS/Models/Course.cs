@@ -13,12 +13,13 @@ namespace Library.LMS.Models
         public Course()
         {
             Roster = new List<Person>();
-            Modules = new List<Module>();
-            AssignmentGroups = new List<AssignmentGroup>();
             Submissions = new List<Submission>();
             Name = string.Empty;
             Description= string.Empty;
             SelectedAnnouncement = new Announcement();
+            SelectedAssignment = new Assignment();
+            SelectedAssignmentGroup = new AssignmentGroup();
+            SelectedModule = new Module();
         }
 
         //properties
@@ -27,16 +28,21 @@ namespace Library.LMS.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int CreditHours { get; set; }
-        public List<Person> Roster { get; set; }
-        public List<Assignment> Assignments = new List<Assignment>();
-        public List<AssignmentGroup> AssignmentGroups { get; set; } //groups of assignments
-        public List<Module> Modules { get; set; }
-        public List<Submission> Submissions { get; set; }
+        public int Semester { get; set; } //1 is spring, 2 is summer, 3 is fall
 
-        public List<Announcement> Announcements = new List<Announcement>(); //list for database
+        //lists for database
+        public List<Person> Roster { get; set; }
+        public List<Assignment> Assignments = new List<Assignment>(); 
+        public List<AssignmentGroup> AssignmentGroups = new List<AssignmentGroup>(); 
+        public List<Module> Modules = new List<Module>(); 
+        public List<Submission> Submissions { get; set; }
+        public List<Announcement> Announcements = new List<Announcement>();
+
+        //selections temporary
         public Announcement SelectedAnnouncement { get; set; }
         public Assignment SelectedAssignment { get; set; }
         public AssignmentGroup SelectedAssignmentGroup { get; set; }
+        public Module SelectedModule { get; set; }
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster
