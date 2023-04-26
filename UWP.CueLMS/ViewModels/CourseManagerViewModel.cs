@@ -22,7 +22,7 @@ namespace UWP.CueLMS.ViewModels
             Modules = new ObservableCollection<Module>(Course.Modules);
             Announcements = new ObservableCollection<Announcement>(announcementList);
             Roster = new ObservableCollection<Person>(Course.Roster);
-            Assignments = new ObservableCollection<Assignment>(Course.Assignments);
+            Assignments = new ObservableCollection<Assignment>(assignmentList);
             AssignmentGroups = new ObservableCollection<AssignmentGroup>(Course.AssignmentGroups);
 
             peopleList = people;
@@ -60,6 +60,15 @@ namespace UWP.CueLMS.ViewModels
                 var id = Course.Id;
                 var payload = new WebRequestHandler().Get($"http://localhost:5100/Announcement/GetList/{id}").Result;
                 return JsonConvert.DeserializeObject<List<Announcement>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        }
+        public List<Assignment> assignmentList
+        {
+            get
+            {
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Assignment/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<Assignment>>(payload).OrderBy(x => x.Id).ToList();
             }
         }
         //collections
@@ -114,9 +123,11 @@ namespace UWP.CueLMS.ViewModels
             }
             AAutoRefresh();
         }
-        public void DeleteAnnouncement()
+        public async void DeleteAnnouncement()
         {
-            //Course.Announcements.Remove(SelectedAnnouncement);
+            Course.SelectedAnnouncement = SelectedAnnouncement;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Announcement", Course, HttpMethod.Delete);
             AAutoRefresh();
         }
         public void AAutoRefresh()
@@ -224,7 +235,7 @@ namespace UWP.CueLMS.ViewModels
         //Assignment Stuff
         public async void AssignmentDialog()
         {
-            var dialog = new AssignmentDialog(Course.Assignments);
+            var dialog = new AssignmentDialog(Course);
             if (dialog != null)
             {
                 await dialog.ShowAsync();
@@ -233,16 +244,18 @@ namespace UWP.CueLMS.ViewModels
         }
         public void AssignmentAutoRefresh()
         {
-            var copy = Course.Assignments;
+            var copy = assignmentList;
             Assignments.Clear();
             foreach (var a in copy)
             {
                 Assignments.Add(a);
             }
         }
-        public void DeleteAssignment()
+        public async void DeleteAssignment()
         {
-            Course.Assignments.Remove(SelectedAssignment);
+            Course.SelectedAssignment = SelectedAssignment;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Assignment", Course, HttpMethod.Delete);
             AssignmentAutoRefresh();
         }
         public async void CreateGroup() //create new assignment group

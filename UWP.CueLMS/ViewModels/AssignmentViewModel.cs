@@ -1,16 +1,19 @@
 ﻿using Library.LMS.Models;
 using System.Collections.Generic;
+using System.Net.Http;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
     public class AssignmentViewModel
     {
-        public AssignmentViewModel(List<Assignment> assignments)
+        public AssignmentViewModel(Course c)
         {
             Assignment = new Assignment();
-            Assignments = assignments;
+            Course = c;
         }
         public Assignment Assignment { get; set; }
+        public Course Course { get; set; }
         public List<Assignment> Assignments { get; set; }
         public string Name
         {
@@ -28,9 +31,11 @@ namespace UWP.CueLMS.ViewModels
         {
             set { Assignment.TotalAvailablePoints = value; }
         }
-        public void AddAssignment()
+        public async void AddAssignment()
         {
-            Assignments.Add(Assignment);
+            Course.SelectedAssignment = Assignment;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Assignment", Course, HttpMethod.Post);
         }
     }
 }

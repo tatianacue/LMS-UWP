@@ -11,7 +11,6 @@ namespace Library.LMS.Models
     {
         public Assignment()
         {
-            Id = LastId++;
         }
 
         //properties
@@ -20,8 +19,7 @@ namespace Library.LMS.Models
         public int TotalAvailablePoints { get; set; }
         public string DueDate { get; set; }
         public AssignmentGroup Group { get; set; }
-        public static int LastId = 1;
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public override string ToString()
         {
             return $"[{Id}]({DueDate}) - {Name}";

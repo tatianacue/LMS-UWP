@@ -13,7 +13,6 @@ namespace Library.LMS.Models
         public Course()
         {
             Roster = new List<Person>();
-            Assignments = new List<Assignment>();
             Modules = new List<Module>();
             AssignmentGroups = new List<AssignmentGroup>();
             Submissions = new List<Submission>();
@@ -29,13 +28,14 @@ namespace Library.LMS.Models
         public string Description { get; set; }
         public int CreditHours { get; set; }
         public List<Person> Roster { get; set; }
-        public List<Assignment> Assignments { get; set; }
+        public List<Assignment> Assignments = new List<Assignment>();
         public List<AssignmentGroup> AssignmentGroups { get; set; } //groups of assignments
         public List<Module> Modules { get; set; }
         public List<Submission> Submissions { get; set; }
 
         public List<Announcement> Announcements = new List<Announcement>(); //list for database
         public Announcement SelectedAnnouncement { get; set; }
+        public Assignment SelectedAssignment { get; set; }
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster
