@@ -9,10 +9,10 @@ namespace UWP.CueLMS.Dialogs.ContentItemDialogs
 {
     public sealed partial class AddFileItem : ContentDialog
     {
-        public AddFileItem(List<ContentItem> list)
+        public AddFileItem(Course course)
         {
             this.InitializeComponent();
-            DataContext = new FileItemViewModel(list);
+            DataContext = new FileItemViewModel(course);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

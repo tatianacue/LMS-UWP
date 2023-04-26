@@ -12,10 +12,8 @@ namespace Library.LMS.Models
         {
             Name = string.Empty;
             Description = string.Empty;
-            Id = $"A{LastId++}";
+            Type = 2;
         }
-        public Assignment Assignment { get; set; }
-        private static int LastId = 1;
         public override string DisplayAll()
         {
             return $"{Name} - {Description}\n";

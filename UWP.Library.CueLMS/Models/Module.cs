@@ -21,7 +21,7 @@ namespace Library.LMS.Models
         //properties
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<ContentItem> Content { get; set; }
+        public List<ContentItem> Content = new List<ContentItem>();
         public void AddContent(ContentItem item) //adds content item to list
         {
             Content.Add(item);
@@ -30,6 +30,6 @@ namespace Library.LMS.Models
         {
             Content.Remove(item);
         }
-        public string Display => $"{Name}";
+        public string Display => $"[{Id}]{Name}";
     }
 }

@@ -21,7 +21,7 @@ namespace Library.LMS.Services
                 var talist = JsonConvert.DeserializeObject<List<TeachingAssistant>>(payload);
                 var instructorlist = JsonConvert.DeserializeObject<List<Instructor>>(payload);
                 var people = new List<Person>();
-                foreach (var person in  studentlist) //make sure type is derived type
+                foreach (var person in studentlist) //make sure type is derived type
                 {
                     if (person.Type == 0)
                     {

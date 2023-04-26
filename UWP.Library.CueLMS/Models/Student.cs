@@ -14,6 +14,7 @@ namespace Library.LMS.Models
             AssignmentGrades = new Dictionary<Assignment, double>();
             Name= string.Empty;
             Classification= string.Empty;
+            Type = 0;
         }
         public override string ToString()
         {

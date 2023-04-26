@@ -12,10 +12,8 @@ namespace Library.LMS.Models
         {
             Name= string.Empty;
             Description= string.Empty;
-            Id = $"P{LastId++}";
+            Type = 1;
         }
-        private static int LastId = 1;
-        public string HTMLBody { get; set; }
         public override string DisplayAll()
         {
             return $"{Name} - {Description}\n" +

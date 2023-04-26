@@ -1,16 +1,19 @@
 ﻿using Library.LMS.Models;
 using System.Collections.Generic;
+using System.Net.Http;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels.ModuleStuff
 {
     public class PageItemViewModel
     {
-        public PageItemViewModel(List<ContentItem> content)
+        public PageItemViewModel(Course course)
         {
-            Content = content;
+            Course = course;
             PageItem = new PageItem();
         }
         public PageItem PageItem { get; set; }
+        public Course Course { get; set; }
         public List<ContentItem> Content { get; set; }
         public string Name 
         { 
@@ -33,9 +36,11 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
                 PageItem.HTMLBody = value;
             }
         }
-        public void AddItem()
+        public async void AddItem()
         {
-            Content.Add(PageItem);
+            Course.SelectedItem = PageItem;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
         }
     }
 }

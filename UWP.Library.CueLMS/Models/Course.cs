@@ -43,6 +43,7 @@ namespace Library.LMS.Models
         public AssignmentGroup SelectedAssignmentGroup { get; set; }
         public Module SelectedModule { get; set; }
         public Student SelectedStudent { get; set; }
+        public ContentItem SelectedItem { get; set; }   
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster
