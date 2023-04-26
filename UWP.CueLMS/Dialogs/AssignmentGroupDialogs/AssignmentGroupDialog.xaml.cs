@@ -10,10 +10,10 @@ namespace UWP.CueLMS.Dialogs.AssignmentGroupDialogs
 {
     public sealed partial class AssignmentGroupDialog : ContentDialog
     {
-        public AssignmentGroupDialog(List<AssignmentGroup> list, Assignment a)
+        public AssignmentGroupDialog(Course course)
         {
             this.InitializeComponent();
-            DataContext = new AssignmentGroupViewModel(list, a);
+            DataContext = new AssignmentGroupViewModel(course);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
