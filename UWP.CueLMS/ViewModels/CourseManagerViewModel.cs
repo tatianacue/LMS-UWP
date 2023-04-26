@@ -250,11 +250,13 @@ namespace UWP.CueLMS.ViewModels
             }
             else if (Semester == 2) //summer
             {
-
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SummerCourse/AddToRoster", Course, HttpMethod.Post);
             }
             else if (Semester == 3) //fall
             {
-
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/FallCourse/AddToRoster", Course, HttpMethod.Post);
             }
         }
         public void RemoveFromRoster()
