@@ -331,10 +331,24 @@ namespace UWP.CueLMS.ViewModels
                 }
             }
         }
-        public void DeleteCourse()
+        public async void DeleteCourse()
         {
             var oldCode = SelectedCourse.Code;
-            Courses.Remove(SelectedCourse);
+            if (semester == 1) //send update to spring
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SpringCourse", SelectedCourse, HttpMethod.Delete);
+            }
+            else if (semester == 2) //send update to summer
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/SummerCourse", SelectedCourse, HttpMethod.Delete);
+            }
+            else if (semester == 3) //send update to fall
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/FallCourse", SelectedCourse, HttpMethod.Delete);
+            }
             courseService.Codes.Remove(oldCode); //clears up so old code can be used again
             Search = ""; //refresh
             SearchCourses();

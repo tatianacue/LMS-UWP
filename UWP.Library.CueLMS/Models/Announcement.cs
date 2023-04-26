@@ -21,6 +21,6 @@ namespace Library.LMS.Models
         {
             return $"[{Id}] - {Title}";
         }
-        public string Display => $"[{Id}] - {Title}";
+        public string Display => $"{Title}";
     }
 }

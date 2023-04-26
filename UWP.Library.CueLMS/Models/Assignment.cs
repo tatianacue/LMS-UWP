@@ -26,6 +26,6 @@ namespace Library.LMS.Models
         {
             return $"[{Id}]({DueDate}) - {Name}";
         }
-        public string Display => $"[{Id}] - {Name}";
+        public string Display => $"{Name}";
     }
 }
