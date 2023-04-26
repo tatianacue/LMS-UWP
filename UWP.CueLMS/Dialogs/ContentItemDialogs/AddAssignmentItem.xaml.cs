@@ -10,10 +10,10 @@ namespace UWP.CueLMS.Dialogs.ContentItemDialogs
 {
     public sealed partial class AddAssignmentItem : ContentDialog
     {
-        public AddAssignmentItem(List<ContentItem> list, ObservableCollection<Assignment> a)
+        public AddAssignmentItem(Course course, ObservableCollection<Assignment> a)
         {
             this.InitializeComponent();
-            DataContext = new AssignmentItemViewModel(list, a);
+            DataContext = new AssignmentItemViewModel(course, a);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -1,19 +1,21 @@
 ﻿using Library.LMS.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.Http;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels.ModuleStuff
 {
     public class AssignmentItemViewModel
     {
-        public AssignmentItemViewModel(List<ContentItem> content, ObservableCollection<Assignment> a)
+        public AssignmentItemViewModel(Course course, ObservableCollection<Assignment> a)
         {
-            Content = content;
             AssignmentItem = new AssignmentItem();
             Assignments = a;
+            Course = course;
         }
         public AssignmentItem AssignmentItem { get; set; }
-        public List<ContentItem> Content { get; set; }
+        public Course Course { get; set; } 
         public ObservableCollection<Assignment> Assignments { get; set; }
         public Assignment SelectedAssignment { get; set; }
         public string Name
@@ -25,10 +27,12 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
             set
             {  AssignmentItem.Description = value;  }
         }
-        public void AddItem()
+        public async void AddItem()
         {
             AssignmentItem.Assignment = SelectedAssignment;
-            Content.Add(AssignmentItem);
+            Course.SelectedItem = AssignmentItem;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
         }
     }
 }

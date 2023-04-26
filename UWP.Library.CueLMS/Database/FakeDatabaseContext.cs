@@ -29,5 +29,6 @@ namespace UWP.Library.CueLMS.Database
             new Course {Code = "fall2", Name = "FALL CLASS", Description = "work", CreditHours = 3, RoomLocation = "room2", Id = 6}
         };
         public static List<int> CourseIds = new List<int>();
+        public static List<int> ModuleIds = new List<int>();
     }
 }

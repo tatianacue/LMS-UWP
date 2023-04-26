@@ -9,10 +9,10 @@ namespace UWP.CueLMS.Dialogs.ContentItemDialogs
 {
     public sealed partial class AddPageItem : ContentDialog
     {
-        public AddPageItem(List<ContentItem> list)
+        public AddPageItem(Course course)
         {
             this.InitializeComponent();
-            DataContext = new PageItemViewModel(list);
+            DataContext = new PageItemViewModel(course);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

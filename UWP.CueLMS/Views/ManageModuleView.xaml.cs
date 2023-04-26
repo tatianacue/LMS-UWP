@@ -26,7 +26,7 @@ namespace UWP.CueLMS.Views
             {
                 var coursemvm = dictionary.Values.First(); //saves coursemanagerviewmodel
                 instructorviewmodel = dictionary.Keys.First(); //saves instructorviewmodel
-                DataContext = new ModuleManagerViewModel(coursemvm.SelectedModule, coursemvm.Assignments);
+                DataContext = new ModuleManagerViewModel(coursemvm.SelectedModule, coursemvm.Assignments, coursemvm.Course);
             }
         }
         public ManageModuleView()
