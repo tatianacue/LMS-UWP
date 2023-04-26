@@ -9,10 +9,10 @@ namespace UWP.CueLMS.Dialogs
 {
     public sealed partial class AssignmentDialog : ContentDialog
     {
-        public AssignmentDialog(List<Assignment> list)
+        public AssignmentDialog(Course c)
         {
             this.InitializeComponent();
-            DataContext = new AssignmentViewModel(list);
+            DataContext = new AssignmentViewModel(c);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
