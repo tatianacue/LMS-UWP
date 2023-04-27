@@ -1,8 +1,14 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Models.Grading;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using UWP.CueLMS.Dialogs.StudentViewDialogs;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels.StudentViewViewModels
 {
@@ -12,10 +18,39 @@ namespace UWP.CueLMS.ViewModels.StudentViewViewModels
         {
             Course = course;
             Student = (Student)student;
-            Modules = new ObservableCollection<Module>(Course.Modules);
-            Announcements = new ObservableCollection<Announcement>();
-            Assignments = new ObservableCollection<Assignment>(Course.Assignments);
+            Modules = new ObservableCollection<Module>(moduleList);
+            Announcements = new ObservableCollection<Announcement>(announcementList);
+            Assignments = new ObservableCollection<Assignment>(assignmentList);
         }
+        //database lists
+        public List<Announcement> announcementList
+        {
+            get
+            {
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Announcement/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<Announcement>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        }
+        public List<Module> moduleList
+        {
+            get
+            {
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<Module>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        }
+        public List<Assignment> assignmentList
+        {
+            get
+            {
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Assignment/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<Assignment>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        }
+        //other
         public Course Course { get; set;}
         private Student Student { get; set;}
         public string CourseCode {
@@ -111,12 +146,15 @@ namespace UWP.CueLMS.ViewModels.StudentViewViewModels
                 await dialog.ShowAsync();
             }
         }
-        public void AddSubmission()
+        public async void AddSubmission()
         {
             var submission = new Submission(); //creates new submission with that student and assignment
             submission.Assignment = SelectedAssignment;
             submission.Student = Student;
-            Course.Submissions.Add(submission); //adds that submission to course
+
+            Course.SelectedSubmission = submission;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Submission", Course, HttpMethod.Post);
         }
     }
 }

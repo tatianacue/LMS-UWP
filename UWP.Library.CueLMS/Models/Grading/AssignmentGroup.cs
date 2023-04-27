@@ -9,14 +9,11 @@ namespace Library.LMS.Models.Grading
 {
     public class AssignmentGroup
     {
-        public AssignmentGroup()
-        {
-            Group = new List<Assignment>();
-        }
+        public AssignmentGroup() {  }
         public int Id { get; set; }
         public string Name { get; set; }
         public int Weight { get; set; }
-        public List<Assignment> Group { get; set; }
+        public List<Assignment> Group = new List<Assignment>();
         public void AddAssignment(Assignment assignment)
         {
             Group.Add(assignment);
