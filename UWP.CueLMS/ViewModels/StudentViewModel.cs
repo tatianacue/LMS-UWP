@@ -1,11 +1,13 @@
 ﻿using Library.LMS.Models;
 using Library.LMS.Models.Grading;
 using Library.LMS.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UWP.CueLMS.Dialogs.StudentViewDialogs;
+using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
 namespace UWP.CueLMS.ViewModels
 {
@@ -13,6 +15,7 @@ namespace UWP.CueLMS.ViewModels
     {
         public StudentViewModel(CourseService c, PersonService p, Person s)
         {
+            Semester = 1; //default spring semester
             StudentCourseList = new List<Course>();
             Student = s;
             CourseService = c;
@@ -24,6 +27,31 @@ namespace UWP.CueLMS.ViewModels
             ListName = "Current Courses:";
             ButtonEnable = true;
         }
+        //database lists
+        public List<Student> rosterList
+        {
+            get
+            {
+                var id = tempSelectCourse.Id;
+                if (Semester == 1) //spring
+                {
+                    var payload = new WebRequestHandler().Get($"http://localhost:5100/SpringCourse/GetRoster/{id}").Result;
+                    return JsonConvert.DeserializeObject<List<Student>>(payload).OrderBy(x => x.IdNumber).ToList();
+                }
+                else if (Semester == 2) //summer
+                {
+                    var payload = new WebRequestHandler().Get($"http://localhost:5100/SummerCourse/GetRoster/{id}").Result;
+                    return JsonConvert.DeserializeObject<List<Student>>(payload).OrderBy(x => x.IdNumber).ToList();
+                }
+                else //fall
+                {
+                    var payload = new WebRequestHandler().Get($"http://localhost:5100/FallCourse/GetRoster/{id}").Result;
+                    return JsonConvert.DeserializeObject<List<Student>>(payload).OrderBy(x => x.IdNumber).ToList();
+                }
+            }
+        }
+        //more
+        public int Semester { get; set; }
         public Person Student { get; set; }
         public PersonService PersonService { get; set; }
         public CourseService CourseService { get; set; }
@@ -37,6 +65,7 @@ namespace UWP.CueLMS.ViewModels
         }
         public Course SelectedCourse { get; set; }
         public Person SelectedStudent { get; set; }
+        public Course tempSelectCourse { get; set; }
         private bool buttonenable { get; set; }
         public bool ButtonEnable
         {
@@ -64,9 +93,10 @@ namespace UWP.CueLMS.ViewModels
         {
             foreach (var course in AllCurrentCourses) 
             {
-                foreach(var person in course.Roster)
+                tempSelectCourse = course;
+                foreach(var person in rosterList)
                 {
-                    if(person.ID.Equals(Student.ID))
+                    if(person.IdNumber == Student.IdNumber)
                     {
                         StudentCourseList.Add(course);
                         break;
@@ -116,6 +146,7 @@ namespace UWP.CueLMS.ViewModels
         {
             if (choice == 1) //switch to spring
             {
+                Semester = 1;
                 AllCurrentCourses = CourseService.SpringList;
                 SemesterName = "Spring";
                 ListName = "Current Courses:";
@@ -123,6 +154,7 @@ namespace UWP.CueLMS.ViewModels
             }
             else if (choice == 2) //switch to summer
             {
+                Semester = 2;
                 AllCurrentCourses = CourseService.SummerList;
                 SemesterName = "Summer";
                 ListName = "Past Courses:";
@@ -130,6 +162,7 @@ namespace UWP.CueLMS.ViewModels
             }
             else if (choice == 3) //switch to fall
             {
+                Semester = 3;
                 AllCurrentCourses = CourseService.FallList;
                 SemesterName = "Fall";
                 ListName = "Past Courses:";
@@ -142,18 +175,32 @@ namespace UWP.CueLMS.ViewModels
             if (SelectedCourse != null)
             {
                 var student = (Student)Student;
-                var tempList = SelectedCourse.Submissions.Where(s => s.Student == student).ToList(); //list of submissions by specific student
+
+                //gets submissions from database
+                var id = SelectedCourse.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Submission/GetList/{id}").Result;
+                var submissions = JsonConvert.DeserializeObject<List<Submission>>(payload).OrderBy(x => x.Id).ToList();
+
+                //get groups from database
+                var newpayload = new WebRequestHandler().Get($"http://localhost:5100/AssignmentGroup/GetList/{id}").Result;
+                var assignmentgroups = JsonConvert.DeserializeObject<List<AssignmentGroup>>(newpayload).OrderBy(x => x.Id).ToList();
+
+                var tempList = submissions.Where(s => s.Student.IdNumber == student.IdNumber).ToList(); //list of submissions by specific student
                 Dictionary<AssignmentGroup, double> GroupGrades = new Dictionary<AssignmentGroup, double>();
                 double courseGrade = 0;
-                foreach (var group in SelectedCourse.AssignmentGroups) //each group in course
+                foreach (var group in assignmentgroups) //each group in course
                 {
                     double totalGrades = 0;
                     double totalPoints = 0;
+                    var groupid = group.Id;
+                    var temppayload = new WebRequestHandler().Get($"http://localhost:5100/AssignmentGroup/GetAssignments/{groupid}").Result;
+                    var assignments = JsonConvert.DeserializeObject<List<Assignment>>(temppayload).ToList(); //assignments in group
+
                     foreach (var submission in tempList) //for each submission
                     {
-                        foreach (var assignment in group.Group) //each assignment in group
+                        foreach (var assignment in assignments) //each assignment in group
                         {
-                            if (submission.Assignment == assignment)
+                            if (submission.Assignment.Name.Equals(assignment.Name))
                             {
                                 totalGrades += submission.Grade;
                                 totalPoints += assignment.TotalAvailablePoints;

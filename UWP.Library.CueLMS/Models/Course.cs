@@ -12,7 +12,6 @@ namespace Library.LMS.Models
         //default constructor
         public Course()
         {
-            Submissions = new List<Submission>();
             Name = string.Empty;
             Description= string.Empty;
             SelectedAnnouncement = new Announcement();
@@ -33,8 +32,8 @@ namespace Library.LMS.Models
         public List<Student> Roster = new List<Student>();
         public List<Assignment> Assignments = new List<Assignment>(); 
         public List<AssignmentGroup> AssignmentGroups = new List<AssignmentGroup>(); 
-        public List<Module> Modules = new List<Module>(); 
-        public List<Submission> Submissions { get; set; }
+        public List<Module> Modules = new List<Module>();
+        public List<Submission> Submissions = new List<Submission>();
         public List<Announcement> Announcements = new List<Announcement>();
 
         //selections temporary
@@ -43,7 +42,8 @@ namespace Library.LMS.Models
         public AssignmentGroup SelectedAssignmentGroup { get; set; }
         public Module SelectedModule { get; set; }
         public Student SelectedStudent { get; set; }
-        public ContentItem SelectedItem { get; set; }   
+        public ContentItem SelectedItem { get; set; } 
+        public Submission SelectedSubmission { get; set; }
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster

@@ -30,5 +30,6 @@ namespace UWP.Library.CueLMS.Database
         };
         public static List<int> CourseIds = new List<int>();
         public static List<int> ModuleIds = new List<int>();
+        public static List<int> AssignmentGroupIds = new List<int>();
     }
 }

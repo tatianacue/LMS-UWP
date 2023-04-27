@@ -111,6 +111,15 @@ namespace UWP.CueLMS.ViewModels
                 }
             }
         }
+        public List<Submission> submissionList
+        {
+            get
+            {
+                var id = Course.Id;
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Submission/GetList/{id}").Result;
+                return JsonConvert.DeserializeObject<List<Submission>>(payload).OrderBy(x => x.Id).ToList();
+            }
+        }
         //collections
         public ObservableCollection<Assignment> Assignments { get; set; }
         public ObservableCollection<Module> Modules { get; set; }
@@ -118,7 +127,7 @@ namespace UWP.CueLMS.ViewModels
         public ObservableCollection<Student> Roster { get; set; }
         public ObservableCollection<Person> AllStudents { get; set; }
         public ObservableCollection<AssignmentGroup> AssignmentGroups { get; set; }
-        public ObservableCollection<Submission> Submissions { get { return new ObservableCollection<Submission>(SubmissionList); } }
+        public ObservableCollection<Submission> Submissions { get { return new ObservableCollection<Submission>(submissionList); } }
         public Announcement SelectedAnnouncement { get; set; }
         public Module SelectedModule { get; set; }
         public Student SelectedStudent { get; set; }
@@ -127,7 +136,6 @@ namespace UWP.CueLMS.ViewModels
         public Submission SelectedSubmission { get; set; }
         public int Grade { private get; set; }
         private List<Person> peopleList {  get; set; }
-        private List<Submission> SubmissionList { get { return Course.Submissions; } }
         public string DisplayATitle //announcement display title
         {
             get
@@ -371,9 +379,12 @@ namespace UWP.CueLMS.ViewModels
                 await dialog.ShowAsync();
             }
         }
-        public void GradeSubmission()
+        public async void GradeSubmission()
         {
             SelectedSubmission.Grade = Grade; //sets in grade for submission
+            Course.SelectedSubmission = SelectedSubmission;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Submission", Course, HttpMethod.Post);
             var percent = (Grade/SelectedSubmission.Assignment.TotalAvailablePoints) * 100;
             SelectedSubmission.Student.AddAssignmentGrade(SelectedSubmission.Assignment, percent); //puts in percent grade in student's grade dictionary
         }
