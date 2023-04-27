@@ -30,6 +30,6 @@ namespace Library.LMS.Models
         {
             Content.Remove(item);
         }
-        public string Display => $"[{Id}]{Name}";
+        public string Display => $"{Name}";
     }
 }
