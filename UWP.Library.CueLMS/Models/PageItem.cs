@@ -12,8 +12,8 @@ namespace Library.LMS.Models
         {
             Name= string.Empty;
             Description= string.Empty;
-            Type = 1;
         }
+        public string HTMLBody { get; set; }
         public override string DisplayAll()
         {
             return $"{Name} - {Description}\n" +

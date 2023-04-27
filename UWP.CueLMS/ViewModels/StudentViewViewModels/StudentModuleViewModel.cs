@@ -24,38 +24,49 @@ namespace UWP.CueLMS.ViewModels.StudentViewViewModels
                 else { return string.Empty; }
             }
         }
-        public List<ContentItem> contentList 
-        { 
+        public List<ContentItem> contentList
+        {
             get
             {
-                var id = Module.Id;
-                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetContent/{id}").Result;
-                var filelist = JsonConvert.DeserializeObject<List<FileItem>>(payload);
-                var pagelist = JsonConvert.DeserializeObject<List<PageItem>>(payload);
-                var assignmentlist = JsonConvert.DeserializeObject<List<AssignmentItem>>(payload);
-                var content = new List<ContentItem>();
-                foreach (var item in filelist) //make sure type is derived type
+                var list = new List<ContentItem>();
+                foreach (var person in fileitemList) //adds file items
                 {
-                    if (item.Type == 0)
-                    {
-                        content.Add(item);
-                    }
+                    list.Add(person);
                 }
-                foreach (var item in pagelist)
+                foreach (var person in pageitemList) //adds page items
                 {
-                    if (item.Type == 1)
-                    {
-                        content.Add(item);
-                    }
+                    list.Add(person);
                 }
-                foreach (var item in assignmentlist)
+                foreach (var person in assignmentitemList) //adds assignment items
                 {
-                    if (item.Type == 2)
-                    {
-                        content.Add(item);
-                    }
+                    list.Add(person);
                 }
-                return content.OrderBy(x => x.Id).ToList(); //default list order
+                return list.OrderBy(x => x.Id).ToList();
+            }
+        }
+        public List<FileItem> fileitemList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetFileItems/{Module.Id}").Result;
+                return JsonConvert.DeserializeObject<List<FileItem>>(payload);
+            }
+        }
+        public List<PageItem> pageitemList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetPageItems/{Module.Id}").Result;
+                return JsonConvert.DeserializeObject<List<PageItem>>(payload);
+            }
+        }
+
+        public List<AssignmentItem> assignmentitemList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetAssignmentItems/{Module.Id}").Result;
+                return JsonConvert.DeserializeObject<List<AssignmentItem>>(payload);
             }
         }
         public ObservableCollection<ContentItem> Content 
