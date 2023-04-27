@@ -11,7 +11,6 @@ namespace Library.LMS.Models
         public Instructor() 
         {
             Name = string.Empty;
-            Type = 1; //instructor type
         }
         public override string ToString() //override output person
         {

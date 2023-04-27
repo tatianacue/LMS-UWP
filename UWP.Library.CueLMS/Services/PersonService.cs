@@ -16,33 +16,44 @@ namespace Library.LMS.Services
         {
             get
             {
-                var payload = new WebRequestHandler().Get("http://localhost:5100/Person").Result;
-                var studentlist = JsonConvert.DeserializeObject<List<Student>>(payload);
-                var talist = JsonConvert.DeserializeObject<List<TeachingAssistant>>(payload);
-                var instructorlist = JsonConvert.DeserializeObject<List<Instructor>>(payload);
-                var people = new List<Person>();
-                foreach (var person in studentlist) //make sure type is derived type
+                var list = new List<Person>();
+                foreach (var person in studentList)
                 {
-                    if (person.Type == 0)
-                    {
-                        people.Add(person);
-                    }
+                    list.Add(person);
                 }
-                foreach (var person in instructorlist)
+                foreach (var person in taList)
                 {
-                    if (person.Type == 1)
-                    {
-                        people.Add(person);
-                    }
+                    list.Add(person);
                 }
-                foreach (var person in talist)
+                foreach (var person in instructorList)
                 {
-                    if (person.Type == 2)
-                    {
-                        people.Add(person);
-                    }
+                    list.Add(person);
                 }
-                return people.OrderBy(x => x.IdNumber).ToList(); //default list order
+                return list.OrderBy(x => x.IdNumber).ToList();
+            }
+        }
+        public List<Student> studentList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get("http://localhost:5100/Person/GetStudents").Result;
+                return JsonConvert.DeserializeObject<List<Student>>(payload);
+            }
+        }
+        public List<TeachingAssistant> taList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get("http://localhost:5100/Person/GetTeachingAssistants").Result;
+                return JsonConvert.DeserializeObject<List<TeachingAssistant>>(payload);
+            }
+        }
+        public List<Instructor> instructorList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get("http://localhost:5100/Person/GetInstructors").Result;
+                return JsonConvert.DeserializeObject<List<Instructor>>(payload);
             }
         }
         public Dictionary<string, int> IDDictionary { get; set; } //ID checker

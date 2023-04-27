@@ -14,7 +14,6 @@ namespace Library.LMS.Models
             AssignmentGrades = new Dictionary<Assignment, double>();
             Name= string.Empty;
             Classification= string.Empty;
-            Type = 0;
         }
         public override string ToString()
         {
@@ -22,6 +21,7 @@ namespace Library.LMS.Models
         }
         public override string Display => $"[{ID}] {Name} - {Classification}";
         public Dictionary<Course, double> Grades { get; set; } //dictionary for course grades
+        public string Classification { get; set; }
         public Dictionary<Assignment, double> AssignmentGrades { get; set; } //grades for specific assignments
         public void AddAssignmentGrade(Assignment assignment, double grade) //takes in assignment id and grade for it
         {

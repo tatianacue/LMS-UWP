@@ -11,7 +11,6 @@ namespace Library.LMS.Models
         public TeachingAssistant() 
         {
             Name = string.Empty;
-            Type = 2; //TA type
         }
         public override string ToString() //override output person
         {

@@ -7,11 +7,17 @@ namespace UWP.Library.CueLMS.Database
 {
     public static class FakeDatabaseContext
     {
-        public static List<Person> People = new List<Person>() 
+        public static List<Student> Students = new List<Student>()
         {
-            new Student{ ID = "tbc20n", Name = "Tat", Classification = "Junior", IdNumber=1},
-            new Instructor{ ID = "tlt50n", Name = "Top", IdNumber=2},
+            new Student{ ID = "tbc20n", Name = "Tat", Classification = "Junior", IdNumber=1}
+        };
+        public static List<TeachingAssistant> TeachingAssistants = new List<TeachingAssistant>()
+        {
             new TeachingAssistant { ID = "prt60N", Name = "Patrick", IdNumber=3}
+        };
+        public static List<Instructor> Instructors = new List<Instructor>()
+        {
+            new Instructor{ ID = "tlt50n", Name = "Top", IdNumber=2}
         };
         public static List<Course> SpringCourses = new List<Course>()
         {
@@ -31,5 +37,6 @@ namespace UWP.Library.CueLMS.Database
         public static List<int> CourseIds = new List<int>();
         public static List<int> ModuleIds = new List<int>();
         public static List<int> AssignmentGroupIds = new List<int>();
+        public static List<int> PersonIds = new List<int>();
     }
 }

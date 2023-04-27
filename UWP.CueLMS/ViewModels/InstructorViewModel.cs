@@ -225,8 +225,22 @@ namespace UWP.CueLMS.ViewModels
             {
                 SelectedPerson.ID = NewId;
                 personService.IDDictionary.Remove(oldId); //removes old Id from Id check
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson, HttpMethod.Post);
+
+                if (SelectedPerson is Student)
+                {
+                    var handler = new WebRequestHandler();
+                    await handler.Post("http://localhost:5100/Person/AddUpdateStudent", SelectedPerson, HttpMethod.Post);
+                }
+                else if (SelectedPerson is TeachingAssistant)
+                {
+                    var handler = new WebRequestHandler();
+                    await handler.Post("http://localhost:5100/Person/AddUpdateTA", SelectedPerson, HttpMethod.Post);
+                }
+                else if (SelectedPerson is Instructor)
+                {
+                    var handler = new WebRequestHandler();
+                    await handler.Post("http://localhost:5100/Person/AddUpdateInstructor", SelectedPerson, HttpMethod.Post);
+                }
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
@@ -246,8 +260,21 @@ namespace UWP.CueLMS.ViewModels
             if (NewName != null)
             {
                 SelectedPerson.Name = NewName;
-                var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson, HttpMethod.Post);
+                if (SelectedPerson is Student)
+                {
+                    var handler = new WebRequestHandler();
+                    await handler.Post("http://localhost:5100/Person/AddUpdateStudent", SelectedPerson, HttpMethod.Post);
+                }
+                else if (SelectedPerson is TeachingAssistant)
+                {
+                    var handler = new WebRequestHandler();
+                    await handler.Post("http://localhost:5100/Person/AddUpdateTA", SelectedPerson, HttpMethod.Post);
+                }
+                else if (SelectedPerson is Instructor)
+                {
+                    var handler = new WebRequestHandler();
+                    await handler.Post("http://localhost:5100/Person/AddUpdateInstructor", SelectedPerson, HttpMethod.Post);
+                }
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
@@ -258,7 +285,7 @@ namespace UWP.CueLMS.ViewModels
                 Student selected = (Student)SelectedPerson;
                 selected.Classification = classification;
                 var handler = new WebRequestHandler();
-                await handler.Post("http://localhost:5100/Person", SelectedPerson, HttpMethod.Post);
+                await handler.Post("http://localhost:5100/Person/AddUpdateStudent", selected, HttpMethod.Post);
             }
             NotifyPropertyChanged(nameof(DisplayPerson));
         }
