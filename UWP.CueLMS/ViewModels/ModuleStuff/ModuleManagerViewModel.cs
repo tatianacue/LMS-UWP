@@ -102,9 +102,11 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
                 Items.Add(item);
             }
         }
-        public void DeleteItem()
+        public async void DeleteItem()
         {
-            Module.Content.Remove(SelectedItem);
+            Course.SelectedItem = SelectedItem;
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Module/DeleteContent", Course, HttpMethod.Delete);
             AutoRefresh();
         }
         //Updates
