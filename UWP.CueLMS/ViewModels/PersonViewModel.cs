@@ -53,7 +53,7 @@ namespace UWP.CueLMS.ViewModels
         {
             Student.ID = Id; //sets Id
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Person", Student, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Person/AddUpdateStudent", Student, HttpMethod.Post);
         }
         public string TAName
         {
@@ -64,7 +64,7 @@ namespace UWP.CueLMS.ViewModels
         {
             TeachingAssistant.ID = Id; //sets Id
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Person", TeachingAssistant, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Person/AddUpdateTA", TeachingAssistant, HttpMethod.Post);
         }
         public string InstructorName
         {
@@ -75,7 +75,7 @@ namespace UWP.CueLMS.ViewModels
         {
             Instructor.ID = Id; //sets Id
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Person", Instructor, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Person/AddUpdateInstructor", Instructor, HttpMethod.Post);
         }
         public bool CheckId() //checks if Id doesnt exist
         {

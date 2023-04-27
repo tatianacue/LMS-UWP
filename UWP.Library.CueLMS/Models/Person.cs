@@ -14,23 +14,6 @@ namespace Library.LMS.Models
         public string Name { get; set; }
         public string ID { get; set; }
         public int IdNumber { get; set; }
-        public int Type { get; set; } //type of derived class
-        private string classification { get; set; }
-        public string Classification //put this in person so that json includes this for student
-        { 
-            get
-            {
-                if (Type == 0) //if student
-                {
-                    return classification;
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
-            set { classification = value; }
-        }
         //other
         public override string ToString() //override output person
         {
