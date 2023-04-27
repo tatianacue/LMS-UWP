@@ -19,6 +19,9 @@ namespace Library.LMS.Models
             SelectedAssignmentGroup = new AssignmentGroup();
             SelectedModule = new Module();
             SelectedStudent = new Student();
+            SelectedFileItem = new FileItem();
+            SelectedPageItem = new PageItem();
+            SelectedAssignmentItem = new AssignmentItem();
         }
 
         //properties
@@ -44,6 +47,9 @@ namespace Library.LMS.Models
         public Student SelectedStudent { get; set; }
         public ContentItem SelectedItem { get; set; } 
         public Submission SelectedSubmission { get; set; }
+        public FileItem SelectedFileItem { get; set; }
+        public PageItem SelectedPageItem { get; set; }
+        public AssignmentItem SelectedAssignmentItem { get; set; }
         public string RoomLocation { get; set; }
 
         public bool FindStudent(Person student) //finds if student is in roster

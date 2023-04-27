@@ -12,9 +12,8 @@ namespace Library.LMS.Models
         {
             Name = string.Empty;
             Description= string.Empty;
-            Type = 0;
         }
-        
+        public string FilePath { get; set; }
         public override string DisplayAll()
         {
             return $"{Name} - {Description}\n" +

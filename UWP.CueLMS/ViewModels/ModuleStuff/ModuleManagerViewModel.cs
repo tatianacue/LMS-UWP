@@ -33,34 +33,44 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
         {
             get
             {
-                var id = Module.Id;
-                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetContent/{id}").Result;
-                var filelist = JsonConvert.DeserializeObject<List<FileItem>>(payload);
-                var pagelist = JsonConvert.DeserializeObject<List<PageItem>>(payload);
-                var assignmentlist = JsonConvert.DeserializeObject<List<AssignmentItem>>(payload);
-                var content = new List<ContentItem>();
-                foreach (var item in filelist) //make sure type is derived type
+                var list = new List<ContentItem>();
+                foreach (var item in fileitemList) //adds file items
                 {
-                    if (item.Type == 0)
-                    {
-                        content.Add(item);
-                    }
+                    list.Add(item);
                 }
-                foreach (var item in pagelist)
+                foreach (var item in pageitemList) //adds page items
                 {
-                    if (item.Type == 1)
-                    {
-                        content.Add(item);
-                    }
+                    list.Add(item);
                 }
-                foreach (var item in assignmentlist)
+                foreach (var item in assignmentitemList) //adds assignment items
                 {
-                    if (item.Type == 2)
-                    {
-                        content.Add(item);
-                    }
+                    list.Add(item);
                 }
-                return content.OrderBy(x => x.Id).ToList(); //default list order
+                return list.OrderBy(x => x.Id).ToList();
+            }
+        }
+        public List<FileItem> fileitemList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetFileItems/{Module.Id}").Result;
+                return JsonConvert.DeserializeObject<List<FileItem>>(payload);
+            }
+        }
+        public List<PageItem> pageitemList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetPageItems/{Module.Id}").Result;
+                return JsonConvert.DeserializeObject<List<PageItem>>(payload);
+            }
+        }
+        public List<AssignmentItem> assignmentitemList
+        {
+            get
+            {
+                var payload = new WebRequestHandler().Get($"http://localhost:5100/Module/GetAssignmentItems/{Module.Id}").Result;
+                return JsonConvert.DeserializeObject<List<AssignmentItem>>(payload);
             }
         }
         public ObservableCollection<ContentItem> Items { get; set; }
@@ -105,8 +115,21 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
         public async void DeleteItem()
         {
             Course.SelectedItem = SelectedItem;
-            var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/DeleteContent", Course, HttpMethod.Delete);
+            if (SelectedItem is FileItem)
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/DeleteFileItem", Course, HttpMethod.Delete);
+            }
+            else if (SelectedItem is PageItem)
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/DeletePageItem", Course, HttpMethod.Delete);
+            }
+            else if (SelectedItem is AssignmentItem)
+            {
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/DeleteAssignmentItem", Course, HttpMethod.Delete);
+            }
             AutoRefresh();
         }
         //Updates
@@ -192,48 +215,75 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
         {
             SelectedItem.Name = NewName;
 
-            Course.SelectedItem = SelectedItem;
-            var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
+            if (SelectedItem is FileItem)
+            {
+                Course.SelectedFileItem = (FileItem)SelectedItem;
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/AddUpdateFileItem", Course, HttpMethod.Post);
+            }
+            else if (SelectedItem is PageItem)
+            {
+                Course.SelectedPageItem = (PageItem)SelectedItem;
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/AddUpdatePageItem", Course, HttpMethod.Post);
+            }
+            else if (SelectedItem is AssignmentItem)
+            {
+                Course.SelectedAssignmentItem = (AssignmentItem)SelectedItem;
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/AddUpdateAssignmentItem", Course, HttpMethod.Post);
+            }
             NotifyPropertyChanged(nameof(Name));
         }
         public async void UpdateDescription()
         {
             SelectedItem.Description = NewDescription;
 
-            Course.SelectedItem = SelectedItem;
-            var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
+            if (SelectedItem is FileItem)
+            {
+                Course.SelectedFileItem = (FileItem)SelectedItem;
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/AddUpdateFileItem", Course, HttpMethod.Post);
+            }
+            else if (SelectedItem is PageItem)
+            {
+                Course.SelectedPageItem = (PageItem)SelectedItem;
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/AddUpdatePageItem", Course, HttpMethod.Post);
+            }
+            else if (SelectedItem is AssignmentItem)
+            {
+                Course.SelectedAssignmentItem = (AssignmentItem)SelectedItem;
+                var handler = new WebRequestHandler();
+                await handler.Post("http://localhost:5100/Module/AddUpdateAssignmentItem", Course, HttpMethod.Post);
+            }
             NotifyPropertyChanged(nameof(Description));
         }
         public async void UpdateFilePath()
         {
             var fileitem = (FileItem)SelectedItem;
             fileitem.FilePath = NewFilePath;
-
-            Course.SelectedItem = fileitem;
+            Course.SelectedFileItem = fileitem;
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Module/AddUpdateFileItem", Course, HttpMethod.Post);
             NotifyPropertyChanged(nameof(FilePath));
         }
         public async void UpdateHTMLBody()
         {
             var pageitem = (PageItem)SelectedItem;
             pageitem.HTMLBody = NewHTMLBody;
-
-            Course.SelectedItem = pageitem;
+            Course.SelectedPageItem = pageitem;
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Module/AddUpdatePageItem", Course, HttpMethod.Post);
             NotifyPropertyChanged(nameof(HTMLBody));
         }
         public async void UpdateAssignment()
         {
             var assignmentitem = (AssignmentItem)SelectedItem;
             assignmentitem.Assignment = NewAssignment;
-
-            Course.SelectedItem = assignmentitem;
+            Course.SelectedAssignmentItem = assignmentitem;
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Module/AddUpdateAssignmentItem", Course, HttpMethod.Post);
             NotifyPropertyChanged(nameof(Assignment));
         }
     }

@@ -14,7 +14,6 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
         }
         public FileItem FileItem { get; set; }
         public Course Course { get; set; }
-        public List<ContentItem> Content { get; set; }
         public string Name
         {
             set
@@ -38,9 +37,9 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
         }
         public async void AddItem()
         {
-            Course.SelectedItem = FileItem;
+            Course.SelectedFileItem = FileItem;
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Module/AddUpdateFileItem", Course, HttpMethod.Post);
         }
     }
 }

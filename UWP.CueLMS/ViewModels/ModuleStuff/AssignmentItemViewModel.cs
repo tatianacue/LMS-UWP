@@ -30,9 +30,9 @@ namespace UWP.CueLMS.ViewModels.ModuleStuff
         public async void AddItem()
         {
             AssignmentItem.Assignment = SelectedAssignment;
-            Course.SelectedItem = AssignmentItem;
+            Course.SelectedAssignmentItem = AssignmentItem;
             var handler = new WebRequestHandler();
-            await handler.Post("http://localhost:5100/Module/PostContent", Course, HttpMethod.Post);
+            await handler.Post("http://localhost:5100/Module/AddUpdateAssignmentItem", Course, HttpMethod.Post);
         }
     }
 }
