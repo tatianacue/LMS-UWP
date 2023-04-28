@@ -31,7 +31,7 @@ namespace UWP.Library.CueLMS
                 }
                 return null;
             }
-            public async Task<string> Post(string url, object obj, HttpMethod method) //now takes in the method so it can do delete
+            public async Task<string> Post(string url, object obj, HttpMethod method) //now takes in the method so it can do delete as well as post
             {
                 using (var client = new HttpClient())
                 {
