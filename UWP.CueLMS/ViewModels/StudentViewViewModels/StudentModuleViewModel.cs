@@ -29,17 +29,17 @@ namespace UWP.CueLMS.ViewModels.StudentViewViewModels
             get
             {
                 var list = new List<ContentItem>();
-                foreach (var person in fileitemList) //adds file items
+                foreach (var item in fileitemList) //adds file items
                 {
-                    list.Add(person);
+                    list.Add(item);
                 }
-                foreach (var person in pageitemList) //adds page items
+                foreach (var item in pageitemList) //adds page items
                 {
-                    list.Add(person);
+                    list.Add(item);
                 }
-                foreach (var person in assignmentitemList) //adds assignment items
+                foreach (var item in assignmentitemList) //adds assignment items
                 {
-                    list.Add(person);
+                    list.Add(item);
                 }
                 return list.OrderBy(x => x.Id).ToList();
             }

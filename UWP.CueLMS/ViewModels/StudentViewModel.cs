@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using UWP.CueLMS.Dialogs.StudentViewDialogs;
 using UWP.Library.CueLMS;
 /* Tatiana Graciela Cue COP4870-0001*/
@@ -215,10 +216,19 @@ namespace UWP.CueLMS.ViewModels
                     double weightedTotal = (pair.Key.Weight) * (pair.Value);
                     courseGrade += weightedTotal;
                 }
-                student.Grades[SelectedCourse] = courseGrade; //update course grade dictionary in student
+                //adds grade to fake database
+                student.TempGrade = courseGrade;
+                student.TempCourse = SelectedCourse;
+                PostGrade(student);
+
                 return courseGrade;
             }
             else { return 0; }
+        }
+        private async void PostGrade(Student student) //posts grade to fake database
+        {
+            var handler = new WebRequestHandler();
+            await handler.Post("http://localhost:5100/Person/AddStudentGrade", student, HttpMethod.Post);
         }
         public string CourseGrade 
         { get 
