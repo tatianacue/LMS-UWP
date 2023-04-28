@@ -385,8 +385,6 @@ namespace UWP.CueLMS.ViewModels
             Course.SelectedSubmission = SelectedSubmission;
             var handler = new WebRequestHandler();
             await handler.Post("http://localhost:5100/Submission", Course, HttpMethod.Post);
-            var percent = (Grade/SelectedSubmission.Assignment.TotalAvailablePoints) * 100;
-            SelectedSubmission.Student.AddAssignmentGrade(SelectedSubmission.Assignment, percent); //puts in percent grade in student's grade dictionary
         }
 
     }

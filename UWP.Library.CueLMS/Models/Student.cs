@@ -10,22 +10,20 @@ namespace Library.LMS.Models
     {
         public Student() 
         {
-            Grades = new Dictionary<Course, double>(); //all course grades in a list
-            AssignmentGrades = new Dictionary<Assignment, double>();
-            Name= string.Empty;
+            Name = string.Empty;
             Classification= string.Empty;
         }
+        public string Classification { get; set; }
         public override string ToString()
         {
             return $"[{ID}] {Name} - {Classification}";
         }
         public override string Display => $"[{ID}] {Name} - {Classification}";
-        public Dictionary<Course, double> Grades { get; set; } //dictionary for course grades
-        public string Classification { get; set; }
-        public Dictionary<Assignment, double> AssignmentGrades { get; set; } //grades for specific assignments
-        public void AddAssignmentGrade(Assignment assignment, double grade) //takes in assignment id and grade for it
-        {
-            AssignmentGrades[assignment] = grade;
-        }
+        public Dictionary<Course, double> Grades = new Dictionary<Course, double>(); //dictionary for course grades
+
+        //for setting grade in fake database
+        public double TempGrade {  get; set; }
+        public Course TempCourse { get; set; }
+        
     }
 }
